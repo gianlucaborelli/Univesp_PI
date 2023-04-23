@@ -9,5 +9,4 @@ public class SisgemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SisgemApplication.class, args);
 	}
-
 }
