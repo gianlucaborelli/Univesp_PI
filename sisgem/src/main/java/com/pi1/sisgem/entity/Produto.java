@@ -26,7 +26,7 @@ public class Produto {
     @Column(nullable = true)
     private String Descricao;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "produto")
     private List<Preco> precos = new ArrayList<>();
 
     public void setDescricao(String descricao) {
