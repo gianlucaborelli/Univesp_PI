@@ -1,14 +1,12 @@
 package com.pi1.sisgem.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Produto {
@@ -26,8 +24,8 @@ public class Produto {
     @Column(nullable = true)
     private String Descricao;
 
-    @OneToMany(mappedBy = "produto")
-    private List<Preco> precos = new ArrayList<>();
+    @Column(nullable = false)
+    private BigDecimal precos;
 
     public void setDescricao(String descricao) {
         Descricao = descricao;

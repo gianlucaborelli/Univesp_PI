@@ -1,5 +1,7 @@
 package com.pi1.sisgem.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,13 +19,12 @@ public class ProdutoPedido {
     @Column(nullable = false)
     private Integer quantidade;
 
-    @ManyToOne
-    @JoinColumn(name = "produto_id")
-    private Produto produto;
+    @Column(nullable = false)
+    private BigDecimal preco;
 
     @ManyToOne
-    @JoinColumn(name = "preco_id")
-    private Preco preco;
+    @JoinColumn(name = "produto_id")
+    private Produto produto;    
 
     @ManyToOne
     @JoinColumn(name = "orcamento_id")
