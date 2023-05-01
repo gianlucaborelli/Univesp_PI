@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Service.ProdutoService;
+import com.pi1.sisgem.Service.ProdutoService;
 import com.pi1.sisgem.data.ProdutoRepositorio;
 import com.pi1.sisgem.data.DTO.ProdutosDisponiveisDto;
 import com.pi1.sisgem.entity.Produto;
@@ -28,7 +28,7 @@ public class ProdutoController {
     @Autowired
     private ProdutoRepositorio repositorio;
 
-    //@Autowired
+    @Autowired
     private ProdutoService service;
 
     @GetMapping
