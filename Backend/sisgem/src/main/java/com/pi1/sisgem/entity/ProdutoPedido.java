@@ -23,10 +23,10 @@ public class ProdutoPedido {
     private BigDecimal preco;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;    
 
     @ManyToOne
-    @JoinColumn(name = "orcamento_id")
+    @JoinColumn(name = "orcamento_id", nullable = false)
     private Orcamento orcamento;
 }

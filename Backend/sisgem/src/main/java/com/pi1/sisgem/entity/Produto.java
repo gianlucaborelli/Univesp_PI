@@ -27,6 +27,14 @@ public class Produto {
     @Column(nullable = false)
     private BigDecimal precos;
 
+    public BigDecimal getPrecos() {
+        return precos;
+    }
+
+    public void setPrecos(BigDecimal precos) {
+        this.precos = precos;
+    }
+
     public void setDescricao(String descricao) {
         Descricao = descricao;
     }
