@@ -7,6 +7,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,7 +31,7 @@ public class Cliente implements Serializable {
     @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")
     private List<Endereco> enderecos = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")
     private List<Orcamento> orcamentos = new ArrayList<>();
 

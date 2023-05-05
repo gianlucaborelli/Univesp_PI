@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,7 +40,8 @@ public class Orcamento {
     @JoinColumn(name = "endereco_id", nullable = false)
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "orcamento")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn( name = "fk_orcamento_id", referencedColumnName = "id")
     private List<ProdutoPedido> produtoPedidos = new ArrayList<>();
 
     public Long getId() {
@@ -95,6 +97,6 @@ public class Orcamento {
     }
 
     public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
-        this.produtoPedidos = produtoPedidos;
+        this.produtoPedidos.addAll(produtoPedidos);
     }
 }
