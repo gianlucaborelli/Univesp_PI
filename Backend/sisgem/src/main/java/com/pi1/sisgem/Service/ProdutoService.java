@@ -1,4 +1,4 @@
-package com.pi1.sisgem.Service;
+package com.pi1.sisgem.service;
 
 import java.util.Date;
 import java.util.List;
@@ -18,15 +18,14 @@ import com.pi1.sisgem.entity.ProdutoPedido;
 public class ProdutoService {
     
     @Autowired
-    private ProdutoRepositorio repositorioProdutos;
-
+    private ProdutoRepositorio repositorioProdutos;    
+    @Autowired
+    private OrcamentoRepositorio repositorioOrcamento;
     @Autowired
     private ProdutoMapper mapper;
 
-    @Autowired
-    private OrcamentoRepositorio repositorioOrcamento;
 
-    public List<ProdutosDisponiveisDto> produtosDisponiveis (Date inicio, Date fim){
+    public List<ProdutosDisponiveisDto> getProdutosDisponiveis (Date inicio, Date fim){
      
         var produtos = repositorioProdutos.findAll();
 
@@ -46,7 +45,6 @@ public class ProdutoService {
                 }
             }
         }
-
         return mapper.toProdutoDisponivelList(produtos);
     }
 }

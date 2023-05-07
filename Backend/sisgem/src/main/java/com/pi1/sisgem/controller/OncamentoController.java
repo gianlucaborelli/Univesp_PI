@@ -29,6 +29,11 @@ public class OncamentoController {
         return repositorio.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Orcamento listar(@PathVariable Long id){        
+        return repositorio.findById(id).get();
+    }
+
     @GetMapping("/intervaloDeDatas")
     public List<Orcamento> buscarPorIntervaloDeDatas(@RequestParam("dataInicio") Date dataInicio,
                                                       @RequestParam("dataFim") Date dataFim) {

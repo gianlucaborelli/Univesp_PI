@@ -1,13 +1,13 @@
 package com.pi1.sisgem.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,7 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Cliente implements Serializable {
+public class Cliente  {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,12 @@ public class Cliente implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")
+    @JsonManagedReference
     private List<Endereco> enderecos = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")
+    @JsonManagedReference
     private List<Orcamento> orcamentos = new ArrayList<>();
 
     public List<Orcamento> getOrcamentos() {

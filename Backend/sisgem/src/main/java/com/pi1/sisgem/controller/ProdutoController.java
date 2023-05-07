@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pi1.sisgem.Service.ProdutoService;
 import com.pi1.sisgem.data.ProdutoRepositorio;
 import com.pi1.sisgem.data.DTO.ProdutosDisponiveisDto;
 import com.pi1.sisgem.entity.Produto;
+import com.pi1.sisgem.service.ProdutoService;
 
 @RestController
 @RequestMapping("/produtos")
@@ -44,7 +44,7 @@ public class ProdutoController {
     @GetMapping("/produtosDisponiveis")
     public ResponseEntity<List<ProdutosDisponiveisDto>> getProdutosDisponiveis(@RequestParam("dataInicio") Date dataInicio,
                                                                                @RequestParam("dataFinal") Date dataFinal){
-        return new ResponseEntity<List<ProdutosDisponiveisDto>>(service.produtosDisponiveis(dataInicio, dataFinal), HttpStatus.OK ) ;
+        return new ResponseEntity<List<ProdutosDisponiveisDto>>(service.getProdutosDisponiveis(dataInicio, dataFinal), HttpStatus.OK ) ;
     }
 
     @PostMapping
