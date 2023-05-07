@@ -2,8 +2,6 @@ package com.pi1.sisgem.data.DTO.produtosPedidos;
 
 import java.math.BigDecimal;
 
-import com.pi1.sisgem.entity.ProdutoPedido;
-
 public class addProdutoPedidoResponse {
     private Long id;
     private Integer quantidade;
@@ -11,12 +9,15 @@ public class addProdutoPedidoResponse {
     private Long produtoId; 
     private Long orcamentoId;
 
-    private addProdutoPedidoResponse(ProdutoPedido pedido){
-        this.id = pedido.getId();
-        this.quantidade = pedido.getQuantidade();
-        //this.orcamentoId = pedido.getOrcamentoId();
-        //this.produtoId = pedido.getProdutoId();
+    private addProdutoPedidoResponse (){
     }
+
+    // private addProdutoPedidoResponse (ProdutoPedido pedido){
+    //     this.id = pedido.getId();
+    //     this.quantidade = pedido.getQuantidade();
+    //     this.orcamentoId = pedido.getOrcamentoId();
+    //     this.produtoId = pedido.getProdutoId();
+    // }
 
     public Long getId() {
         return id;

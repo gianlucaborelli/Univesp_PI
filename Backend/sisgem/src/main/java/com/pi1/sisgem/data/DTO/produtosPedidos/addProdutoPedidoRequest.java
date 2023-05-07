@@ -24,5 +24,4 @@ public class addProdutoPedidoRequest {
     public void setOrcamentoId(Long orcamentoId) {
         this.orcamentoId = orcamentoId;
     }
-
 }

@@ -40,11 +40,12 @@ public class ProdutoService {
                 for(Produto produto: produtos){
 
                     if(produto.getId() == produtoPedido.getId()){
-                        produto.setEstoque(-pedido.getQuantidade());
+                        produto.setEstoque(produto.getEstoque() - pedido.getQuantidade());
                     }
                 }
             }
         }
         return mapper.toProdutoDisponivelList(produtos);
     }
+    
 }

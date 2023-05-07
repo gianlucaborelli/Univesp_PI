@@ -17,6 +17,8 @@ import com.pi1.sisgem.entity.Orcamento;
 import com.pi1.sisgem.entity.Produto;
 import com.pi1.sisgem.entity.ProdutoPedido;
 
+import jakarta.persistence.EntityManager;
+
 @Service
 public class ProdutoPedidoService {    
     @Autowired
@@ -29,13 +31,22 @@ public class ProdutoPedidoService {
     private ProdutoPedidoRepositorio produtoPedidoRepositorio;
     @Autowired
     private ProdutoPedidoMapper mapper;
+    @Autowired
+    private EntityManager entityManager;
 
     public addProdutoPedidoResponse addProdutoPedido (addProdutoPedidoRequest addProduto){
 
-        Produto produto = produtoRepositorio.getReferenceById(addProduto.getProdutoId());
-        Orcamento orcamento = orcamentoRepositorio.getReferenceById(addProduto.getOrcamentoId());
+        Produto produto = produtoRepositorio.findById(addProduto.getProdutoId()).get();
+        if (produto == null){
+            throw new IllegalArgumentException("Produto não encontrado");
+        }
+        Orcamento orcamento = orcamentoRepositorio.findById(addProduto.getOrcamentoId()).get();
+        if (orcamento == null){
+            throw new IllegalArgumentException("Orçamento não encontrado");
+        }
 
         List<ProdutosDisponiveisDto> produtosDisponiveisList = produtoService.getProdutosDisponiveis(orcamento.getDataInicio(), orcamento.getDataFim());
+        entityManager.clear();
 
         for (ProdutosDisponiveisDto produtoDisponivel : produtosDisponiveisList) {
             if (produtoDisponivel.getId() == produto.getId()){
@@ -55,6 +66,8 @@ public class ProdutoPedidoService {
         pedido.setPreco(BigDecimal.valueOf(addProduto.getQuantidade()).multiply(produto.getPrecos()));
 
         produtoPedidoRepositorio.save(pedido);
+
+        entityManager.clear();
 
         return mapper.toAddProdutoPedidoResponse(pedido);
     }

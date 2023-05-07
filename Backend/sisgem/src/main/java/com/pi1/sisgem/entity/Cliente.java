@@ -28,13 +28,13 @@ public class Cliente  {
     private String obs;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")
+    @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")    
     @JsonManagedReference
     private List<Endereco> enderecos = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")
-    @JsonManagedReference
+    @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")   
+    @JsonManagedReference 
     private List<Orcamento> orcamentos = new ArrayList<>();
 
     public List<Orcamento> getOrcamentos() {

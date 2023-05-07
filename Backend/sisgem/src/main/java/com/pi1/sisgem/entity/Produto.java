@@ -1,6 +1,5 @@
 package com.pi1.sisgem.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import jakarta.persistence.Column;

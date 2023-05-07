@@ -46,7 +46,7 @@ public class Orcamento{
     @JsonManagedReference
     private Endereco endereco;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinColumn( name = "fk_orcamento_id", referencedColumnName = "id")
     private List<ProdutoPedido> produtoPedidos = new ArrayList<>();
 
