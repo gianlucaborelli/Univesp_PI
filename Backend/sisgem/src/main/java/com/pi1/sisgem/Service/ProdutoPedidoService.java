@@ -1,7 +1,6 @@
 package com.pi1.sisgem.service;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,10 @@ import org.springframework.stereotype.Service;
 import com.pi1.sisgem.data.OrcamentoRepositorio;
 import com.pi1.sisgem.data.ProdutoPedidoRepositorio;
 import com.pi1.sisgem.data.ProdutoRepositorio;
-import com.pi1.sisgem.data.DTO.ProdutosDisponiveisDto;
 import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoRequest;
 import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoResponse;
+import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoRequest;
+import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoResponse;
 import com.pi1.sisgem.data.Mapper.ProdutoPedidoMapper;
 import com.pi1.sisgem.entity.Orcamento;
 import com.pi1.sisgem.entity.Produto;
@@ -48,22 +48,12 @@ public class ProdutoPedidoService {
             Orcamento orcamento = orcamentoRepositorio.findById(addProduto.getOrcamentoId()).get();
             if (orcamento == null){
                 throw new NoSuchElementException("Orçamento não encontrado");
-            }
+            }                
+
+            produtoService.estoqueDisponivel(orcamento.getDataInicio(), orcamento.getDataFim(), addProduto.getQuantidade(), produto.getId());
     
-            List<ProdutosDisponiveisDto> produtosDisponiveisList = produtoService.getProdutosDisponiveis(orcamento.getDataInicio(), orcamento.getDataFim());
             entityManager.clear();
-    
-            for (ProdutosDisponiveisDto produtoDisponivel : produtosDisponiveisList) {
-                if (produtoDisponivel.getId() == produto.getId()){
-    
-                    if ((produtoDisponivel.getEstoque() - addProduto.getQuantidade()) < 0 ){
-                        throw new IllegalArgumentException(String.format("Quantidade de %d unidades do produto %s, não disponivel em estoque.", 
-                                                                                addProduto.getQuantidade(), produtoDisponivel.getName()));
-                    }
-                    break;
-                }
-            }
-    
+
             ProdutoPedido pedido = new ProdutoPedido();
     
             pedido.setOrcamento(orcamento);
@@ -77,6 +67,43 @@ public class ProdutoPedidoService {
             
             headers.add("Resposta", "Adicionado com sucesso");            
             return ResponseEntity.ok().headers(headers).body(mapper.toAddProdutoPedidoResponse(pedido));
+        }catch(NoSuchElementException e){
+            headers.add("Erro", e.getMessage());            
+            return ResponseEntity.notFound().headers(headers).build();
+        }catch(IllegalArgumentException e){
+            headers.add("Erro", e.getMessage());            
+            return ResponseEntity.badRequest().headers(headers).build();
+        }catch(Exception e){
+            headers.add("Erro", e.getMessage());            
+            return ResponseEntity.internalServerError().headers(headers).build();
+        }        
+    }
+
+    public ResponseEntity<updateProdutoPedidoResponse> updateProdutoPedido (updateProdutoPedidoRequest updatePedido){
+        HttpHeaders headers = new HttpHeaders();
+
+        try{
+            ProdutoPedido pedido = produtoPedidoRepositorio.findById(updatePedido.getId()).get();
+            if (pedido == null){
+                throw new NoSuchElementException("Produto não encontrado");
+            }     
+            
+            Orcamento orcamento = pedido.getOrcamento();
+            Produto produto = pedido.getProduto();
+    
+            produtoService.estoqueDisponivel(orcamento.getDataInicio(), orcamento.getDataFim(), updatePedido.getQuantidade(), produto.getId());
+    
+            entityManager.clear();
+                
+            pedido.setQuantidade(updatePedido.getQuantidade());
+            pedido.setPreco(BigDecimal.valueOf(updatePedido.getQuantidade()).multiply(produto.getPrecos()));
+    
+            produtoPedidoRepositorio.save(pedido);
+    
+            entityManager.clear();
+            
+            headers.add("Resposta", "Atualizado com sucesso");            
+            return ResponseEntity.ok().headers(headers).body(mapper.toUpdateProdutoPedidoResponse(pedido));
         }catch(NoSuchElementException e){
             headers.add("Erro", e.getMessage());            
             return ResponseEntity.notFound().headers(headers).build();

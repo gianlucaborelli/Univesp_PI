@@ -12,13 +12,6 @@ public class addProdutoPedidoResponse {
     private addProdutoPedidoResponse (){
     }
 
-    // private addProdutoPedidoResponse (ProdutoPedido pedido){
-    //     this.id = pedido.getId();
-    //     this.quantidade = pedido.getQuantidade();
-    //     this.orcamentoId = pedido.getOrcamentoId();
-    //     this.produtoId = pedido.getProdutoId();
-    // }
-
     public Long getId() {
         return id;
     }

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoResponse;
+import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoResponse;
 import com.pi1.sisgem.entity.ProdutoPedido;
 
 import lombok.RequiredArgsConstructor;
@@ -15,5 +16,9 @@ public class ProdutoPedidoMapper {
     
     public addProdutoPedidoResponse toAddProdutoPedidoResponse (ProdutoPedido produtoPedido){
         return mapper.map(produtoPedido, addProdutoPedidoResponse.class);
+    }
+
+    public updateProdutoPedidoResponse toUpdateProdutoPedidoResponse (ProdutoPedido produtoPedido){
+        return mapper.map(produtoPedido, updateProdutoPedidoResponse.class);
     }
 }

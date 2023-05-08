@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pi1.sisgem.data.ProdutoPedidoRepositorio;
 import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoRequest;
 import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoResponse;
+import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoRequest;
+import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoResponse;
 import com.pi1.sisgem.entity.ProdutoPedido;
 import com.pi1.sisgem.service.ProdutoPedidoService;
 
@@ -36,6 +39,11 @@ public class ProdutoPedidoController {
     @PostMapping
     public ResponseEntity<addProdutoPedidoResponse> salvar(@RequestBody addProdutoPedidoRequest pedidoRequest){
         return service.addProdutoPedido(pedidoRequest);
+    }
+
+    @PutMapping
+    public ResponseEntity<updateProdutoPedidoResponse> atualizar(@RequestBody updateProdutoPedidoRequest pedidoRequest){
+        return service.updateProdutoPedido(pedidoRequest);
     }
     
     @DeleteMapping("/{id}")
