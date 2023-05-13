@@ -2,6 +2,8 @@ package com.pi1.sisgem.entity;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,12 +24,13 @@ public class ProdutoPedido {
     @Column(nullable = false)
     private BigDecimal preco;
 
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;    
 
     @ManyToOne
-    @JoinColumn(name = "orcamento_id", nullable = false)
+    @JoinColumn(name = "fk_orcamento_id")
+    @JsonBackReference
     private Orcamento orcamento;
 
     public Long getId() {

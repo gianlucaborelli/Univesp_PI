@@ -1,4 +1,4 @@
-package com.pi1.sisgem.Service;
+package com.pi1.sisgem.service;
 
 import java.util.Date;
 import java.util.List;
@@ -14,19 +14,22 @@ import com.pi1.sisgem.entity.Orcamento;
 import com.pi1.sisgem.entity.Produto;
 import com.pi1.sisgem.entity.ProdutoPedido;
 
+import jakarta.persistence.EntityManager;
+
 @Service
 public class ProdutoService {
     
     @Autowired
-    private ProdutoRepositorio repositorioProdutos;
-
-    @Autowired
-    private ProdutoMapper mapper;
-
+    private ProdutoRepositorio repositorioProdutos;    
     @Autowired
     private OrcamentoRepositorio repositorioOrcamento;
+    @Autowired
+    private ProdutoMapper mapper;
+    @Autowired
+    private EntityManager entityManager;
 
-    public List<ProdutosDisponiveisDto> produtosDisponiveis (Date inicio, Date fim){
+
+    public List<ProdutosDisponiveisDto> getProdutosDisponiveis (Date inicio, Date fim){
      
         var produtos = repositorioProdutos.findAll();
 
@@ -41,14 +44,30 @@ public class ProdutoService {
                 for(Produto produto: produtos){
 
                     if(produto.getId() == produtoPedido.getId()){
-                        produto.setEstoque(-pedido.getQuantidade());
+                        produto.setEstoque(produto.getEstoque() - pedido.getQuantidade());
                     }
                 }
             }
         }
-
+        entityManager.clear();
         return mapper.toProdutoDisponivelList(produtos);
     }
+    
+    public Boolean estoqueDisponivel (Date inicio, Date fim, Integer quantidade, Long id){
+        var produtosDisponiveisList = getProdutosDisponiveis(inicio, fim);
+        
+        for (ProdutosDisponiveisDto produtoDisponivel : produtosDisponiveisList) {
+            if (produtoDisponivel.getId() == id){
 
+                if ((produtoDisponivel.getEstoque() - quantidade) < 0 ){
+                    throw new IllegalArgumentException(String.format("Quantidade de %d unidades do produto %s, não disponivel em estoque.", 
+                                                                    quantidade, produtoDisponivel.getName()));
+                }
+                break;
+            }
+        }
 
+        entityManager.clear();
+        return true;
+    }
 }

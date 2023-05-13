@@ -1,5 +1,7 @@
 package com.pi1.sisgem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Endereco {
+public class Endereco  {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +39,8 @@ public class Endereco {
     private String obs;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "fk_cliente_id")
+    @JsonBackReference
     private Cliente cliente;
 
     public Long getId() {

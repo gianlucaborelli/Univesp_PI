@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,7 +21,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
-public class Orcamento {
+public class Orcamento{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,14 +37,17 @@ public class Orcamento {
     private BigDecimal valorTotal;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "fk_cliente_id")    
+    @JsonBackReference
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "endereco_id", nullable = false)
+    @JoinColumn(name = "endereco_id")
+    @JsonManagedReference
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "orcamento")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @JoinColumn( name = "fk_orcamento_id", referencedColumnName = "id")
     private List<ProdutoPedido> produtoPedidos = new ArrayList<>();
 
     public Long getId() {
@@ -95,6 +103,6 @@ public class Orcamento {
     }
 
     public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
-        this.produtoPedidos = produtoPedidos;
+        this.produtoPedidos.addAll(produtoPedidos);
     }
 }
