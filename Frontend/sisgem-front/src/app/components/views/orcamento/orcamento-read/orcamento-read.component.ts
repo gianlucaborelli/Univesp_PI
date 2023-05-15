@@ -4,8 +4,11 @@ import {
   MomentDateAdapter,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import 'moment/locale/pt';
+
 
 @Component({
   selector: 'app-orcamento',
@@ -18,10 +21,27 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],  
+  providers: [    
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},    
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ],
 })
 
 
 export class OrcamentoReadComponent {
+
+  constructor(
+    private _adapter: DateAdapter<any>,
+    @Inject(MAT_DATE_LOCALE) private _locale: string,
+  ) {}
+
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  
   dataSource = ELEMENT_DATA;
   columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
