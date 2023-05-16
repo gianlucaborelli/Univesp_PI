@@ -32,18 +32,18 @@ public class Cliente  {
     @JsonManagedReference
     private List<Endereco> enderecos = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")   
-    @JsonManagedReference 
-    private List<Orcamento> orcamentos = new ArrayList<>();
+    // @OneToMany(cascade = CascadeType.ALL)
+    // @JoinColumn( name = "fk_cliente_id", referencedColumnName = "id")   
+    // @JsonManagedReference 
+    // private List<Orcamento> orcamentos = new ArrayList<>();
 
-    public List<Orcamento> getOrcamentos() {
-        return orcamentos;
-    }
+    // public List<Orcamento> getOrcamentos() {
+    //     return orcamentos;
+    // }
 
-    public void setOrcamentos(List<Orcamento> orcamentos) {
-        this.orcamentos.addAll(orcamentos);
-    }
+    // public void setOrcamentos(List<Orcamento> orcamentos) {
+    //     this.orcamentos.addAll(orcamentos);
+    // }
 
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos.addAll(enderecos);
