@@ -23,8 +23,10 @@ import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-
+import { FormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { ClientesComponent } from './components/views/clientes/clientes.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     FooterComponent,
     NavComponent,
     HomeComponent,
-    OrcamentoReadComponent
+    OrcamentoReadComponent,
+    ClientesComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MomentDateModule
+    MomentDateModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
