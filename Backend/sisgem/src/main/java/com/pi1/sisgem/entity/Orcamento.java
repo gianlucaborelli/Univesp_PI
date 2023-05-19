@@ -94,10 +94,18 @@ public class Orcamento{
     }
 
     public List<ProdutoPedido> getProdutoPedidos() {
+        atualizaValorTotal();
         return produtoPedidos;
     }
 
     public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
         this.produtoPedidos.addAll(produtoPedidos);
+        atualizaValorTotal();
+    }
+
+    public void atualizaValorTotal(){
+        for (ProdutoPedido produtoPedido : produtoPedidos) {
+            valorTotal = produtoPedido.getPreco().add(valorTotal);
+        }
     }
 }

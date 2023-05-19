@@ -60,7 +60,5 @@ public class Cliente  {
     }
     public void setObs(String obs) {
         this.obs = obs;
-    }
-
-    
+    }    
 }

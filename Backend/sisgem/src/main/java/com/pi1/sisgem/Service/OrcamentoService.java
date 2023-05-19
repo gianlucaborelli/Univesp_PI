@@ -16,8 +16,5 @@ public class OrcamentoService {
 
     public List<Orcamento> findAll(){
         return repositorio.findAll();
-
     }
-
-
 }
