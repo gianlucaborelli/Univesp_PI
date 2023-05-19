@@ -104,6 +104,7 @@ public class Orcamento{
     }
 
     public void atualizaValorTotal(){
+        valorTotal =BigDecimal.ZERO;
         for (ProdutoPedido produtoPedido : produtoPedidos) {
             valorTotal = produtoPedido.getPreco().add(valorTotal);
         }
