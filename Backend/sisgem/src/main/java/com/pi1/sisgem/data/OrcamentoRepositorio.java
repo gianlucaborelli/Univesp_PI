@@ -15,4 +15,7 @@ public interface OrcamentoRepositorio extends JpaRepository<Orcamento, Long> {
 
     @Query("SELECT o FROM Orcamento o WHERE o.dataInicio BETWEEN :dataInicio AND :dataFim OR o.dataFim BETWEEN :dataInicio AND :dataFim")
     List<Orcamento> findByIntervaloDeDatas(@Param("dataInicio") Date dataInicio, @Param("dataFim") Date dataFim);
+
+    @Query("SELECT o FROM Orcamento o WHERE o.cliente.id = :clienteId")
+    List<Orcamento> findAllByClienteId(@Param("clienteId") Long clienteId);
 }

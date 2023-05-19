@@ -40,6 +40,11 @@ public class OncamentoController {
         return repositorio.findByIntervaloDeDatas(dataInicio, dataFim);
     }
 
+    @GetMapping("/cliente/{id}")
+    public List<Orcamento> listarPorCliente(@PathVariable Long id){        
+        return repositorio.findAllByClienteId(id);
+    }
+
     @PostMapping
     public void salvar(@RequestBody Orcamento produto){
         repositorio.save(produto);
