@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,13 +34,11 @@ public class Orcamento{
     private BigDecimal valorTotal;
 
     @ManyToOne
-    @JoinColumn(name = "fk_cliente_id")    
-    @JsonBackReference
+    @JoinColumn(name = "fk_cliente_id")
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "endereco_id")
-    @JsonManagedReference
     private Endereco endereco;
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
