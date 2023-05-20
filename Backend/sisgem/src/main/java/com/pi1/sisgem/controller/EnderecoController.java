@@ -27,14 +27,14 @@ public class EnderecoController {
     }
 
     @PostMapping
-    public void salvar(@RequestBody Endereco produto){
-        repositorio.save(produto);
+    public void salvar(@RequestBody Endereco endereco){
+        repositorio.save(endereco);
     }
 
     @PutMapping
-    public void alterar(@RequestBody Endereco produto){
-        if(produto.getId() > 0)
-            repositorio.save(produto);
+    public void alterar(@RequestBody Endereco endereco){
+        if(endereco.getId() > 0)
+            repositorio.save(endereco);
     }
 
     @DeleteMapping("/{id}")
