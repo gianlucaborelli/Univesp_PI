@@ -26,6 +26,10 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { ClientesComponent } from './components/views/clientes/clientes.component';
+import { ProdutosComponent } from './components/views/produtos/produtos.component';
+import { CadastroprodutosComponent } from './components/views/produtos/cadastroprodutos/cadastroprodutos.component';
+import { CadastroclientesComponent } from './components/views/clientes/cadastroclientes/cadastroclientes.component';
+
 
 
 @NgModule({
@@ -36,8 +40,12 @@ import { ClientesComponent } from './components/views/clientes/clientes.componen
     NavComponent,
     HomeComponent,
     OrcamentoReadComponent,
-    ClientesComponent
+    ClientesComponent,
+    ProdutosComponent,
+    CadastroprodutosComponent,
+    CadastroclientesComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -55,7 +63,10 @@ import { ClientesComponent } from './components/views/clientes/clientes.componen
     ReactiveFormsModule,
     MatButtonModule,
     MomentDateModule,
-    FormsModule
+    FormsModule,
+ 
+    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

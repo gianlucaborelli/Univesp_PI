@@ -1,0 +1,51 @@
+<form class="example-form">
+    <BR>
+  <BR>
+
+    <table class="example-full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Primeiro nome</mat-label>
+        <input matInput>
+      </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Sobrenome</mat-label>
+        <input matInput>
+      </mat-form-field></td>
+    </tr></table>
+  <BR>
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Endereço</mat-label>
+        <textarea matInput placeholder="Ex. 100 Main St">
+
+        </textarea>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Endereço 2</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </p>
+    <BR>
+  
+    <table class="example-full-width" cellspacing="2"><tr>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Cidade</mat-label>
+        <input matInput placeholder="Ex. Sertãozinho">
+      </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Estado</mat-label>
+        <input matInput placeholder="Ex. São Paulo">
+      </mat-form-field></td>
+      
+      <td><mat-form-field class="example-full-width">
+        <mat-label>CEP</mat-label>
+        <input matInput #postalCode maxlength="8" placeholder="xxxxx-xxx" >
+        <mat-hint align="end">{{postalCode.value.length}} / 8</mat-hint>
+      </mat-form-field></td>
+    </tr></table>
+  </form>
+  <div class="buttons">
+    <button class="mat-elevation-z8" mat-stroked-button color="primary">SALVAR </button>
+    <button class="mat-elevation-z8" mat-stroked-button color="warn">CANCELAR </button>
+</div>
+  
