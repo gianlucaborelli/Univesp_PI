@@ -10,6 +10,11 @@ h1 {
     margin-bottom: 3rem;
 }
 
+.title h1 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
 .form {
     width: 100%;
 }

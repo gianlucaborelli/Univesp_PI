@@ -29,7 +29,11 @@ import { ClientesComponent } from './components/views/clientes/clientes.componen
 import { ProdutosComponent } from './components/views/produtos/produtos.component';
 import { CadastroprodutosComponent } from './components/views/produtos/cadastroprodutos/cadastroprodutos.component';
 import { CadastroclientesComponent } from './components/views/clientes/cadastroclientes/cadastroclientes.component';
+<<<<<<< HEAD
 import { FazerorcamentoComponent } from './components/views/orcamento/fazerorcamento/fazerorcamento.component';
+=======
+import { NovoOrcamentoComponent } from './components/views/orcamento/novo-orcamento/novo-orcamento.component';
+>>>>>>> 5e9be07bd824f23e14cf1d9bf969d076fb281aa2
 
 
 
@@ -45,7 +49,11 @@ import { FazerorcamentoComponent } from './components/views/orcamento/fazerorcam
     ProdutosComponent,
     CadastroprodutosComponent,
     CadastroclientesComponent,
+<<<<<<< HEAD
     FazerorcamentoComponent
+=======
+    NovoOrcamentoComponent
+>>>>>>> 5e9be07bd824f23e14cf1d9bf969d076fb281aa2
   ],
 
   imports: [
