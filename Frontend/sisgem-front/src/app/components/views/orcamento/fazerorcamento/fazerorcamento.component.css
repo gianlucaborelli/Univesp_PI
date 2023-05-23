@@ -1,0 +1,18 @@
+.findByDate {
+    display: flex;
+  }
+  
+  .findBox {
+    margin: 2rem;
+    display: flex;  
+    
+  }
+  
+  .find-date-button{
+    margin-left: 2rem;
+  }
+
+
+ h2 {
+    margin-left: 2rem;
+  }

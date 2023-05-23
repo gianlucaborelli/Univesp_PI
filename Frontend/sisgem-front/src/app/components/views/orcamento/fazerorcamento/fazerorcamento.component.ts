@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./fazerorcamento.component.css']
 })
 export class FazerorcamentoComponent {
+range: any;
+picker: any;
 
 }
