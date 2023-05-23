@@ -29,6 +29,7 @@ import { ClientesComponent } from './components/views/clientes/clientes.componen
 import { ProdutosComponent } from './components/views/produtos/produtos.component';
 import { CadastroprodutosComponent } from './components/views/produtos/cadastroprodutos/cadastroprodutos.component';
 import { CadastroclientesComponent } from './components/views/clientes/cadastroclientes/cadastroclientes.component';
+import { FazerorcamentoComponent } from './components/views/orcamento/fazerorcamento/fazerorcamento.component';
 
 
 
@@ -43,7 +44,8 @@ import { CadastroclientesComponent } from './components/views/clientes/cadastroc
     ClientesComponent,
     ProdutosComponent,
     CadastroprodutosComponent,
-    CadastroclientesComponent
+    CadastroclientesComponent,
+    FazerorcamentoComponent
   ],
 
   imports: [

@@ -6,7 +6,7 @@ import { ClientesComponent } from './components/views/clientes/clientes.componen
 import { ProdutosComponent } from './components/views/produtos/produtos.component';
 import { CadastroprodutosComponent } from './components/views/produtos/cadastroprodutos/cadastroprodutos.component';
 import { CadastroclientesComponent } from './components/views/clientes/cadastroclientes/cadastroclientes.component';
-
+import { FazerorcamentoComponent } from './components/views/orcamento/fazerorcamento/fazerorcamento.component';
 
 const routes: Routes = [
   {
@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'cadastroclientes',
     component: CadastroclientesComponent
+  },
+  {
+    path: 'fazerorcamento',
+    component: FazerorcamentoComponent
   }
   
 
