@@ -16,3 +16,9 @@
  h2 {
     margin-left: 2rem;
   }
+
+  .content {
+    width: 90%;
+    margin: 1.4rem auto auto auto;
+  }
+  
