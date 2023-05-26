@@ -3,6 +3,16 @@
     <h1>Orçamentos</h1>
   </div>
 
+  
+  
+  
+
+
+
+
+
+    
+
 
 <div class="findBox">  
   
@@ -26,7 +36,6 @@
     
     <div>
       <button mat-button class="find-date-button" mat-raised-button color="primary">Pesquisar por Data</button>
-      <button mat-button class="find-date-button" a routerLink="/fazerorcamento" mat-raised-button color="primary">Novo Orçamento</button>
     </div>
 
   </div>
@@ -34,19 +43,14 @@
 
     <div class="title">
         <h1>
-            <button style="color: black;"  a routerLink="/fazerorcamento" style="color: black;">
-                    
-                Novo orçamento
-            </button>
-
-            
+          <div>
+            <button mat-button class="find-date-button" mat-raised-button color="primary" a routerLink="/fazerorcamento">Novo orçamento</button>
+          </div>
+      
+           
         </h1>
-
     </div>
-
 </div>
-  
-
 
 </div>
 
@@ -144,10 +148,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef> STATUS </th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-                </ng-container>
+              
               
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

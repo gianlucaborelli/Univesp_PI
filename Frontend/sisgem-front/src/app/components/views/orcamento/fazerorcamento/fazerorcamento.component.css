@@ -13,6 +13,25 @@
   }
 
 
- h2 {
+.form {
     margin-left: 2rem;
   }
+
+  .content {
+    width: 90%;
+    margin: 1.4rem auto auto auto;
+  }
+  
+h1{
+  width: 50%;
+    text-align: center;
+    width: 70%;
+    margin: 2rem auto 0 auto;
+}
+
+p{
+  width:50%;
+    text-align: center;
+    margin-left: 2rem;
+
+}

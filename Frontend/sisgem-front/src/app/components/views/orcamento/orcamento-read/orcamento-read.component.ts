@@ -40,9 +40,9 @@ export class OrcamentoReadComponent {
     @Inject(MAT_DATE_LOCALE) private _locale: string,
   ) {}
 
-  displayedColumns: string[] = ['endereco', 'data', 'cliente', 'produtos','status'];
+  displayedColumns: string[] = ['endereco', 'data', 'cliente', 'produtos'];
 
-  columnsToDisplay = ['data', 'cliente', 'endereco', 'produtos','status'];
+  columnsToDisplay = ['data', 'cliente', 'endereco', 'produtos'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: PeriodicElement | null = null;  
   range = new FormGroup({
@@ -57,6 +57,5 @@ export interface PeriodicElement {
   cliente: string;
   produtos: number;
   description: string;
-  status: string;
+ 
 }
-
