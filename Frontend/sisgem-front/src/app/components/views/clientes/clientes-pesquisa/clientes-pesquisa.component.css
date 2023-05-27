@@ -6,11 +6,16 @@
 .cabecalho{
     display: flex;   
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap-reverse;  
 }
 
 .pesquisaButton{
     margin: 2rem;
+}
+
+.inputName{
+    width: 200px;
 }
 
 .title h1 {
@@ -20,5 +25,5 @@
 }
 
 .cadastrarNovo{
-    align-self: flex-start;
+    align-self: flex-start;    
 }

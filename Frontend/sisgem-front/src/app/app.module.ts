@@ -26,7 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
-import { ClientesComponent } from './components/views/clientes/clientes.component';
+import { ClientesComponent } from './components/views/clientes/clientes-pesquisa/clientes-pesquisa.component';
 import { ProdutosComponent } from './components/views/produtos/produtos.component';
 import { CadastroprodutosComponent } from './components/views/produtos/cadastroprodutos/cadastroprodutos.component';
 import { CadastroclientesComponent } from './components/views/clientes/cadastroclientes/cadastroclientes.component';
