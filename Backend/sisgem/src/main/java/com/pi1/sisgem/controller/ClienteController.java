@@ -1,6 +1,7 @@
 package com.pi1.sisgem.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,11 @@ public class ClienteController {
     @GetMapping
     public List<Cliente> listar(){
         return repositorio.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Cliente> findById(@PathVariable Long id){
+        return repositorio.findById(id);
     }
 
     @GetMapping("/findByName")
