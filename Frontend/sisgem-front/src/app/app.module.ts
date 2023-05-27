@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,9 +21,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { ClientesComponent } from './components/views/clientes/clientes.component';
@@ -67,6 +68,7 @@ import { FazerorcamentoComponent } from './components/views/orcamento/fazerorcam
     MatButtonModule,
     MomentDateModule,
     FormsModule,
+    HttpClientModule,
  
     
 
