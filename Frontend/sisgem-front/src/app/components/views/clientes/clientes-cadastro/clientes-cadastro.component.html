@@ -1,59 +1,54 @@
 <div class="content">
-  <div class="title">
-    <h1>Cadastro de Clientes</h1>
-  </div>
 
-<form class="example-form">
-    <BR>
-  <BR>
+  <form class="formDadosClientes">
 
-    <table class="example-full-width" cellspacing="0"><tr>
-      <td><mat-form-field class="example-full-width">
-        <mat-label>Primeiro nome</mat-label>
-        <textarea matInput placeholder="Informe o primeiro nome"></textarea>
-        <input matInput>
-      </mat-form-field></td>
-      <td><mat-form-field class="example-full-width">
-        <mat-label>Sobrenome</mat-label>
-        <textarea matInput placeholder="Informe o Sobrenome"></textarea>
-        <input matInput>
-      </mat-form-field></td>
-    </tr></table>
-  <BR>
-    <p>
-      <mat-form-field class="example-full-width">
-        <mat-label>Endereço</mat-label>
-        <textarea matInput placeholder="Informe o Endereço"></textarea>
+    <div class="title">
+      <h1>Cadastro de Clientes</h1>
+    </div>
+
+      
+    <div class="dadosCliente">
+
+      <mat-form-field class="form">
+        <mat-label>Nome do Cliente</mat-label>
+        <input matInput type="text" name="name" placeholder="Nome" [(ngModel)]="cliente.name">
       </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Numero</mat-label>
-        <textarea matInput placeholder="Informe o numero da casa"></textarea>
-      </mat-form-field>
-    </p>
-    <BR>
 
-      
-      
-      
-    <table class="example-full-width" cellspacing="2"><tr>
-      <td><mat-form-field class="example-full-width">
-        <mat-label>Cidade</mat-label>
-        <input matInput placeholder="Ex. Sertãozinho">
-      </mat-form-field></td>
-      <td><mat-form-field class="example-full-width">
-        <mat-label>Estado</mat-label>
-        <input matInput placeholder="Ex. São Paulo">
-      </mat-form-field></td>
-      
-      <td><mat-form-field class="example-full-width">
-        <mat-label>CEP</mat-label>
-        <input matInput #postalCode type="number" maxlength="8" placeholder="xxxxx-xxx" >
-        <mat-hint aling="end">{{postalCode.value.length}} / 8</mat-hint>
-      </mat-form-field></td>
-    </tr></table>
+      <mat-form-field class="form">
+        <mat-label>Observações sobre o Cliente</mat-label>
+        <textarea matInput type="text" name="obs" placeholder="Observações" [(ngModel)]="cliente.obs"></textarea>        
+      </mat-form-field>
+
+    </div>
+
+    
+    <div class="buttons">
+      <button class="mat-elevation-z8" mat-stroked-button color="primary">SALVAR </button>
+      <button class="mat-elevation-z8" mat-stroked-button color="warn">CANCELAR </button>
+    </div>  
+    
   </form>
-  <div class="buttons">
-    <button class="mat-elevation-z8" mat-stroked-button color="primary">SALVAR </button>
-    <button class="mat-elevation-z8" mat-stroked-button color="warn">CANCELAR </button>
+
+  <mat-list>
+    <mat-list-item *ngFor="let endereco of cliente.enderecos" class="enderecos">
+
+      <mat-card class="cardEndereco">
+        <mat-card-content>
+          <p>Endereço: {{ endereco.rua }}</p>
+          <p>Número: {{ endereco.numero }}</p>
+          <p>Bairro: {{ endereco.bairro }}</p>
+          <!-- Adicione outros campos de endereço, se necessário -->
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button color="primary" (click)="atualizarEndereco(endereco)">Editar</button>
+          <button mat-button color="warn" (click)="excluirEndereco(endereco)">Excluir</button>
+        </mat-card-actions>
+
+      </mat-card>
+
+    </mat-list-item>
+  </mat-list>
 </div>
+
   

@@ -1,17 +1,34 @@
-.title h1 {
-    font-size: 2rem;
-    font-weight: 500;
-    text-align: center;
-  }
-
-.form {
-    width: 50%;
-    text-align: center;
-    width: 70%;
-    margin: 2rem auto 0 auto;
+.content{
+    display: flex;
+    margin: 3rem;
 }
 
-.buttonS {
+form {
+    width: 50%;
+    margin: 2rem auto 0 auto;
+    text-align: center;
+}
+
+.form{
+    width: 100%;
+}
+
+.enderecos{
+    width: 100%;
+    margin: 3rem;        
+}
+
+.dadosCliente{
+    display:block ;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+}
+
+.buttons {
     width: 100%;
     text-align: start;
 }

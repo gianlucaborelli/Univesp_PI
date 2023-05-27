@@ -17,4 +17,9 @@ export class ClientesService {
     const url = `${this.baseUrl}/clientes`
     return this.http.get<Cliente[]>(url);
   }
+
+  findById(id: Number ):Observable<Cliente>{
+    const url = `${this.baseUrl}/clientes/${id}`
+    return this.http.get<Cliente>(url);
+  }
 }

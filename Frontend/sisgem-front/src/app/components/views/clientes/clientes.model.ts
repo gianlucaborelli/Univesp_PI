@@ -2,7 +2,7 @@ export interface Cliente{
     id?: String;
     name: String;
     obs: String;
-    endereco: Endereco[];
+    enderecos: Endereco[];
 }
 
 export interface Endereco{
