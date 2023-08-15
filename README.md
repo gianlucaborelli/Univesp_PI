@@ -1,8 +1,14 @@
 # SISGEM - Sistema de Gestão de Estoque de Mobiliário
 
-Projeto Integrador 1, desenvolvido por estudantes dos cursos do Eixo de Tecnologia da UNIVESP.
+Projeto Integrador, desenvolvido por estudantes dos cursos do Eixo de Tecnologia da UNIVESP.
 
-Tem como tema o Desenvolvimente de um aplicativo utilizando um framework Web com conceitos de Banco de Dados, objetivando aplicar os conhecimentos adquirido nos 4 primeiros bimestres do curso.
+Tem como temas
+
+* **Projeto Integrador 1**: Desenvolvimente de um aplicativo utilizando um framework Web com conceitos de Banco de Dados;
+
+* **Projeto Integrador 2**: Desenvolver um software com framework web que utilize banco de dados, inclua script web, nuvem, uso de API, acessibilidade, controle de versão e teste. Opcionalmente, incluir análise de dados;
+
+Objetivando aplicar os conhecimentos adquirido durante o curso.
 
 ## Proposta de desenvolvimento
 
@@ -14,12 +20,24 @@ Em nossa sondagem encontramos uma empresa, informal, que realiza aluguéis de eq
 
 Para o desenvolvimento do projeto, utilizamos como tecnologias:
 
-* Backend
-  - Java
-  - Spring Boot
-  - MySQL
- 
- * Frontend
-   - Node.Js
-   - Angular
+### [Backend](https://github.com/gianlucaborelli/Univesp_PI/tree/main/Backend)  
 
+As tecnologias utilizadas são:
+- [Java](https://www.oracle.com/br/java/technologies/downloads/)
+- [Spring Boot](https://spring.io/)
+- [MySQL](https://www.mysql.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+
+#### Extenções para VS Code utilizadas
+
+- [Java Extension Pack](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
+- [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack)
+- [Spring Boot Dashboard](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-spring-boot-dashboard)
+ 
+### [Frontend](https://github.com/gianlucaborelli/Univesp_PI/tree/main/Frontend)
+- [Node.Js](https://nodejs.org/en/download/current)
+- [Angular](https://angular.io/)
+
+### Nuvem
+
+- [Firebase Authentication](https://firebase.google.com/docs/auth?hl=pt-br)
