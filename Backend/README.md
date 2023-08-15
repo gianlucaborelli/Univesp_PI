@@ -1,22 +1,11 @@
-# Controle de Estoque
-
-Trabalho de Projeto Integrador desenvolvido por alunos da Univesp, visando atender uma empresa real de aluguel de equipamentos e utilitário para festas.
-
-As tecnologias utilizadas são:
-- Java
-- [Spring Boot](https://spring.io/)
-- [MySQL](https://www.mysql.com/)
-- [Visual Studio Code](https://code.visualstudio.com/)
-
-## Extenções para VS Code utilizadas
-
-- [Java Extension Pack](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
-- [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack)
-- [Spring Boot Dashboard](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-spring-boot-dashboard)
+# Backend
 
 ## Configuração do ambiente de desenvolvimento
 
-Neste projeto utilizamos Java [JDK 19.0](https://www.oracle.com/java/technologies/downloads/#jdk19-windows) e [Maven Apache 3.9](https://maven.apache.org/download.cgi)
+Neste projeto utilizamos 
+- [Java JDK 19.0](https://www.oracle.com/java/technologies/downloads/#jdk19-windows);
+- [Maven Apache 3.9](https://maven.apache.org/download.cgi);
+- [MySQL](https://dev.mysql.com/downloads/mysql/).
 
 ### Primeiro Passo: Instalar Java JDK
 
@@ -66,10 +55,15 @@ E descompactamos no diretório `C:\Maven`
 
 - Reinicie o Computador.
 
-### Quarto Passo: Teste de Maven está funcionando corretamente
+### Quarto Passo: Teste se o Maven está funcionando corretamente
 
 - Abra o Prompt de comando e digite `$ mvn`.
-- 
+  
 ![mavenRun](https://user-images.githubusercontent.com/90393104/224882442-2b6f32f8-3d8f-44aa-96f4-780bbaa991f5.jpg)
 
 Caso o resultado seja proximo a este exibido, a instalação esta correta, caso não deve-se verificar todos os passos se estão corretos.
+
+### Quinto passo: Instalação do MySQL
+
+Faça o download do [MySQL Community](https://dev.mysql.com/downloads/mysql/) e instale seguindo todas as instruções oferecida pelo instalador.
+
