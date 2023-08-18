@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   templateUrl: './clientes-pesquisa.component.html',
   styleUrls: ['./clientes-pesquisa.component.css']
 })
-export class ClientesComponent implements OnInit {
+export class ClientesPesquisaComponent implements OnInit {
 
 
   clientes: Cliente[] = [];
@@ -27,8 +27,12 @@ export class ClientesComponent implements OnInit {
     });
   }
 
-  navegarParaCategoriaCreate() {
-    this.router.navigate(["categorias/create"])
+  navegarParaClientesCadastro() {
+    this.router.navigate(['clientescadastro'])
+    .then(nav => {
+      console.log(nav); 
+    }, err => {
+      console.log(err) 
+    });
   }
-
 }

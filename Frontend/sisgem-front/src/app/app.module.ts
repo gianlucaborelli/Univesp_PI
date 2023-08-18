@@ -15,7 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from './components/views/home/home.component';
 import { MatCardModule } from '@angular/material/card';
-import { OrcamentoReadComponent } from './components/views/orcamento/orcamento-read/orcamento-read.component';
+import { OrcamentoPesquisaComponent } from './components/views/orcamento/orcamento-pesquisa/orcamento-pesquisa.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,11 +26,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
-import { ClientesComponent } from './components/views/clientes/clientes-pesquisa/clientes-pesquisa.component';
-import { ProdutosComponent } from './components/views/produtos/produtos.component';
-import { CadastroprodutosComponent } from './components/views/produtos/cadastroprodutos/cadastroprodutos.component';
+import { ClientesPesquisaComponent } from './components/views/clientes/clientes-pesquisa/clientes-pesquisa.component';
 import { ClientesCadastroComponent } from './components/views/clientes/clientes-cadastro/clientes-cadastro.component';
-import { FazerorcamentoComponent } from './components/views/orcamento/fazerorcamento/fazerorcamento.component';
+import { OrcamentoCadastroComponent } from './components/views/orcamento/orcamento-cadastro/orcamento-cadastro.component';
+import { ProdutosPesquisaComponent } from './components/views/produtos/produtos-pesquisa/produtos-pesquisa.component';
+import { ProdutosCadastroComponent } from './components/views/produtos/produtos-cadastro/produtos-cadastro.component';
 
 
 
@@ -41,12 +41,12 @@ import { FazerorcamentoComponent } from './components/views/orcamento/fazerorcam
     FooterComponent,
     NavComponent,
     HomeComponent,
-    OrcamentoReadComponent,
-    ClientesComponent,
-    ProdutosComponent,
-    CadastroprodutosComponent,
+    OrcamentoPesquisaComponent,
+    ClientesPesquisaComponent,
     ClientesCadastroComponent,
-    FazerorcamentoComponent
+    OrcamentoCadastroComponent,
+    ProdutosPesquisaComponent,
+    ProdutosCadastroComponent
     
   ],
 

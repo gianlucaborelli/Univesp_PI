@@ -1,46 +1,49 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/views/home/home.component';
-import { OrcamentoReadComponent } from './components/views/orcamento/orcamento-read/orcamento-read.component';
-import { ClientesComponent } from './components/views/clientes/clientes-pesquisa/clientes-pesquisa.component';
-import { ProdutosComponent } from './components/views/produtos/produtos.component';
-import { CadastroprodutosComponent } from './components/views/produtos/cadastroprodutos/cadastroprodutos.component';
+import { OrcamentoPesquisaComponent } from './components/views/orcamento/orcamento-pesquisa/orcamento-pesquisa.component';
+import { ClientesPesquisaComponent } from './components/views/clientes/clientes-pesquisa/clientes-pesquisa.component';
 import { ClientesCadastroComponent } from './components/views/clientes/clientes-cadastro/clientes-cadastro.component';
-import { FazerorcamentoComponent } from './components/views/orcamento/fazerorcamento/fazerorcamento.component';
+import { OrcamentoCadastroComponent } from './components/views/orcamento/orcamento-cadastro/orcamento-cadastro.component';
+import { ProdutosPesquisaComponent } from './components/views/produtos/produtos-pesquisa/produtos-pesquisa.component';
+import { ProdutosCadastroComponent } from './components/views/produtos/produtos-cadastro/produtos-cadastro.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent
   },
-
+  // C L I E N T E S
   {
     path: 'clientes',
-    component: ClientesComponent
-  },
-
+    component: ClientesPesquisaComponent
+  },  
   {
-    path: 'orcamentos',
-    component: OrcamentoReadComponent
+    path: 'clientescadastro',
+    component: ClientesCadastroComponent
   },
 
+  // P R O D U T O S
+  
   {
     path: 'produtos',
-    component: ProdutosComponent
+    component: ProdutosPesquisaComponent
+  },  
+  {
+    path: 'produtoscadastro',
+    component: ProdutosCadastroComponent
   },
 
+  // O R Ç A M E N T O S
   {
-    path: 'cadastroprodutos',
-    component: CadastroprodutosComponent
-  },
-  {
-    path: 'cadastroclientes',
-    component: ClientesCadastroComponent
+    path: 'orcamentos',
+    component: OrcamentoPesquisaComponent
   },
   {
     path: 'fazerorcamento',
-    component: FazerorcamentoComponent
+    component: OrcamentoCadastroComponent
   }
+
   
 
 ];

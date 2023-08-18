@@ -12,8 +12,8 @@ import 'moment/locale/pt';
 
 @Component({
   selector: 'app-orcamento',
-  styleUrls: ['./orcamento-read.component.css'],
-  templateUrl: './orcamento-read.component.html',
+  styleUrls: ['./orcamento-pesquisa.component.css'],
+  templateUrl: './orcamento-pesquisa.component.html',
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -33,7 +33,7 @@ import 'moment/locale/pt';
 })
 
 
-export class OrcamentoReadComponent {
+export class OrcamentoPesquisaComponent {
 
   constructor(
     private _adapter: DateAdapter<any>,
