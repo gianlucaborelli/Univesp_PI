@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Cadastro de Endereço</h2>
+
+<mat-dialog-content>
+    <table class="content" cellspacing="0">
+        <tr>
+            <mat-form-field appearance="outline">
+                <mat-label>C.E.P.</mat-label>
+                <input matInput type="text" [(ngModel)]="endereco.cep">
+            </mat-form-field>
+        </tr>
+        <tr style="display: flex">
+            <mat-form-field appearance="outline" style="width: 90%;">
+                <mat-label>Rua</mat-label>
+                <input matInput type="text" [(ngModel)]="endereco.rua">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="flex-grow: 1;">
+                <mat-label>Número</mat-label>
+                <input matInput type="text" [(ngModel)]="endereco.numero">
+            </mat-form-field>
+        </tr>
+        <tr style="display: flex">
+            <mat-form-field appearance="outline" style="width: 60%;">
+                <mat-label>Bairro</mat-label>
+                <input matInput type="text" [(ngModel)]="endereco.bairro">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="flex-grow: 1;">
+                <mat-label>Cidade</mat-label>
+                <input matInput type="text" [(ngModel)]="endereco.cidade">
+            </mat-form-field>
+        </tr>
+        <tr>
+            <mat-form-field appearance="outline">
+                <mat-label>Estado</mat-label>
+                <input matInput type="text" [(ngModel)]="endereco.estado">
+            </mat-form-field>
+        </tr>
+        <tr>
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Observação</mat-label>
+                <textarea matInput type="text" [(ngModel)]="endereco.obs"></textarea>
+            </mat-form-field>
+        </tr>
+    </table>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" class="mat-raised-button">Salvar</button>
+    <button mat-raised-button color="warn" class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>

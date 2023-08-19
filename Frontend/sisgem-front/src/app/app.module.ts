@@ -31,6 +31,9 @@ import { ClientesCadastroComponent } from './components/views/clientes/clientes-
 import { OrcamentoCadastroComponent } from './components/views/orcamento/orcamento-cadastro/orcamento-cadastro.component';
 import { ProdutosPesquisaComponent } from './components/views/produtos/produtos-pesquisa/produtos-pesquisa.component';
 import { ProdutosCadastroComponent } from './components/views/produtos/produtos-cadastro/produtos-cadastro.component';
+import { EnderecoCadastroDialogComponent } from './components/views/clientes/clientes-cadastro/endereco-cadastro.dialog/endereco-cadastro.dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 
@@ -46,8 +49,10 @@ import { ProdutosCadastroComponent } from './components/views/produtos/produtos-
     ClientesCadastroComponent,
     OrcamentoCadastroComponent,
     ProdutosPesquisaComponent,
-    ProdutosCadastroComponent
-    
+    ProdutosCadastroComponent,
+    EnderecoCadastroDialogComponent,
+
+
   ],
 
   imports: [
@@ -69,8 +74,8 @@ import { ProdutosCadastroComponent } from './components/views/produtos/produtos-
     MomentDateModule,
     FormsModule,
     HttpClientModule,
- 
-    
+    MatDialogModule
+
 
   ],
   providers: [],

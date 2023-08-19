@@ -1,30 +1,28 @@
 <div class="content">
+  <div class="title">
+    <h1>Cadastro de Clientes</h1>
+  </div>
 
-  <form class="formDadosClientes">
-
-    <div class="title">
-      <h1>Cadastro de Clientes</h1>
-    </div>
-
-
+  <form>
     <div class="dadosCliente">
-
-      <mat-form-field class="form">
+      <mat-form-field appearance="outline" class="form">
         <mat-label>Nome do Cliente</mat-label>
         <input matInput type="text" name="name" placeholder="Nome" [(ngModel)]="cliente.name">
       </mat-form-field>
 
-      <mat-form-field class="form">
+      <mat-form-field appearance="outline" class="form">
         <mat-label>Observações sobre o Cliente</mat-label>
         <textarea matInput type="text" name="obs" placeholder="Observações" [(ngModel)]="cliente.obs"></textarea>
       </mat-form-field>
-
     </div>
 
+    <div class="buttons" style="display: flex; justify-content: space-between;">
+      <div>
+        <button mat-raised-button color="primary">SALVAR </button>
+        <button mat-raised-button color="warn" (click)="back()">CANCELAR </button>
+      </div>
 
-    <div class="buttons">
-      <button class="mat-elevation-z8" mat-stroked-button color="primary">SALVAR </button>
-      <button class="mat-elevation-z8" mat-stroked-button color="warn">CANCELAR </button>
+      <button mat-raised-button color="accent" (click)="openDialog()">Adicionar Endereço </button>
     </div>
 
   </form>
