@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente, Endereco } from '../clientes.model';
 import { ClientesService } from '../clientes.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastroclientes',
@@ -15,17 +15,21 @@ export class ClientesCadastroComponent implements OnInit {
     enderecos: []
   } ;
 
-  constructor(private service: ClientesService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.findById();
+  constructor(private service: ClientesService, private router: ActivatedRoute,  ) {
+     
   }
 
-  findById() {
-    this.service.findById( 1).subscribe((resposta) => {
-      console.log(resposta);
-      this.cliente = resposta;
+  ngOnInit(): void {
+    this.router.queryParams.subscribe(params => {
+      const valor = params['parametro'];
+      if (valor) {
+        this.service.findById( valor).subscribe((resposta) => {
+          console.log(resposta);
+          this.cliente = resposta;
+        });
+      } 
     });
+   
   }
 
   atualizarEndereco(endereco: Endereco){

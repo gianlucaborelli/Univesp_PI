@@ -6,7 +6,7 @@
       <h1>Cadastro de Clientes</h1>
     </div>
 
-      
+
     <div class="dadosCliente">
 
       <mat-form-field class="form">
@@ -16,17 +16,17 @@
 
       <mat-form-field class="form">
         <mat-label>Observações sobre o Cliente</mat-label>
-        <textarea matInput type="text" name="obs" placeholder="Observações" [(ngModel)]="cliente.obs"></textarea>        
+        <textarea matInput type="text" name="obs" placeholder="Observações" [(ngModel)]="cliente.obs"></textarea>
       </mat-form-field>
 
     </div>
 
-    
+
     <div class="buttons">
       <button class="mat-elevation-z8" mat-stroked-button color="primary">SALVAR </button>
       <button class="mat-elevation-z8" mat-stroked-button color="warn">CANCELAR </button>
-    </div>  
-    
+    </div>
+
   </form>
 
   <mat-list>
@@ -44,11 +44,8 @@
           <button mat-button color="primary" (click)="atualizarEndereco(endereco)">Editar</button>
           <button mat-button color="warn" (click)="excluirEndereco(endereco)">Excluir</button>
         </mat-card-actions>
-
       </mat-card>
 
     </mat-list-item>
   </mat-list>
 </div>
-
-  

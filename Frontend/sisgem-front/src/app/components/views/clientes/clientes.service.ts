@@ -17,8 +17,13 @@ export class ClientesService {
     return this.http.get<Cliente[]>(url);
   }
 
-  findById(id: Number ):Observable<Cliente>{
+  findById(id: String ):Observable<Cliente>{
     const url = `${this.baseUrl}/clientes/${id}`
     return this.http.get<Cliente>(url);
+  }
+
+  delete(id: String ):Observable<Cliente>{
+    const url = `${this.baseUrl}/clientes/${id}`
+    return this.http.delete<Cliente>(url);
   }
 }

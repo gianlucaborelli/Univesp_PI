@@ -4,26 +4,23 @@
   </div>
 
   <div class="cabecalho">
-    <div class="form">
-      <mat-form-field appearance="fill">
-        <mat-label>Pesquisa de Cliente</mat-label>
-        <input class="inputName" matInput name="pesquisaText" placeholder="Informe o nome" />
-      </mat-form-field>
-      <button mat-button class="pesquisaButton" mat-raised-button color="primary">
-        Pesquisar
-      </button>
-    </div>
 
-    <div class="cadastroNovo">
-      <button mat-button class="cadastrarButton" a (click)="navegarParaClientesCadastro()" mat-raised-button
-        color="primary">
-        Cadastro de clientes
-      </button>
-    </div>
+    <mat-form-field appearance="outline" class="inputName">
+      <mat-label>Pesquisar por cliente</mat-label>
+      <input class="inputName" matInput name="pesquisaText" placeholder="Informe o nome"
+        (keyup)="applyFilter($event)" />
+    </mat-form-field>
+
+    <button mat-button class="cadastrarButton" a (click)="navegarParaClientesCadastro()" mat-raised-button
+      color="accent">
+      <mat-icon>add</mat-icon>
+      Cadastrar
+    </button>
+
   </div>
 
-  <div class="mat-elevation-z8 content-table">
-    <table class="table" mat-table [dataSource]="clientes">
+  <div class="mat-elevation-z1 content-table">
+    <table class="table" mat-table [dataSource]="dataSource">
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>ID</th>
@@ -45,10 +42,9 @@
         <th class="mat-header" mat-header-cell *matHeaderCellDef>AÇÕES</th>
         <td mat-cell *matCellDef="let row" class="actionsButtonsContainer">
           <button class="actionButton" mat-mini-fab color="primary"
-            routerLink="/base/editUserDetails/{{ row.id }}"><mat-icon>edit</mat-icon></button>
+            (click)="navegarParaClientesCadastro(row.id )"><mat-icon>edit</mat-icon></button>
           <button class="actionButton" mat-mini-fab color="warn"
-            routerLink="/base/viewUserDetails/{{ row.id }}"><mat-icon>delete</mat-icon></button>
-
+            (click)="deletarCliente(row.id )"><mat-icon>delete</mat-icon></button>
         </td>
       </ng-container>
 
