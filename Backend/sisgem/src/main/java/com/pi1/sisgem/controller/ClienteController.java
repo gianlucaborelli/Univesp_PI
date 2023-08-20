@@ -29,33 +29,34 @@ public class ClienteController {
 
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping
-    public List<Cliente> listar(){
+    public List<Cliente> listar() {
         return repositorio.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Cliente> findById(@PathVariable Long id){
+    public Optional<Cliente> findById(@PathVariable Long id) {
         return repositorio.findById(id);
     }
 
     @GetMapping("/findByName")
-    public ResponseEntity<List<Cliente>> findbyName(@RequestParam("name") String name){
-        return new ResponseEntity<List<Cliente>>(repositorio.findByNameContaining(name), HttpStatus.OK ) ;
+    public ResponseEntity<List<Cliente>> findbyName(@RequestParam("name") String name) {
+        return new ResponseEntity<List<Cliente>>(repositorio.findByNameContaining(name), HttpStatus.OK);
     }
 
     @PostMapping
-    public void salvar(@RequestBody Cliente contato){
-        repositorio.save(contato);
+    public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
+        Cliente clienteSalvo = repositorio.save(cliente);
+        return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public void alterar(@RequestBody Cliente contato){
-        if(contato.getId() > 0)
-            repositorio.save(contato);
+    public void alterar(@RequestBody Cliente cliente) {
+        if (cliente.getId() > 0)
+            repositorio.save(cliente);
     }
 
     @DeleteMapping("/{id}")
-    public void excluir(@PathVariable Long id){
+    public void excluir(@PathVariable Long id) {
         repositorio.deleteById(id);
-    }    
+    }
 }
