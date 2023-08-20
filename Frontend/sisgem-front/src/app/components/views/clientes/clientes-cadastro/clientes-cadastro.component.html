@@ -10,7 +10,8 @@
           <mat-card-title>Dados do Cliente</mat-card-title>
           <mat-card-actions>
             <button mat-fab color="primary" matTooltip="Editar dados do cliente." [matTooltipShowDelay]="500"
-              aria-label="Este botão abre um card para editar dados do cliente"><mat-icon>edit</mat-icon></button>
+              aria-label="Este botão abre um card para editar dados do cliente"
+              (click)="openEditClienteDialog()"><mat-icon>edit</mat-icon></button>
           </mat-card-actions>
         </mat-card-header>
         <mat-card-content class="dadosDoCliente" style="margin-top: 20px;">

@@ -50,9 +50,13 @@ public class ClienteController {
     }
 
     @PutMapping
-    public void alterar(@RequestBody Cliente cliente) {
-        if (cliente.getId() > 0)
-            repositorio.save(cliente);
+    public ResponseEntity<Cliente> alterar(@RequestBody Cliente cliente) {
+        Cliente clienteSalvo = new Cliente();
+        if (cliente.getId() > 0) {
+            clienteSalvo = repositorio.save(cliente);
+        }
+
+        return new ResponseEntity<>(clienteSalvo, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

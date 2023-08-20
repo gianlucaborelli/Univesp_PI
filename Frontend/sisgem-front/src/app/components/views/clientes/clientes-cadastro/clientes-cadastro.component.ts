@@ -6,7 +6,7 @@ import { Location } from '@angular/common'
 
 import { EnderecoCadastroDialogComponent } from './endereco-cadastro.dialog/endereco-cadastro.dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { BehaviorSubject } from 'rxjs';
+import { ClienteDetailDialogComponent } from './cliente-detail.dialog/cliente-detail.dialog.component';
 
 @Component({
   selector: 'app-cadastroclientes',
@@ -48,6 +48,15 @@ export class ClientesCadastroComponent implements OnInit {
     dialogConfig.data = { idCliente: this.cliente.id };
     dialogConfig.width = "40%";
     this.dialog.open(EnderecoCadastroDialogComponent, dialogConfig);
+  }
+
+  openEditClienteDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { idCliente: this.cliente.id };
+    dialogConfig.width = "40%";
+    this.dialog.open(ClienteDetailDialogComponent, dialogConfig);
   }
 
   atualizarEndereco(endereco: Endereco) {

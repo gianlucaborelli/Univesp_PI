@@ -4,9 +4,10 @@
     <form>
         <table class="content">
             <tr>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Nome</mat-label>
-                    <input [(ngModel)]="cliente.name" name="name" matInput type="text">
+                    <input [formControl]="name" [(ngModel)]="cliente.name" name="name" matInput type="text">
+                    <mat-error *ngIf="name.invalid">{{getMessage()}} </mat-error>
                 </mat-form-field>
             </tr>
             <tr>
