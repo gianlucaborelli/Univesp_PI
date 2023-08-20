@@ -6,6 +6,7 @@ import { Location } from '@angular/common'
 
 import { EnderecoCadastroDialogComponent } from './endereco-cadastro.dialog/endereco-cadastro.dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-cadastroclientes',
@@ -40,14 +41,12 @@ export class ClientesCadastroComponent implements OnInit {
     this.location.back()
   }
 
-  openDialog() {
+  openAddAddressDialog() {
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = { idCliente: this.cliente.id };
     dialogConfig.width = "40%";
-
     this.dialog.open(EnderecoCadastroDialogComponent, dialogConfig);
   }
 
