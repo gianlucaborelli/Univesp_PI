@@ -36,23 +36,14 @@
             aria-label="Este botão abre um card para adicionar novo endereço ao cliente"><mat-icon>add</mat-icon></button>
         </mat-card-actions>
       </mat-card-header>
-      <mat-list>
-        <mat-list-item *ngFor="let endereco of cliente.enderecos" class="enderecos">
-          <mat-card class="cardEndereco">
-            <mat-card-content>
-              <p>Endereço: {{ endereco.rua }}</p>
-              <p>Número: {{ endereco.numero }}</p>
-              <p>Bairro: {{ endereco.bairro }}</p>
-              <!-- Adicione outros campos de endereço, se necessário -->
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button color="primary" (click)="atualizarEndereco(endereco)">Editar</button>
-              <button mat-button color="warn" (click)="excluirEndereco(endereco)">Excluir</button>
-            </mat-card-actions>
-          </mat-card>
-        </mat-list-item>
-      </mat-list>
-    </mat-card>
 
+      <mat-grid-list cols="2" rowHeight="175px" gutterSize="10px" class="card-endereco-list">
+        <mat-grid-tile *ngFor="let endereco of cliente.enderecos" class="enderecos">
+          <app-endereco-card [endereco]="endereco" class="card-endereco"></app-endereco-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+    </mat-card>
   </div>
 </div>

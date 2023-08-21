@@ -3,10 +3,9 @@ import { ConfirmDialogComponent } from "../components/shared/confirm-dialog/conf
 import { DialogService } from "../service/dialog.service";
 
 const defaultConfirmData = {
-    title: "Confirmation",
-    message: "Are you sure you want to perform this action?"
+    title: "Confirmação",
+    message: "Você em certeza que deseja proceguir com a ação?"
 }
-
 
 export function needConfirmation(confirmData: ConfirmDialogData = defaultConfirmData) {
 
@@ -20,8 +19,6 @@ export function needConfirmation(confirmData: ConfirmDialogData = defaultConfirm
                 }
             });
         };
-
         return descriptor;
     };
-
 }

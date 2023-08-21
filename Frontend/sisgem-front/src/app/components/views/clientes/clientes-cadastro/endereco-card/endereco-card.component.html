@@ -1,0 +1,30 @@
+<mat-card class="cardEndereco">
+
+    <table>
+        <button mat-icon-button [matMenuTriggerFor]="menu" style="float: right; margin: 5px;"
+            aria-label="Ações do cadastro de endereço">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editarEndereco()">
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+            </button>
+            <button mat-menu-item (click)="excluirEndereco()">
+                <mat-icon>delete</mat-icon>
+                <span>Excluir</span>
+            </button>
+        </mat-menu>
+
+        <mat-card-content>
+            <p>Endereço: {{ endereco.rua }}</p>
+            <p>Número: {{ endereco.numero }}</p>
+            <p>Bairro: {{ endereco.bairro }}</p>
+            <!-- Adicione outros campos de endereço, se necessário -->
+        </mat-card-content>
+
+
+    </table>
+
+</mat-card>

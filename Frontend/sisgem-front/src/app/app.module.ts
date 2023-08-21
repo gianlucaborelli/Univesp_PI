@@ -37,6 +37,10 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ClienteDetailDialogComponent } from './components/views/clientes/clientes-cadastro/cliente-detail.dialog/cliente-detail.dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DialogService } from './service/dialog.service';
+import { EnderecoCardComponent } from './components/views/clientes/clientes-cadastro/endereco-card/endereco-card.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+
 
 export function initializeDialogService() {
   return () => {
@@ -59,7 +63,8 @@ export function initializeDialogService() {
     ProdutosPesquisaComponent,
     ProdutosCadastroComponent,
     EnderecoCadastroDialogComponent,
-    ClienteDetailDialogComponent
+    ClienteDetailDialogComponent,
+    EnderecoCardComponent
   ],
 
   imports: [
@@ -83,8 +88,9 @@ export function initializeDialogService() {
     HttpClientModule,
     MatDialogModule,
     MatTooltipModule,
-    MatSnackBarModule
-
+    MatSnackBarModule,
+    MatGridListModule,
+    MatMenuModule
   ],
   providers: [
     importProvidersFrom(MatDialogModule),
