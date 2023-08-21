@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ClienteDetailDialogComponent } from '../clientes-cadastro/cliente-detail.dialog/cliente-detail.dialog.component';
+import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
 
 @Component({
   selector: 'app-clientes',
@@ -49,6 +50,7 @@ export class ClientesPesquisaComponent implements OnInit {
     this.dialog.open(ClienteDetailDialogComponent, dialogConfig);
   }
 
+  @needConfirmation()
   deletarCliente(idCliente: String) {
     this.service.delete(idCliente).subscribe();
   }

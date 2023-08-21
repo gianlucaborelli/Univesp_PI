@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ENVIRONMENT_INITIALIZER, NgModule, importProvidersFrom, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -33,12 +33,16 @@ import { ProdutosPesquisaComponent } from './components/views/produtos/produtos-
 import { ProdutosCadastroComponent } from './components/views/produtos/produtos-cadastro/produtos-cadastro.component';
 import { EnderecoCadastroDialogComponent } from './components/views/clientes/clientes-cadastro/endereco-cadastro.dialog/endereco-cadastro.dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ClienteDetailDialogComponent } from './components/views/clientes/clientes-cadastro/cliente-detail.dialog/cliente-detail.dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DialogService } from './service/dialog.service';
 
-
-
+export function initializeDialogService() {
+  return () => {
+    inject(DialogService)
+  };
+}
 
 
 @NgModule({
@@ -82,7 +86,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule
 
   ],
-  providers: [],
+  providers: [
+    importProvidersFrom(MatDialogModule),
+    {
+      provide: ENVIRONMENT_INITIALIZER,
+      useFactory: initializeDialogService,
+      deps: [MatDialog],
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
