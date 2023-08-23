@@ -5,7 +5,7 @@
 
   <div class="content-cards">
     <div style="width: 50%; ">
-      <mat-card>
+      <mat-card class="card-cliente">
         <mat-card-header class="cards-header">
           <mat-card-title>Dados do Cliente</mat-card-title>
           <mat-card-actions>
@@ -15,11 +15,11 @@
           </mat-card-actions>
         </mat-card-header>
         <mat-card-content class="dadosDoCliente" style="margin-top: 20px;">
-          <mat-form-field appearance="outline" class="form">
+          <mat-form-field appearance="outline" class="inputform">
             <mat-label>Nome do Cliente</mat-label>
             <input matInput type="text" name="name" placeholder="Nome" [(ngModel)]="cliente.name">
           </mat-form-field>
-          <mat-form-field appearance="outline" class="form">
+          <mat-form-field appearance="outline" class="inputform">
             <mat-label>Observações sobre o Cliente</mat-label>
             <textarea matInput type="text" name="obs" placeholder="Observações" [(ngModel)]="cliente.obs"></textarea>
           </mat-form-field>
@@ -27,7 +27,7 @@
       </mat-card>
     </div>
 
-    <mat-card style="width: 45%;">
+    <mat-card class="card-endereco" style="width: 45%;">
       <mat-card-header class="cards-header">
         <mat-card-title>Endereços</mat-card-title>
         <mat-card-actions>
@@ -37,7 +37,7 @@
         </mat-card-actions>
       </mat-card-header>
 
-      <mat-grid-list cols="2" rowHeight="175px" gutterSize="10px" class="card-endereco-list">
+      <mat-grid-list cols="1" rowHeight="130px" gutterSize="0px" class="card-endereco-list">
         <mat-grid-tile *ngFor="let endereco of cliente.enderecos" class="enderecos">
           <app-endereco-card [endereco]="endereco" class="card-endereco"></app-endereco-card>
         </mat-grid-tile>

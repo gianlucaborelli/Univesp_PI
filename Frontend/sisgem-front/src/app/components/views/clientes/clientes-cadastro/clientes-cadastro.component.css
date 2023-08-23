@@ -1,4 +1,4 @@
-.form {
+.inputform {
     width: 100%;
 }
 
@@ -6,6 +6,16 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+
+}
+
+.card-cliente {
+    background-color: rgb(240, 240, 240);
+
+}
+
+.card-endereco {
+    background-color: rgb(240, 240, 240);
 }
 
 .cards-header {

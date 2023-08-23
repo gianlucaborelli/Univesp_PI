@@ -17,11 +17,16 @@
             </button>
         </mat-menu>
 
-        <mat-card-content>
-            <p>Endereço: {{ endereco.rua }}</p>
-            <p>Número: {{ endereco.numero }}</p>
-            <p>Bairro: {{ endereco.bairro }}</p>
-            <!-- Adicione outros campos de endereço, se necessário -->
+        <mat-card-content style="padding-top:10px; ">
+            <p> <b>{{ endereco.rua }} - Nº: {{ endereco.numero }}</b></p>
+            <p>
+                <b>Bairro: </b> {{ endereco.bairro }}
+                <b>- Cidade: </b> {{endereco.cidade}}
+                <b>- UF: </b>{{endereco.estado}}
+            </p>
+            <p>
+                <b>Observações: </b> {{endereco.obs}}
+            </p>
         </mat-card-content>
 
 
