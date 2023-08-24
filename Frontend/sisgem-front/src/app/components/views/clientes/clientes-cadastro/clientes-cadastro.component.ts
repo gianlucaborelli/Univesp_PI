@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente, Endereco } from '../clientes.model';
-import { ClientesService } from '../clientes.service';
+import { Cliente, Endereco } from '../../../../models/clientes.model';
+import { ClientesService } from '../../../../service/cliente-service/clientes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common'
 

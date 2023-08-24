@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { Produto } from '../produtos.model';
+import { Produto } from '../../../../models/produtos.model';
 import { Router } from '@angular/router';
-import { ProdutosService } from '../produtos.service';
+import { ProdutosService } from '../../../../service/produto-service/produtos.service';
+import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-produtos-pesquisa',
@@ -9,28 +11,45 @@ import { ProdutosService } from '../produtos.service';
   styleUrls: ['./produtos-pesquisa.component.css']
 })
 export class ProdutosPesquisaComponent {
-  produtos: Produto[] = [];
-  displayedColumns: string[] = ["id", "name", "obs", "acoes"];
+  dataSource!: MatTableDataSource<Produto>;
+  posts: any;
+  displayedColumns: string[] = ["id", "name", "descricao", "acoes"];
 
-  constructor(private service: ProdutosService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.findAll();
-  }
-
-  findAll() {
+  constructor(private service: ProdutosService, private router: Router) {
     this.service.findAll().subscribe((resposta) => {
       console.log(resposta);
-      this.produtos = resposta;
+      this.posts = resposta;
+      this.dataSource = new MatTableDataSource(resposta);
     });
   }
 
-  navegarParaProdutosCadastro() {
-    this.router.navigate(['/','produtoscadastro'])
-    .then(nav => {
-      console.log(nav); 
-    }, err => {
-      console.log(err) 
-    });
+  ngOnInit(): void {
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  navegarParaProdutosCadastro(productId?: String) {
+    this.router.navigate(['produtoscadastro'], { queryParams: { parametro: productId } })
+      .then(nav => {
+        console.log(nav);
+      }, err => {
+        console.log(err)
+      });
+  }
+
+  openAddNewProductDialog() {
+    //   const dialogConfig = new MatDialogConfig();
+    //   dialogConfig.disableClose = true;
+    //   dialogConfig.autoFocus = true;
+    //   dialogConfig.width = "40%";
+    //   this.dialog.open(ClienteDetailDialogComponent, dialogConfig);
+  }
+
+  @needConfirmation()
+  deletarProduto(idCliente: String) {
+    this.service.delete(idCliente).subscribe();
   }
 }

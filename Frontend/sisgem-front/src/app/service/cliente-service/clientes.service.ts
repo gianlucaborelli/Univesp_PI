@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Cliente } from './clientes.model';
+import { Cliente } from '../../models/clientes.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientesService {
-
   constructor(private http: HttpClient, private _snack: MatSnackBar) { }
 
-  baseUrl: String = 'http://localhost:8080'
+  baseUrl: String = environment.baseUrl;
 
   findAll(): Observable<Cliente[]> {
     const url = `${this.baseUrl}/clientes`

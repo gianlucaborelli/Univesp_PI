@@ -1,0 +1,15 @@
+.inputDate {
+    width: 30%;
+    font-size: 18px;
+    margin-right: 15px;
+}
+
+.inputName {
+    width: 40%;
+    font-size: 18px;
+}
+
+.cadastrarButton {
+    font-size: 20px;
+    height: 50px;
+}

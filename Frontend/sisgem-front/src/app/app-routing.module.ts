@@ -17,18 +17,18 @@ const routes: Routes = [
   {
     path: 'clientes',
     component: ClientesPesquisaComponent
-  },  
+  },
   {
     path: 'clientescadastro',
     component: ClientesCadastroComponent
   },
 
   // P R O D U T O S
-  
+
   {
     path: 'produtos',
     component: ProdutosPesquisaComponent
-  },  
+  },
   {
     path: 'produtoscadastro',
     component: ProdutosCadastroComponent
@@ -44,7 +44,7 @@ const routes: Routes = [
     component: OrcamentoCadastroComponent
   }
 
-  
+
 
 ];
 

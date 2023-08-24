@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ClientesService } from '../../clientes.service';
-import { Cliente } from '../../clientes.model';
+import { ClientesService } from '../../../../../service/cliente-service/clientes.service';
+import { Cliente } from '../../../../../models/clientes.model';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from '../clientes.model';
-import { ClientesService } from '../clientes.service';
+import { Cliente } from '../../../../models/clientes.model';
+import { ClientesService } from '../../../../service/cliente-service/clientes.service';
 import { Router } from "@angular/router";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';

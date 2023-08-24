@@ -36,7 +36,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ClienteDetailDialogComponent } from './components/views/clientes/clientes-cadastro/cliente-detail.dialog/cliente-detail.dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DialogService } from './service/dialog.service';
+import { DialogService } from './service/confirm-dialog/dialog.service';
 import { EnderecoCardComponent } from './components/views/clientes/clientes-cadastro/endereco-card/endereco-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
@@ -65,6 +65,7 @@ export function initializeDialogService() {
     EnderecoCadastroDialogComponent,
     ClienteDetailDialogComponent,
     EnderecoCardComponent
+
   ],
 
   imports: [

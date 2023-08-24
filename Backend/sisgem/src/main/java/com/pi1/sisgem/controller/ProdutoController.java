@@ -2,6 +2,7 @@ package com.pi1.sisgem.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ import com.pi1.sisgem.service.ProdutoService;
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
-    
+
     @Autowired
     private ProdutoRepositorio repositorio;
 
@@ -32,34 +33,41 @@ public class ProdutoController {
     private ProdutoService service;
 
     @GetMapping
-    public List<Produto> listar(){        
+    public List<Produto> listar() {
         return repositorio.findAll();
     }
 
     @GetMapping("/findByName")
-    public ResponseEntity<List<Produto>> findbyName(@RequestParam("name") String name){
-        return new ResponseEntity<List<Produto>>(repositorio.findByNameContaining(name), HttpStatus.OK ) ;
+    public ResponseEntity<List<Produto>> findbyName(@RequestParam("name") String name) {
+        return new ResponseEntity<List<Produto>>(repositorio.findByNameContaining(name), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Produto> findById(@PathVariable Long id) {
+        return repositorio.findById(id);
     }
 
     @GetMapping("/produtosDisponiveis")
-    public ResponseEntity<List<ProdutosDisponiveisDto>> getProdutosDisponiveis(@RequestParam("dataInicio") Date dataInicio,
-                                                                               @RequestParam("dataFinal") Date dataFinal){
-        return new ResponseEntity<List<ProdutosDisponiveisDto>>(service.getProdutosDisponiveis(dataInicio, dataFinal), HttpStatus.OK ) ;
+    public ResponseEntity<List<ProdutosDisponiveisDto>> getProdutosDisponiveis(
+            @RequestParam("dataInicio") Date dataInicio,
+            @RequestParam("dataFinal") Date dataFinal) {
+        return new ResponseEntity<List<ProdutosDisponiveisDto>>(service.getProdutosDisponiveis(dataInicio, dataFinal),
+                HttpStatus.OK);
     }
 
     @PostMapping
-    public void salvar(@RequestBody Produto produto){
+    public void salvar(@RequestBody Produto produto) {
         repositorio.save(produto);
     }
 
     @PutMapping
-    public void alterar(@RequestBody Produto produto){
-        if(produto.getId() > 0)
+    public void alterar(@RequestBody Produto produto) {
+        if (produto.getId() > 0)
             repositorio.save(produto);
     }
 
     @DeleteMapping("/{id}")
-    public void excluir(@PathVariable Long id){
+    public void excluir(@PathVariable Long id) {
         repositorio.deleteById(id);
-    }      
+    }
 }
