@@ -4,7 +4,7 @@ import { DialogService } from "../service/confirm-dialog/dialog.service";
 
 const defaultConfirmData = {
     title: "Confirmação",
-    message: "Você em certeza que deseja proceguir com a ação?"
+    message: "Você em certeza que deseja prosseguir com a ação?"
 }
 
 export function needConfirmation(confirmData: ConfirmDialogData = defaultConfirmData) {

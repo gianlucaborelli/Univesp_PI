@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Endereco } from '../../../../../models/clientes.model';
+import { Endereco } from 'src/app/models/endereco.model';
+
 
 @Component({
   selector: 'app-endereco-cadastro.dialog',

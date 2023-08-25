@@ -13,7 +13,9 @@ import { Location } from '@angular/common'
 export class ProdutosCadastroComponent implements OnInit {
   produto: Produto = {
     name: ``,
-    descricao: ``
+    descricao: ``,
+    estoque: ``,
+    precos: ``
   };
 
 
@@ -38,5 +40,7 @@ export class ProdutosCadastroComponent implements OnInit {
   back(): void {
     this.location.back()
   }
+
+  openEditClienteDialog() { }
 
 }

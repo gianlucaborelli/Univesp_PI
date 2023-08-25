@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>Fazer Novo Orçamento</h2>
+
+<mat-dialog-content>
+  <mat-stepper orientation="vertical" [linear]="true" #stepper>
+    <mat-step [stepControl]="primeiroFormControle">
+      <form [formGroup]="primeiroFormControle">
+        <ng-template matStepLabel>Selecione o Cliente</ng-template>
+
+        <mat-form-field>
+          <mat-label>Lista de Clientes</mat-label>
+          <input matInput #input type="text" placeholder="Nome do Cliente" [formControl]="searchControl"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+            <mat-option *ngFor="let option of filterOptionsList | async" [value]="option.name">
+              {{ option.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <div>
+          <button mat-button matStepperNext>Proximo</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="segundoFormControle">
+      <form [formGroup]="segundoFormControle">
+        <ng-template matStepLabel>Selecione o endereço de Entrega</ng-template>
+        <mat-form-field>
+          <mat-label>Endereços do Cliente</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Endereço" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Voltar</button>
+          <button mat-button matStepperNext>Proximo</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="terceiroFormControle">
+      <form [formGroup]="terceiroFormControle">
+        <ng-template matStepLabel>Selecione os Produtos</ng-template>
+        <mat-form-field>
+          <mat-label>Endereços do Cliente</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Endereço" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Voltar</button>
+          <button mat-button matStepperNext>Proximo</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+
+</mat-dialog-content>
+
+<mat-dialog-actions [align]="'end'">
+  <button mat-raised-button color="primary" class="mat-raised-button" (click)="salvar()">Salvar</button>
+  <button mat-raised-button color="warn" class="mat-raised-button" (click)="close()">Cancelar</button>
+</mat-dialog-actions>

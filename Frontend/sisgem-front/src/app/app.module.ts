@@ -40,6 +40,11 @@ import { DialogService } from './service/confirm-dialog/dialog.service';
 import { EnderecoCardComponent } from './components/views/clientes/clientes-cadastro/endereco-card/endereco-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { OrcamentoNovoCadastroComponent } from './components/views/orcamento/orcamento-novo-cadastro/orcamento-novo-cadastro.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+
 
 
 export function initializeDialogService() {
@@ -47,7 +52,6 @@ export function initializeDialogService() {
     inject(DialogService)
   };
 }
-
 
 @NgModule({
   declarations: [
@@ -64,7 +68,8 @@ export function initializeDialogService() {
     ProdutosCadastroComponent,
     EnderecoCadastroDialogComponent,
     ClienteDetailDialogComponent,
-    EnderecoCardComponent
+    EnderecoCardComponent,
+    OrcamentoNovoCadastroComponent
 
   ],
 
@@ -91,7 +96,9 @@ export function initializeDialogService() {
     MatTooltipModule,
     MatSnackBarModule,
     MatGridListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatStepperModule,
+    MatAutocompleteModule
   ],
   providers: [
     importProvidersFrom(MatDialogModule),

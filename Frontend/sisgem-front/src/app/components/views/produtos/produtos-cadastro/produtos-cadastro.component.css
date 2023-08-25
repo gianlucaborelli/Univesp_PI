@@ -1,0 +1,19 @@
+.inputform {
+    width: 100%;
+}
+
+.content-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.card-produto {
+    background-color: rgb(240, 240, 240);
+}
+
+.cards-header {
+    display: flex;
+    justify-content: space-between;
+}

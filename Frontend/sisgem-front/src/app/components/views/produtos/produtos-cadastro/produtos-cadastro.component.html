@@ -1,33 +1,47 @@
 <div class="content">
-    <div class="title">
-        <h1>Cadastro de Produtos</h1>
+  <div class="title">
+    <h1>Cadastro de Produtos</h1>
+  </div>
+
+  <div class="content-cards">
+    <div style="width: 50%;">
+      <mat-card class="card-produto">
+
+        <mat-card-header class="cards-header">
+          <mat-card-title>Dados do produto</mat-card-title>
+          <mat-card-actions>
+            <button mat-fab color="primary" matTooltip="Editar dados do produto." [matTooltipShowDelay]="500"
+              aria-label="Este botão abre um popUp para editar dados do produto"
+              (click)="openEditClienteDialog()"><mat-icon>edit</mat-icon></button>
+          </mat-card-actions>
+        </mat-card-header>
+
+        <mat-card-content class="dadosDoProduto" style="margin-top: 20px;">
+          <mat-form-field appearance="outline" class="inputform">
+            <mat-label>Nome do Produto</mat-label>
+            <input matInput type="text" name="name" placeholder="Nome" [(ngModel)]="produto.name">
+          </mat-form-field>
+
+          <div style="display: flex; justify-content: space-between;">
+            <mat-form-field appearance="outline" floatLabel="always">
+              <mat-label>Preço do Produto</mat-label>
+              <input matInput type="number" name="preco" placeholder="preco" [(ngModel)]="produto.precos">
+              <span matTextPrefix>R$&nbsp;</span>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Quantidade em Estoque</mat-label>
+              <input matInput type="number" name="name" placeholder="Nome" [(ngModel)]="produto.estoque">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="inputform">
+            <mat-label>Observações sobre o Produto</mat-label>
+            <textarea matInput type="text" name="obs" placeholder="Observações"
+              [(ngModel)]="produto.descricao"></textarea>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
     </div>
-
-    <mat-form-field class="form">
-        <mat-label>Nome</mat-label>
-        <input matInput type="text" name="nome" placeholder="Insira o Nome">
-    </mat-form-field>
-    <br>
-
-    <mat-form-field class="form">
-        <mat-label>Descrição do produto</mat-label>
-        <input matInput type="text" name="Descrição do produto" placeholder="Descreva o Produto">
-    </mat-form-field>
-
-    <br>
-
-    <mat-form-field class="form">
-        <mat-label>Estoque do produto</mat-label>
-        <input matInput type="number" name="Estoque do produto" placeholder="Quantidade de Produto">
-    </mat-form-field>
-    <mat-form-field class="form">
-        <mat-label>Valor do produto</mat-label>
-        <input matInput type="number" name="Valor do produto" placeholder="Valor do produto" onkeypress="$">
-    </mat-form-field>
-
-    <div class="buttons">
-        <button class="mat-elevation-z8" mat-stroked-button color="primary">SALVAR </button>
-        <button class="mat-elevation-z8" mat-stroked-button color="warn">CANCELAR </button>
-    </div>
-
+  </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Endereco } from '../../../../../models/clientes.model';
+import { Endereco } from 'src/app/models/endereco.model';
+
 
 @Component({
   selector: 'app-endereco-card',

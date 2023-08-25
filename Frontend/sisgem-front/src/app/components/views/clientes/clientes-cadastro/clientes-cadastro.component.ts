@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente, Endereco } from '../../../../models/clientes.model';
+import { Cliente } from '../../../../models/clientes.model';
 import { ClientesService } from '../../../../service/cliente-service/clientes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common'
@@ -7,6 +7,7 @@ import { Location } from '@angular/common'
 import { EnderecoCadastroDialogComponent } from './endereco-cadastro.dialog/endereco-cadastro.dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ClienteDetailDialogComponent } from './cliente-detail.dialog/cliente-detail.dialog.component';
+import { Endereco } from 'src/app/models/endereco.model';
 
 @Component({
   selector: 'app-cadastroclientes',
