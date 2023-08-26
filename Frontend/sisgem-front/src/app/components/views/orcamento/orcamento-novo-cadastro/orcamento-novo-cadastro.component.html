@@ -1,14 +1,14 @@
 <h2 mat-dialog-title>Fazer Novo Orçamento</h2>
 
 <mat-dialog-content>
-  <mat-stepper orientation="vertical" [linear]="true" #stepper>
-    <mat-step [stepControl]="primeiroFormControle">
-      <form [formGroup]="primeiroFormControle">
-        <ng-template matStepLabel>Selecione o Cliente</ng-template>
+  <mat-stepper orientation="vertical" #stepper>
 
-        <mat-form-field>
+    <mat-step [stepControl]="searchControl">
+      <form>
+        <ng-template matStepLabel>Selecione o Cliente</ng-template>
+        <mat-form-field appearance="outline" style="width: 90%;">
           <mat-label>Lista de Clientes</mat-label>
-          <input matInput #input type="text" placeholder="Nome do Cliente" [formControl]="searchControl"
+          <input matInput type="text" placeholder="Nome do Cliente" [formControl]="searchControl"
             [matAutocomplete]="auto">
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
             <mat-option *ngFor="let option of filterOptionsList | async" [value]="option.name">
@@ -16,16 +16,16 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
-
         <div>
           <button mat-button matStepperNext>Proximo</button>
         </div>
       </form>
     </mat-step>
+
     <mat-step [stepControl]="segundoFormControle">
       <form [formGroup]="segundoFormControle">
         <ng-template matStepLabel>Selecione o endereço de Entrega</ng-template>
-        <mat-form-field>
+        <mat-form-field appearance="outline" style="width: 90%;">
           <mat-label>Endereços do Cliente</mat-label>
           <input matInput formControlName="secondCtrl" placeholder="Endereço" required>
         </mat-form-field>
@@ -35,6 +35,7 @@
         </div>
       </form>
     </mat-step>
+
     <mat-step [stepControl]="terceiroFormControle">
       <form [formGroup]="terceiroFormControle">
         <ng-template matStepLabel>Selecione os Produtos</ng-template>
@@ -48,6 +49,7 @@
         </div>
       </form>
     </mat-step>
+
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
       <p>You are now done.</p>
@@ -56,6 +58,7 @@
         <button mat-button (click)="stepper.reset()">Reset</button>
       </div>
     </mat-step>
+
   </mat-stepper>
 
 </mat-dialog-content>

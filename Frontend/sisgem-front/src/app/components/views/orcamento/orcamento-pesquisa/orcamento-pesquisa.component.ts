@@ -53,11 +53,12 @@ export class OrcamentoPesquisaComponent {
     end: new FormControl<Date | null>(null),
   });
 
-  openAddNewCostumerDialog() {
+  openAddNewOrcamentoDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
+    dialogConfig.width = "70%";
+    dialogConfig.height = "80%";
     this.dialog.open(OrcamentoNovoCadastroComponent, dialogConfig);
   }
 

@@ -13,27 +13,27 @@ import { ClientesService } from 'src/app/service/cliente-service/clientes.servic
   styleUrls: ['./orcamento-novo-cadastro.component.css']
 })
 export class OrcamentoNovoCadastroComponent implements OnInit {
-  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
   listaDeClientes!: Cliente[];
   filterOptionsList!: Observable<Cliente[]>;
   searchControl = new FormControl();
 
+  selectedCliente: Cliente | undefined;
+
   constructor(private dialogRef: MatDialogRef<OrcamentoNovoCadastroComponent>,
     private _formBuilder: FormBuilder,
-    private clienteService: ClientesService) {
-
-    this.clienteService.findAll().subscribe((resposta) => {
-      console.log(resposta);
-      this.listaDeClientes = resposta;
-    });
-  }
+    private clienteService: ClientesService) { }
 
 
   ngOnInit(): void {
-    this.filterOptionsList = this.searchControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || ''))
-    );
+    this.clienteService.findAll().subscribe((resposta) => {
+      console.log(resposta);
+      this.listaDeClientes = resposta;
+
+      this.filterOptionsList = this.searchControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || ''))
+      );
+    });
   }
 
   private _filter(value: String): Cliente[] {
@@ -43,11 +43,13 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent): void {
-    console.log(event.option.value);
+    const selectedName = event.option.value;
+    this.selectedCliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
+    console.log(this.selectedCliente);
   }
 
   primeiroFormControle = this._formBuilder.group({
-    //searchControl: ['', Validators.required],
+    searchControl: ['', Validators.required],
   });
   segundoFormControle = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
