@@ -1,7 +1,7 @@
 
 export interface Endereco {
     id?: String;
-    idCliente: String;
+    clienteId: String;
     cep: String;
     rua: String;
     numero: String;

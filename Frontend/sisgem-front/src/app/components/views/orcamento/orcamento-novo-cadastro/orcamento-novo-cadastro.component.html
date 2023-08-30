@@ -1,69 +1,103 @@
-<h2 mat-dialog-title>Fazer Novo Orçamento</h2>
+<div style="display: flex; justify-content: space-between;">
+  <h2 mat-dialog-title>Fazer Novo Orçamento</h2>
+
+  <button mat-icon-button style="margin: 5px;" aria-label="Fecha o dialogo de cadastro de novo Orçamento"
+    (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
 
 <mat-dialog-content>
-  <mat-stepper orientation="vertical" #stepper>
+  <form [formGroup]="novoOrcamento">
+    <mat-stepper #stepper>
 
-    <mat-step [stepControl]="searchControl">
-      <form>
-        <ng-template matStepLabel>Selecione o Cliente</ng-template>
-        <mat-form-field appearance="outline" style="width: 90%;">
-          <mat-label>Lista de Clientes</mat-label>
-          <input matInput type="text" placeholder="Nome do Cliente" [formControl]="searchControl"
-            [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-            <mat-option *ngFor="let option of filterOptionsList | async" [value]="option.name">
-              {{ option.name }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Proximo</button>
+      <mat-step [stepControl]="DadosDoClienteForm">
+        <div formGroupName="dadosDoCliente">
+          <ng-template matStepLabel>Selecione o Cliente</ng-template>
+          <mat-form-field appearance="outline" style="width: 90%;">
+            <mat-label>Lista de Clientes</mat-label>
+            <input matInput type="text" placeholder="Nome do Cliente" formControlName="searchControl"
+              [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+              <mat-option *ngFor="let option of filterOptionsList | async" [value]="option.name">
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <div [align]="'end'">
+            <button mat-raised-button color="primary" matStepperNext>Proximo</button>
+          </div>
         </div>
-      </form>
-    </mat-step>
+      </mat-step>
 
-    <mat-step [stepControl]="segundoFormControle">
-      <form [formGroup]="segundoFormControle">
-        <ng-template matStepLabel>Selecione o endereço de Entrega</ng-template>
-        <mat-form-field appearance="outline" style="width: 90%;">
-          <mat-label>Endereços do Cliente</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Endereço" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Voltar</button>
-          <button mat-button matStepperNext>Proximo</button>
+      <mat-step [stepControl]="EnderecoDoClienteForm">
+        <div formGroupName="enderecoDoCliente">
+          <ng-template matStepLabel>Selecione o endereço de Entrega</ng-template>
+          <mat-form-field appearance="outline" style="width: 90%;">
+            <mat-label>Endereços do Cliente</mat-label>
+            <input matInput formControlName="enderecoControl" placeholder="Endereço">
+          </mat-form-field>
+          <div [align]="'end'">
+            <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+            <button mat-raised-button color="primary" matStepperNext>Proximo</button>
+          </div>
         </div>
-      </form>
-    </mat-step>
+      </mat-step>
 
-    <mat-step [stepControl]="terceiroFormControle">
-      <form [formGroup]="terceiroFormControle">
-        <ng-template matStepLabel>Selecione os Produtos</ng-template>
-        <mat-form-field>
-          <mat-label>Endereços do Cliente</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Endereço" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Voltar</button>
-          <button mat-button matStepperNext>Proximo</button>
+      <mat-step [stepControl]="ProdutosDoOrcamentoForm">
+        <form formGroupName="selecaoDeProdutos">
+          <ng-template matStepLabel>Selecione os Produtos</ng-template>
+
+          <div style="display: flex; justify-content: space-between;">
+            <div>
+              <h2>Produtos em Estoque</h2>
+              <mat-list>
+                <mat-list-item *ngFor="let produto of produtosEmEstoque">
+                  {{ produto.name }} - {{ produto.quantidade }} disponíveis
+                  <button mat-icon-button (click)="adicionarProduto(produto)">
+                    <mat-icon>Adicionar</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="removerProduto(produto)">
+                    <mat-icon>remover</mat-icon>
+                  </button>
+                </mat-list-item>
+              </mat-list>
+            </div>
+
+            <div>
+              <h2>Produtos Selecionados</h2>
+              <mat-list>
+                <mat-list-item *ngFor="let produto of produtosSelecionados">
+                  {{produto.produto.name}} - Quantidade: {{ produto.quantidade }}
+                  <button mat-icon-button (click)="removerProdutoSelecionado(produto)">
+                    <mat-icon>Deletar</mat-icon>
+                  </button>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+
+
+
+
+
+          <div [align]="'end'">
+            <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+            <button mat-raised-button color="primary" matStepperNext>Proximo</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Confirmação</ng-template>
+        <p>Os dados estão corretos?.</p>
+        <div [align]="'end'">
+          <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+          <button mat-raised-button color="accent">Salvar</button>
         </div>
-      </form>
-    </mat-step>
+      </mat-step>
 
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-
-  </mat-stepper>
-
+    </mat-stepper>
+  </form>
 </mat-dialog-content>
-
-<mat-dialog-actions [align]="'end'">
-  <button mat-raised-button color="primary" class="mat-raised-button" (click)="salvar()">Salvar</button>
-  <button mat-raised-button color="warn" class="mat-raised-button" (click)="close()">Cancelar</button>
-</mat-dialog-actions>

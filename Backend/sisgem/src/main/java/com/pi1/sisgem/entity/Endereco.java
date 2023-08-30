@@ -9,10 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 @Entity
-public class Endereco  {
-    
+public class Endereco {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +25,7 @@ public class Endereco  {
     private String rua;
 
     @Column(nullable = false)
-    private String numero; //pode existir endereços com númeração com letras exemplo casa 100A e casa 100B
+    private String numero; // pode existir endereços com númeração com letras exemplo casa 100A e casa 100B
 
     @Column(nullable = false)
     private String bairro;
@@ -34,12 +35,15 @@ public class Endereco  {
 
     @Column(nullable = false)
     private String estado;
-    
+
     @Column(nullable = false)
     private String obs;
 
+    @Transient
+    private Long clienteId;
+
     @ManyToOne
-    @JoinColumn(name = "fk_cliente_id")
+    @JoinColumn(name = "cliente_id")
     @JsonBackReference
     private Cliente cliente;
 
@@ -113,5 +117,16 @@ public class Endereco  {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }    
+    }
+
+    public Long getClienteId() {
+        if (clienteId == null) {
+            return this.cliente.getId();
+        }
+        return this.clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
+    }
 }
