@@ -3,14 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Endereco } from 'src/app/models/endereco.model';
 import { EnderecoService } from 'src/app/service/endereco.service';
 
-
 @Component({
   selector: 'app-endereco-cadastro.dialog',
   templateUrl: './endereco-cadastro.dialog.component.html',
   styleUrls: ['./endereco-cadastro.dialog.component.css']
 })
 export class EnderecoCadastroDialogComponent implements OnInit {
-
 
   endereco: Endereco = {
     cep: '',
@@ -26,7 +24,19 @@ export class EnderecoCadastroDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<EnderecoCadastroDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data: any,
     private service: EnderecoService) {
-    this.endereco.clienteId = data.idCliente;
+
+    if (data != null) {
+      if (data.idCliente != null) {
+        this.endereco.clienteId = data.idCliente;
+      } else if (data.enderecoId != null) {
+        this.service.findById(data.enderecoId).subscribe((resposta) => {
+          console.log(resposta);
+          this.endereco = resposta;
+        });
+      }
+    } else {
+      this.service.mensagem("Sem dados para iniciar a interaçao com endereço!")
+    }
   }
 
   ngOnInit() {
@@ -35,14 +45,13 @@ export class EnderecoCadastroDialogComponent implements OnInit {
   salvar() {
     this.service.create(this.endereco).subscribe((resposta) => {
       this.close();
-      this.service.mensagem('Cliente atualizado com sucesso!');
+      this.service.mensagem('Endereço cadastrado com sucesso!');
     }, err => {
       for (let i = 0; i < err.error.errors.length; i++) {
         this.service.mensagem(err.error.errors[i].message)
       }
     });
   }
-
 
   close() {
     this.dialogRef.close();

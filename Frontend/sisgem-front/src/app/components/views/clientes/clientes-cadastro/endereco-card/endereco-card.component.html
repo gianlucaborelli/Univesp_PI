@@ -7,11 +7,11 @@
         </button>
 
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="editarEndereco()">
+            <button mat-menu-item (click)="editarEndereco(endereco.id!)">
                 <mat-icon>edit</mat-icon>
                 <span>Editar</span>
             </button>
-            <button mat-menu-item (click)="excluirEndereco()">
+            <button mat-menu-item (click)="excluirEndereco(endereco.id!)">
                 <mat-icon>delete</mat-icon>
                 <span>Excluir</span>
             </button>

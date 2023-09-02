@@ -14,9 +14,19 @@ export class EnderecoService {
 
   baseUrl: String = environment.baseUrl;
 
+  findById(id: String): Observable<Endereco> {
+    const url = `${this.baseUrl}/enderecos/${id}`
+    return this.http.get<Endereco>(url);
+  }
+
   create(body: Endereco): Observable<Endereco> {
     const url = `${this.baseUrl}/enderecos`;
     return this.http.post<Endereco>(url, body);
+  }
+
+  delete(id: String): Observable<Endereco> {
+    const url = `${this.baseUrl}/enderecos/${id}`
+    return this.http.delete<Endereco>(url);
   }
 
   mensagem(str: String): void {

@@ -59,12 +59,4 @@ export class ClientesCadastroComponent implements OnInit {
     dialogConfig.width = "40%";
     this.dialog.open(ClienteDetailDialogComponent, dialogConfig);
   }
-
-  atualizarEndereco(endereco: Endereco) {
-
-  }
-
-  excluirEndereco(endereco: Endereco) {
-
-  }
 }

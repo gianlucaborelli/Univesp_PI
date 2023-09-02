@@ -1,6 +1,7 @@
 package com.pi1.sisgem.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,16 @@ public class EnderecoController {
     @GetMapping
     public List<Endereco> listar() {
         return repositorio.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Endereco> findById(@PathVariable Long id) {
+        return repositorio.findById(id);
+    }
+
+    @GetMapping("/{cep}")
+    public Optional<Endereco> consultaPorCep(@PathVariable String cep) {
+        return repositorio.findById(id);
     }
 
     @PostMapping
