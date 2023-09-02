@@ -3,11 +3,11 @@ export interface Endereco {
     id?: String;
     clienteId: String;
     cep: String;
-    rua: String;
+    logradouro: String;
     numero: String;
     bairro: String;
-    cidade: String;
-    estado: String;
+    localidade: String;
+    uf: String;
     obs: String;
 }
 

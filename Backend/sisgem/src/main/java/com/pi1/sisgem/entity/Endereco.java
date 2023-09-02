@@ -63,12 +63,12 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public String getRua() {
+    public String getLogradouro() {
         return logradouro;
     }
 
-    public void setRua(String rua) {
-        this.logradouro = rua;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getNumero() {
@@ -87,20 +87,20 @@ public class Endereco {
         this.bairro = bairro;
     }
 
-    public String getCidade() {
+    public String getLocalidade() {
         return localidade;
     }
 
-    public void setCidade(String cidade) {
-        this.localidade = cidade;
+    public void setLocalidade(String localidade) {
+        this.localidade = localidade;
     }
 
-    public String getEstado() {
+    public String getUf() {
         return uf;
     }
 
-    public void setEstado(String estado) {
-        this.uf = estado;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
     public String getObs() {

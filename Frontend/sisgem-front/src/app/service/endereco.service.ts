@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Endereco } from '../models/endereco.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { EnderecoAutocomplete } from '../models/endereco-autocomplete.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,11 @@ export class EnderecoService {
   findById(id: String): Observable<Endereco> {
     const url = `${this.baseUrl}/enderecos/${id}`
     return this.http.get<Endereco>(url);
+  }
+
+  findByCep(cep: String): Observable<EnderecoAutocomplete> {
+    const url = `${this.baseUrl}/enderecos/findByCep/${cep}`
+    return this.http.get<EnderecoAutocomplete>(url);
   }
 
   create(body: Endereco): Observable<Endereco> {

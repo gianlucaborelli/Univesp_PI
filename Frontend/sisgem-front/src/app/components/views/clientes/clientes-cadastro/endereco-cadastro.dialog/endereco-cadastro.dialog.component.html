@@ -5,13 +5,13 @@
         <tr>
             <mat-form-field appearance="outline">
                 <mat-label>C.E.P.</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.cep">
+                <input matInput type="text" [(ngModel)]="endereco.cep" (blur)="focusOutFunction()">
             </mat-form-field>
         </tr>
         <tr style="display: flex">
             <mat-form-field appearance="outline" style="width: 90%;">
                 <mat-label>Rua</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.rua">
+                <input matInput type="text" [(ngModel)]="endereco.logradouro">
             </mat-form-field>
             <mat-form-field appearance="outline" style="flex-grow: 1;">
                 <mat-label>Número</mat-label>
@@ -25,13 +25,13 @@
             </mat-form-field>
             <mat-form-field appearance="outline" style="flex-grow: 1;">
                 <mat-label>Cidade</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.cidade">
+                <input matInput type="text" [(ngModel)]="endereco.localidade">
             </mat-form-field>
         </tr>
         <tr>
             <mat-form-field appearance="outline">
                 <mat-label>Estado</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.estado">
+                <input matInput type="text" [(ngModel)]="endereco.uf">
             </mat-form-field>
         </tr>
         <tr>

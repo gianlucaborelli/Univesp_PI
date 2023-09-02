@@ -13,11 +13,11 @@ export class EnderecoCadastroDialogComponent implements OnInit {
   endereco: Endereco = {
     cep: '',
     clienteId: '',
-    rua: '',
+    logradouro: '',
     numero: '',
     bairro: '',
-    cidade: '',
-    estado: '',
+    localidade: '',
+    uf: '',
     obs: ''
   }
 
@@ -40,6 +40,19 @@ export class EnderecoCadastroDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  focusOutFunction() {
+    this.service.findByCep(this.endereco.cep!).subscribe((resposta) => {
+      this.endereco.logradouro = resposta.logradouro;
+      this.endereco.bairro = resposta.bairro;
+      this.endereco.localidade = resposta.localidade;
+      this.endereco.uf = resposta.uf;
+    }, err => {
+      for (let i = 0; i < err.error.errors.length; i++) {
+        this.service.mensagem(err.error.errors[i].message)
+      }
+    });
   }
 
   salvar() {
