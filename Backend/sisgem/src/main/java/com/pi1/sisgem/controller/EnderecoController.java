@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pi1.sisgem.data.ClienteRepositorio;
 import com.pi1.sisgem.data.EnderecoRepositorio;
+import com.pi1.sisgem.data.DTO.enderecos.autoCompleteEnderecoResponse;
 import com.pi1.sisgem.entity.Cliente;
 import com.pi1.sisgem.entity.Endereco;
+import com.pi1.sisgem.exception.ResourceNotFound;
+import com.pi1.sisgem.service.EnderecoService;
 
 @RestController
 @RequestMapping("/enderecos")
@@ -26,6 +30,8 @@ public class EnderecoController {
     private EnderecoRepositorio repositorio;
     @Autowired
     private ClienteRepositorio clienteRepository;
+    @Autowired
+    private EnderecoService service;
 
     @GetMapping
     public List<Endereco> listar() {
@@ -37,9 +43,23 @@ public class EnderecoController {
         return repositorio.findById(id);
     }
 
-    @GetMapping("/{cep}")
-    public Optional<Endereco> consultaPorCep(@PathVariable String cep) {
-        return repositorio.findById(id);
+    @GetMapping("/findByCep/{cep}")
+    public ResponseEntity<autoCompleteEnderecoResponse> consultaPorCep(@PathVariable String cep)
+            throws ResourceNotFound {
+
+        cep = cep.replace("-", "");
+
+        if (!cep.matches("\\d+") | cep.length() != 8) {
+            throw new ResourceNotFound("CEP inválido", HttpStatus.BAD_REQUEST);
+        }
+
+        autoCompleteEnderecoResponse endereco = service.findByCep(cep);
+
+        if (endereco.getLocalidade() == null || endereco.getUf() == null) {
+            throw new ResourceNotFound("CEP não encontrado", HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(endereco);
     }
 
     @PostMapping

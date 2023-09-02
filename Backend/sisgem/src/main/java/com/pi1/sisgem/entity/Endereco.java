@@ -22,7 +22,7 @@ public class Endereco {
     private String cep;
 
     @Column(nullable = false)
-    private String rua;
+    private String logradouro;
 
     @Column(nullable = false)
     private String numero; // pode existir endereços com númeração com letras exemplo casa 100A e casa 100B
@@ -31,10 +31,10 @@ public class Endereco {
     private String bairro;
 
     @Column(nullable = false)
-    private String cidade;
+    private String localidade;
 
     @Column(nullable = false)
-    private String estado;
+    private String uf;
 
     @Column(nullable = false)
     private String obs;
@@ -64,11 +64,11 @@ public class Endereco {
     }
 
     public String getRua() {
-        return rua;
+        return logradouro;
     }
 
     public void setRua(String rua) {
-        this.rua = rua;
+        this.logradouro = rua;
     }
 
     public String getNumero() {
@@ -88,19 +88,19 @@ public class Endereco {
     }
 
     public String getCidade() {
-        return cidade;
+        return localidade;
     }
 
     public void setCidade(String cidade) {
-        this.cidade = cidade;
+        this.localidade = cidade;
     }
 
     public String getEstado() {
-        return estado;
+        return uf;
     }
 
     public void setEstado(String estado) {
-        this.estado = estado;
+        this.uf = estado;
     }
 
     public String getObs() {
