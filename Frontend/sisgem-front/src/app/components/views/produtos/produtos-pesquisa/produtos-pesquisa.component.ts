@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ProdutosService } from '../../../../service/produto-service/produtos.service';
 import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ProdutosDetailComponent } from '../produtos-detail/produtos-detail.component';
 
 @Component({
   selector: 'app-produtos-pesquisa',
@@ -15,7 +17,7 @@ export class ProdutosPesquisaComponent {
   posts: any;
   displayedColumns: string[] = ["id", "name", "descricao", "acoes"];
 
-  constructor(private service: ProdutosService, private router: Router) {
+  constructor(private service: ProdutosService, private router: Router, private dialog: MatDialog) {
     this.service.findAll().subscribe((resposta) => {
       console.log(resposta);
       this.posts = resposta;
@@ -41,11 +43,11 @@ export class ProdutosPesquisaComponent {
   }
 
   openAddNewProductDialog() {
-    //   const dialogConfig = new MatDialogConfig();
-    //   dialogConfig.disableClose = true;
-    //   dialogConfig.autoFocus = true;
-    //   dialogConfig.width = "40%";
-    //   this.dialog.open(ClienteDetailDialogComponent, dialogConfig);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "40%";
+    this.dialog.open(ProdutosDetailComponent, dialogConfig);
   }
 
   @needConfirmation()

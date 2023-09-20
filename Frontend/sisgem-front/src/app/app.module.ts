@@ -43,6 +43,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { OrcamentoNovoCadastroComponent } from './components/views/orcamento/orcamento-novo-cadastro/orcamento-novo-cadastro.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ProdutosDetailComponent } from './components/views/produtos/produtos-detail/produtos-detail.component';
 
 
 
@@ -69,7 +70,8 @@ export function initializeDialogService() {
     EnderecoCadastroDialogComponent,
     ClienteDetailDialogComponent,
     EnderecoCardComponent,
-    OrcamentoNovoCadastroComponent
+    OrcamentoNovoCadastroComponent,
+    ProdutosDetailComponent
 
   ],
 

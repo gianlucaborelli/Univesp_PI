@@ -24,7 +24,6 @@ export class ClienteDetailDialogComponent implements OnInit {
     }
   }
 
-
   cliente: Cliente = {
     name: '',
     obs: ''
@@ -58,7 +57,6 @@ export class ClienteDetailDialogComponent implements OnInit {
         }
       })
     }
-
   }
 
   getMessage() {

@@ -56,14 +56,19 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public void salvar(@RequestBody Produto produto) {
-        repositorio.save(produto);
+    public ResponseEntity<Produto> salvar(@RequestBody Produto produto) {
+        Produto produtosalvo = repositorio.save(produto);
+        return new ResponseEntity<>(produtosalvo, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public void alterar(@RequestBody Produto produto) {
-        if (produto.getId() > 0)
-            repositorio.save(produto);
+    public ResponseEntity<Produto> alterar(@RequestBody Produto produto) {
+        Produto produtoSalvo = new Produto();
+        if (produto.getId() > 0) {
+            produtoSalvo = repositorio.save(produto);
+        }
+
+        return new ResponseEntity<>(produtoSalvo, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

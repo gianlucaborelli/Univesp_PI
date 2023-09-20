@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Produto } from 'src/app/models/produtos.model';
 import { ProdutosService } from 'src/app/service/produto-service/produtos.service';
 import { Location } from '@angular/common'
+import { ProdutosDetailComponent } from '../produtos-detail/produtos-detail.component';
 
 @Component({
   selector: 'app-produtos-cadastro',
@@ -18,8 +19,10 @@ export class ProdutosCadastroComponent implements OnInit {
     precos: ``
   };
 
-
-  constructor(private service: ProdutosService, private router: ActivatedRoute, private location: Location, private dialog: MatDialog) {
+  constructor(private service: ProdutosService,
+    private router: ActivatedRoute,
+    private location: Location,
+    private dialog: MatDialog) {
   }
 
 
@@ -41,6 +44,13 @@ export class ProdutosCadastroComponent implements OnInit {
     this.location.back()
   }
 
-  openEditClienteDialog() { }
+  openEditClienteDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { idProduto: this.produto.id };
+    dialogConfig.width = "40%";
+    this.dialog.open(ProdutosDetailComponent, dialogConfig);
+  }
 
 }

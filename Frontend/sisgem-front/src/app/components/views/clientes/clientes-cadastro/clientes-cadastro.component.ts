@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../../../../models/clientes.model';
 import { ClientesService } from '../../../../service/cliente-service/clientes.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
-
 import { EnderecoCadastroDialogComponent } from './endereco-cadastro.dialog/endereco-cadastro.dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ClienteDetailDialogComponent } from './cliente-detail.dialog/cliente-detail.dialog.component';
-import { Endereco } from 'src/app/models/endereco.model';
 
 @Component({
   selector: 'app-cadastroclientes',
@@ -22,7 +20,10 @@ export class ClientesCadastroComponent implements OnInit {
     enderecos: []
   };
 
-  constructor(private service: ClientesService, private router: ActivatedRoute, private location: Location, private dialog: MatDialog) {
+  constructor(private service: ClientesService,
+    private router: ActivatedRoute,
+    private location: Location,
+    private dialog: MatDialog) {
 
   }
 
