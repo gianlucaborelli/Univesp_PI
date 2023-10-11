@@ -7,44 +7,121 @@ import { ClientesCadastroComponent } from './components/views/clientes/clientes-
 import { OrcamentoCadastroComponent } from './components/views/orcamento/orcamento-cadastro/orcamento-cadastro.component';
 import { ProdutosPesquisaComponent } from './components/views/produtos/produtos-pesquisa/produtos-pesquisa.component';
 import { ProdutosCadastroComponent } from './components/views/produtos/produtos-cadastro/produtos-cadastro.component';
+import { SecureInnerPageGuard } from './components/shared/guard/secure-inner-page.guard';
+import { SignInComponent } from './components/views/login/sign-in/sign-in.component';
+import { AuthGuard } from './components/shared/guard/auth.guard';
+import { SignUpComponent } from './components/views/login/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './components/views/login/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/views/login/verify-email/verify-email.component';
 
 const routes: Routes = [
   {
+
+    path: 'home',
+
+    component: HomeComponent,
+
+    canActivate: [SecureInnerPageGuard]
+
+  },
+
+
+
+  // L O G I N
+
+
+
+  {
+
     path: '',
-    component: HomeComponent
+
+    redirectTo: '/sign-in',
+
+    pathMatch: 'full'
+
   },
+
+
+
+  { path: 'sign-in', component: SignInComponent, canActivate: [AuthGuard] },
+
+  { path: 'register-user', component: SignUpComponent, canActivate: [AuthGuard] },
+
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+
+  { path: 'verify-email-address', component: VerifyEmailComponent },
+
+
+
   // C L I E N T E S
+
   {
+
     path: 'clientes',
-    component: ClientesPesquisaComponent
+
+    component: ClientesPesquisaComponent,
+
+    canActivate: [SecureInnerPageGuard]
+
   },
+
   {
+
     path: 'clientescadastro',
-    component: ClientesCadastroComponent
+
+    component: ClientesCadastroComponent,
+
+    canActivate: [SecureInnerPageGuard]
+
   },
+
+
 
   // P R O D U T O S
 
   {
+
     path: 'produtos',
-    component: ProdutosPesquisaComponent
+
+    component: ProdutosPesquisaComponent,
+
+    canActivate: [SecureInnerPageGuard]
+
   },
+
   {
+
     path: 'produtoscadastro',
-    component: ProdutosCadastroComponent
+
+    component: ProdutosCadastroComponent,
+
+    canActivate: [SecureInnerPageGuard]
+
   },
+
+
 
   // O R Ç A M E N T O S
+
   {
+
     path: 'orcamentos',
-    component: OrcamentoPesquisaComponent
+
+    component: OrcamentoPesquisaComponent,
+
+    canActivate: [SecureInnerPageGuard]
+
   },
+
   {
+
     path: 'fazerorcamento',
-    component: OrcamentoCadastroComponent
+
+    component: OrcamentoCadastroComponent,
+
+    canActivate: [SecureInnerPageGuard]
+
   }
-
-
 
 ];
 

@@ -3,4 +3,15 @@
     <span>
         <h1>SISGEM - Sistema de Gestão de Estoque de Mobiliários</h1>
     </span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+
+        <mat-icon>face</mat-icon>
+
+    </button>
+
+    <mat-menu #menu="matMenu">
+
+        <button mat-menu-item (click)="authService.Logout()">Logout</button>
+
+    </mat-menu>
 </mat-toolbar>
