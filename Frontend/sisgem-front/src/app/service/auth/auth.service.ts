@@ -11,14 +11,18 @@ import {
   sendEmailVerification,
   User
 } from '@angular/fire/auth';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { SignInComponent } from 'src/app/components/views/login/sign-in/sign-in.component';
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   UserData: any;
-  constructor(private auth: Auth, private router: Router, public ngZone: NgZone) {
+  constructor(private auth: Auth, private router: Router, public ngZone: NgZone, private dialog: MatDialog) {
     onAuthStateChanged(this.auth, (user: any) => {
       if (user) {
         this.UserData = user;
@@ -70,8 +74,8 @@ export class AuthService {
   }
 
   //Login Method
-  Login(email: string, password: string) {
-    return signInWithEmailAndPassword(this.auth, email, password)
+  async Login(email: string, password: string) {
+    return await signInWithEmailAndPassword(this.auth, email, password)
       .then((result: any) => {
         this.UserData = result.user;
         this.ngZone.run(() => {
@@ -82,10 +86,18 @@ export class AuthService {
         window.alert(error.message);
       });
   }
+
   //Logout
   Logout() {
-    signOut(this.auth).then(() => this.router.navigate(['/sign-in']))
-
+    signOut(this.auth).then(() => {
+      {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = "40%";
+        this.dialog.open(SignInComponent, dialogConfig);
+      }
+    })
   }
 
   //login with Email or Facebook
@@ -120,6 +132,6 @@ export class AuthService {
   }
   //Send Email Verification
   sendEmailVerification() {
-    return sendEmailVerification(this.auth.currentUser as User);
-  }
+    return sendEmailVerification(this.auth.currentUser as User);
+  }
 }

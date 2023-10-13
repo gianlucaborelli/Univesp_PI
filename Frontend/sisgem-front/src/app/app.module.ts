@@ -54,6 +54,7 @@ import { ForgotPasswordComponent } from './components/views/login/forgot-passwor
 import { VerifyEmailComponent } from './components/views/login/verify-email/verify-email.component';
 import { environment } from 'src/environments/environment.development';
 import { AuthService } from './service/auth/auth.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -116,8 +117,8 @@ export function initializeDialogService() {
     MatStepperModule,
     MatAutocompleteModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    FontAwesomeModule
   ],
   providers: [
     importProvidersFrom(MatDialogModule),
@@ -127,7 +128,7 @@ export function initializeDialogService() {
       deps: [MatDialog],
       multi: true
     },
-  AuthService
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
