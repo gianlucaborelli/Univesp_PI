@@ -94,7 +94,7 @@ export class AuthService {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.width = "40%";
+        dialogConfig.width = "25%";
         this.dialog.open(SignInComponent, dialogConfig);
       }
     })

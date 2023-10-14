@@ -16,13 +16,12 @@ export class SecureInnerPageGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    // Check the user is logged in or not(In case the user is not logged in he will be redirected to Signin page)
 
     if (this.authService.isLoggedIn !== true) {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      dialogConfig.width = "40%";
+      dialogConfig.width = "25%";
       this.dialog.open(SignInComponent, dialogConfig);
     }
 

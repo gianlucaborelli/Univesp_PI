@@ -11,11 +11,22 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 export class SignInComponent implements OnInit {
   faCoffee = faCoffee;
+
+  showLogin = true;
+  showForgotPassword = false;
+  showRegister = false;
+
   constructor(
     private dialogRef: MatDialogRef<SignInComponent>,
     public authService: AuthService
 
   ) { }
+
+  toggleForm(formType: string) {
+    this.showLogin = formType === 'login';
+    this.showForgotPassword = formType === 'forgotPassword';
+    this.showRegister = formType === 'register';
+  }
 
   async Login(userName: string, password: string) {
 

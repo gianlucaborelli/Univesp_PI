@@ -1,49 +1,126 @@
-<h1 mat-dialog-title>Login</h1>
+<ng-container *ngIf="showLogin">
 
-<mat-dialog-content>
-    <form>
-        <table class="content">
-            <tr>
-                <mat-form-field appearance="outline" style="width: 100%;">
-                    <mat-label>Nome</mat-label>
-                    <input matInput type="text" #userName required>
-                </mat-form-field>
-            </tr>
-            <tr>
-                <mat-form-field appearance="outline" style="width: 100%;">
-                    <mat-label>Senha</mat-label>
-                    <input matInput type="password" #userPassword required>
-                </mat-form-field>
-            </tr>
-            <div class="router-page">
-                <p>Esqueceu a senha?
-                    <a routerLink="/forgot-password" class="link-danger">Enviar Email </a>
-                </p>
-                <p>Não tem uma conta?
-                    <a routerLink="/register-user" class="link-danger">Registre</a>
-                </p>
+    <h1 mat-dialog-title class="login-title">Login</h1>
 
-            </div>
-        </table>
-        <div style="align-self: center; display: flex; justify-content: center;">
-            <button mat-button (click)="Login(userName.value, userPassword.value)" mat-raised-button color="accent">
+    <mat-dialog-content class="content" style="width: 100%;">
+
+        <div class="align-vertical-itens">
+
+            <mat-form-field appearance="outline" style="width: 100%; margin-top: 5px;">
+                <mat-label>Email</mat-label>
+                <mat-icon matPrefix>mail</mat-icon>
+                <input matInput type="email" #userName required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Senha</mat-label>
+                <mat-icon matPrefix>key</mat-icon>
+                <input matInput type="password" #userPassword required>
+            </mat-form-field>
+
+            <p class="forgot-password-text" (click)="toggleForm('forgotPassword')">Esqueceu a senha? Enviar Email</p>
+
+
+            <button style="margin-top: 20px;" (click)="Login(userName.value, userPassword.value)" mat-raised-button
+                color="accent">
                 Login
             </button>
+
+
+            <p class="align-horizontal-itens">Não tem uma conta?</p>
+
+            <button mat-raised-button color="primary" (click)="toggleForm('register')">Registre-se
+            </button>
+
+            <p class="align-horizontal-itens">OU</p>
+
+            <p class="align-horizontal-itens">Faça login com as redes sociais</p>
+
         </div>
-        <h3 style="align-self: center; display: flex; justify-content: center; margin: 10px;">OU</h3>
-        <p style="align-self: center; display: flex; justify-content: center;">Faça login com as redes sociais</p>
 
-        <div
-            style="align-self: center; display: flex; justify-content: center; margin: 10px; justify-content: space-evenly;">
-            <button mat-fab color="basic" matTooltip="Login com o google." [matTooltipShowDelay]="500"
-                aria-label="Fazer login usando sua conta do google"><fa-icon [icon]="faCoffee"></fa-icon></button>
+        <div class="social-midias">
 
-            <button mat-fab color="basic" matTooltip="Login com o FaceBook." [matTooltipShowDelay]="500"
-                aria-label="Fazer login usando sua conta do FaceBook"><fa-icon [icon]="faCoffee"></fa-icon></button>
+            <div matTooltip="Login com o google." [matTooltipShowDelay]="500"
+                aria-label="Fazer login usando sua conta do google">
+                <img src="assets/img/google-logo.svg" width="48" height="48">
+            </div>
 
-            <button mat-fab color="basic" matTooltip="Login com o X." [matTooltipShowDelay]="500"
-                aria-label="Fazer login usando sua conta da rede social X"><fa-icon
-                    [icon]="faCoffee"></fa-icon></button>
+            <div matTooltip="Login com o Facebook." [matTooltipShowDelay]="500"
+                aria-label="Fazer login usando sua conta do FaceBook">
+                <img src="assets/img/facebook.svg" width="48" height="48">
+            </div>
+
+            <div matTooltip="Login com o X." [matTooltipShowDelay]="500"
+                aria-label="Fazer login usando sua conta da rede social X.">
+                <img src="assets/img/twitterx.svg" width="48" height="48">
+            </div>
         </div>
-    </form>
-</mat-dialog-content>
+    </mat-dialog-content>
+</ng-container>
+
+<ng-container *ngIf="showForgotPassword">
+    <div>
+        <button mat-icon-button style="float: left; margin: 10px; z-index: 99;" aria-label="Retorna a tela de login."
+            (click)="toggleForm('login')">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h1 mat-dialog-title class="login-title">Redefinir Senha</h1>
+    </div>
+
+    <mat-dialog-content class="content" style="width: 100%;">
+
+        <div class="align-vertical-itens">
+
+            <div style="margin-top: -45px; margin-left: 25%;">
+                <img src="assets/img/lock_reset.svg" width="200" height="200">
+            </div>
+
+            <p>Por favor digite seu email para enviarmos o pedido de recuperação de senha.</p>
+
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Email</mat-label>
+                <mat-icon matPrefix>mail</mat-icon>
+                <input matInput type="email" placeholder="Email Address" #passwordResetEmail required>
+            </mat-form-field>
+
+            <button mat-raised-button color="accent" value="Reset Password"
+                (click)="authService.sendPasswordResetEmails(passwordResetEmail.value)"> Enviar Email</button>
+
+        </div>
+    </mat-dialog-content>
+</ng-container>
+
+<ng-container *ngIf="showRegister">
+    <div>
+        <button mat-icon-button style="float: left; margin: 10px; z-index: 99;" aria-label="Retorna a tela de login."
+            (click)="toggleForm('login')">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h1 mat-dialog-title class="login-title">Registre-se</h1>
+    </div>
+
+    <mat-dialog-content class="content" style="width: 100%;">
+
+        <div class="align-vertical-itens">
+            <div style="margin-top: -25px; margin-left: 25%;">
+                <img src="assets/img/add_reaction.svg" width="200" height="200">
+            </div>
+
+            <mat-form-field appearance="outline" style="width: 100%; margin-top: 5px;">
+                <mat-label>Email</mat-label>
+                <mat-icon matPrefix>mail</mat-icon>
+                <input matInput type="email" placeholder="Email Address" #userEmail required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%; margin-top: 5px;">
+                <mat-label>Senha</mat-label>
+                <mat-icon matPrefix>key</mat-icon>
+                <input matInput type="password" placeholder="Password" #userPwd required>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="authService.Register(userEmail.value, userPwd.value)">
+                Register
+            </button>
+        </div>
+    </mat-dialog-content>
+</ng-container>
