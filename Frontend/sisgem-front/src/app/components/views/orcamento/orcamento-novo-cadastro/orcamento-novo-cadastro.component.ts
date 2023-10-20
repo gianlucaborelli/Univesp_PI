@@ -1,13 +1,16 @@
-import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, map, startWith } from 'rxjs';
 import { Cliente } from 'src/app/models/clientes.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
 import { ProdutoPedido } from 'src/app/models/produto-pedido.model';
 import { ClientesService } from 'src/app/service/cliente-service/clientes.service';
+import { EnderecoService } from 'src/app/service/endereco.service';
 
 @Component({
   selector: 'app-orcamento-novo-cadastro',
@@ -15,9 +18,16 @@ import { ClientesService } from 'src/app/service/cliente-service/clientes.servic
   styleUrls: ['./orcamento-novo-cadastro.component.css']
 })
 export class OrcamentoNovoCadastroComponent implements OnInit {
+  @ViewChild('stepper') private myStepper: MatStepper | null = null;
+  displayedColumns: string[] = ["id", "logradouro", "localidade", "obs", "select"];
+
   listaDeClientes!: Cliente[];
   filterOptionsList!: Observable<Cliente[]>;
   searchControl = new FormControl();
+
+  enderecoDataSource: MatTableDataSource<Endereco>;
+
+  selectedAddress!: Endereco;
 
   selectedCliente: Cliente | undefined;
 
@@ -27,8 +37,10 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<OrcamentoNovoCadastroComponent>,
     private _formBuilder: FormBuilder,
-    private clienteService: ClientesService) { }
-
+    private clienteService: ClientesService,
+    private enderecoService: EnderecoService) {
+    this.enderecoDataSource = new MatTableDataSource<Endereco>();
+  }
 
   ngOnInit(): void {
     this.clienteService.findAll().subscribe((resposta) => {
@@ -52,6 +64,16 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     const selectedName = event.option.value;
     this.selectedCliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
     console.log(this.selectedCliente);
+    this.findEnderecoByClienteId(this.selectedCliente?.id || 'valorPadrao');
+
+    this.myStepper?.next();
+  }
+
+  findEnderecoByClienteId(id: String) {
+    this.enderecoService.findAllByClienteId(id).subscribe((resposta) => {
+      console.log(resposta);
+      this.enderecoDataSource.data = resposta;
+    });
   }
 
 
@@ -75,6 +97,14 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   }
   get ProdutosDoOrcamentoForm() {
     return this.novoOrcamento.get("selecaoDeProdutos") as unknown as FormGroup;
+  }
+
+  onSelectionChange(endereco: any) {
+    this.selectedAddress = endereco;
+
+    console.log(this.selectedAddress);
+
+    this.myStepper?.next();
   }
 
   HandleSubmit() {

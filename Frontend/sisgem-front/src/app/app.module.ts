@@ -55,6 +55,7 @@ import { VerifyEmailComponent } from './components/views/login/verify-email/veri
 import { environment } from 'src/environments/environment.development';
 import { AuthService } from './service/auth/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 
@@ -118,7 +119,8 @@ export function initializeDialogService() {
     MatAutocompleteModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatRadioModule
   ],
   providers: [
     importProvidersFrom(MatDialogModule),

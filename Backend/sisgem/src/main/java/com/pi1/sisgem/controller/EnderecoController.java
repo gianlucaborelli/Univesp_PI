@@ -43,6 +43,12 @@ public class EnderecoController {
         return repositorio.findById(id);
     }
 
+    @GetMapping("/cliente/{id}")
+    public ResponseEntity<List<Endereco>> findEnderecosByClienteID(@PathVariable Long id) {
+
+        return new ResponseEntity<List<Endereco>>(service.findEnderecosByClienteID(id), HttpStatus.OK);
+    }
+
     @GetMapping("/findByCep/{cep}")
     public ResponseEntity<autoCompleteEnderecoResponse> consultaPorCep(@PathVariable String cep)
             throws ResourceNotFound {

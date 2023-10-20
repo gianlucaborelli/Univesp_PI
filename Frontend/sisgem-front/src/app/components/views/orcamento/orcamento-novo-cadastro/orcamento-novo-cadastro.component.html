@@ -34,10 +34,40 @@
       <mat-step [stepControl]="EnderecoDoClienteForm">
         <div formGroupName="enderecoDoCliente">
           <ng-template matStepLabel>Selecione o endereço de Entrega</ng-template>
-          <mat-form-field appearance="outline" style="width: 90%;">
-            <mat-label>Endereços do Cliente</mat-label>
-            <input matInput formControlName="enderecoControl" placeholder="Endereço">
-          </mat-form-field>
+
+          <table class="mat-elevation-z1 content-table" mat-table [dataSource]="enderecoDataSource">
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="logradouro">
+              <th mat-header-cell *matHeaderCellDef>RUA</th>
+              <td mat-cell *matCellDef="let row">{{ row.logradouro }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="localidade">
+              <th mat-header-cell *matHeaderCellDef>CIDADE</th>
+              <td mat-cell *matCellDef="let row">{{ row.localidade }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="obs">
+              <th mat-header-cell *matHeaderCellDef>OBS</th>
+              <td mat-cell *matCellDef="let row">{{ row.obs }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="select">
+              <th class="mat-header" mat-header-cell *matHeaderCellDef>SELECIONADO</th>
+              <td mat-cell *matCellDef="let row" class="actionsButtonsContainer">
+                <mat-radio-button [value]="row.id" (change)="onSelectionChange(row)"></mat-radio-button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+
           <div [align]="'end'">
             <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
             <button mat-raised-button color="primary" matStepperNext>Proximo</button>

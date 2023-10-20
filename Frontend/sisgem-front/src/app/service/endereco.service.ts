@@ -20,6 +20,11 @@ export class EnderecoService {
     return this.http.get<Endereco>(url);
   }
 
+  findAllByClienteId(id: String): Observable<Endereco[]> {
+    const url = `${this.baseUrl}/enderecos/cliente/${id}`
+    return this.http.get<Endereco[]>(url);
+  }
+
   findByCep(cep: String): Observable<EnderecoAutocomplete> {
     const url = `${this.baseUrl}/enderecos/findByCep/${cep}`
     return this.http.get<EnderecoAutocomplete>(url);
