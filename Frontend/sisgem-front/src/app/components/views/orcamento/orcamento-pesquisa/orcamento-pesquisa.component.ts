@@ -10,6 +10,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import 'moment/locale/pt';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OrcamentoNovoCadastroComponent } from '../orcamento-novo-cadastro/orcamento-novo-cadastro.component';
+import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { Orcamento } from 'src/app/models/orcamento.model';
 
 
 @Component({
@@ -36,22 +39,39 @@ import { OrcamentoNovoCadastroComponent } from '../orcamento-novo-cadastro/orcam
 
 
 export class OrcamentoPesquisaComponent {
+  displayedColumns: string[] = ['dataFim', 'dataInicio', 'cliente', 'endereco', 'produtosPedidos'];
+  columnsForProdutosPedidos: string[] = ['preco', 'quantidade']; // Adicione mais colunas conforme necessário
+  expandedElement: Orcamento | null | undefined;
+
+  dataSource!: MatTableDataSource<Orcamento>;
+  posts: any;
 
   constructor(
     private _adapter: DateAdapter<any>,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private service: OrcamentoService,
+  ) {
+    this.service.findAll().subscribe((resposta) => {
+      console.log(resposta);
+      this.posts = resposta;
+      this.dataSource = new MatTableDataSource(resposta);
+    });
+  }
 
-  displayedColumns: string[] = ['endereco', 'data', 'cliente', 'produtos'];
-
-  columnsToDisplay = ['data', 'cliente', 'endereco', 'produtos'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedElement: PeriodicElement | null = null;
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  expandRow(orcamento: Orcamento) {
+    this.expandedElement = this.expandedElement === orcamento ? null : orcamento;
+  }
 
   openAddNewOrcamentoDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -66,14 +86,3 @@ export class OrcamentoPesquisaComponent {
 }
 
 
-
-
-
-export interface PeriodicElement {
-  data: any;
-  endereco: any;
-  cliente: string;
-  produtos: number;
-  description: string;
-
-}
