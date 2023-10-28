@@ -6,6 +6,7 @@ import { Location } from '@angular/common'
 import { EnderecoCadastroDialogComponent } from './endereco-cadastro.dialog/endereco-cadastro.dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ClienteDetailDialogComponent } from './cliente-detail.dialog/cliente-detail.dialog.component';
+import { __await } from 'tslib';
 
 @Component({
   selector: 'app-cadastroclientes',
@@ -27,16 +28,33 @@ export class ClientesCadastroComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+ ngOnInit(): void {
+ this.initClienteAdd();
+
+ this.router.queryParams.subscribe(params => {
+  const valor = params['parametro'];
+  if (valor) {
+        this.service.findById(valor).subscribe((cliente) =>{
+          this.cliente= cliente;
+        })
+      }
+ });
+  }
+  
+  public initClienteAdd(){
     this.router.queryParams.subscribe(params => {
       const valor = params['parametro'];
       if (valor) {
-        this.service.findById(valor).subscribe((resposta) => {
+        this.service.enderecoAdd.subscribe((resposta) => {
           console.log(resposta);
-          this.cliente = resposta;
+          if (resposta) {
+            this.service.findById(valor).subscribe((cliente) =>{
+              this.cliente= cliente;
+            })
+          }
         });
       }
-    });
+    }); 
   }
 
   back(): void {

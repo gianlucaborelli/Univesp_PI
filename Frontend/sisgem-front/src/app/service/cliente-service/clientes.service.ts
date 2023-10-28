@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Cliente } from '../../models/clientes.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment.development';
@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class ClientesService {
-  constructor(private http: HttpClient, private _snack: MatSnackBar) { }
+  public enderecoAdd: Subject<boolean>;
+  constructor(private http: HttpClient, private _snack: MatSnackBar) {this.enderecoAdd = new Subject<boolean>(); }
 
   baseUrl: String = environment.baseUrl;
 

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Endereco } from 'src/app/models/endereco.model';
 import { EnderecoService } from 'src/app/service/endereco.service';
+import { ClientesService } from 'src/app/service/cliente-service/clientes.service';
 
 @Component({
   selector: 'app-endereco-cadastro.dialog',
@@ -23,7 +24,8 @@ export class EnderecoCadastroDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<EnderecoCadastroDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data: any,
-    private service: EnderecoService) {
+    private service: EnderecoService,
+    private clienteservice: ClientesService) {
 
     if (data != null) {
       if (data.idCliente != null) {
@@ -57,6 +59,7 @@ export class EnderecoCadastroDialogComponent implements OnInit {
 
   salvar() {
     this.service.create(this.endereco).subscribe((resposta) => {
+      this.clienteservice.enderecoAdd.next(true)
       this.close();
       this.service.mensagem('Endereço cadastrado com sucesso!');
     }, err => {
