@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,14 +50,19 @@ public class OncamentoController {
     }
 
     @PostMapping
-    public void salvar(@RequestBody Orcamento produto) {
-        repositorio.save(produto);
+    public ResponseEntity<Orcamento> salvar(@RequestBody Orcamento orcamento) {        
+        Orcamento orcamentoSalvo = repositorio.save(orcamento);
+        return new ResponseEntity<>(orcamentoSalvo, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public void alterar(@RequestBody Orcamento produto) {
-        if (produto.getId() > 0)
-            repositorio.save(produto);
+    public ResponseEntity<Orcamento> alterar(@RequestBody Orcamento orcamento) {
+        Orcamento orcamentoSalvo = new Orcamento();
+        if (orcamento.getId() > 0) {
+            orcamentoSalvo = repositorio.save(orcamento);
+        }
+
+        return new ResponseEntity<>(orcamentoSalvo, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

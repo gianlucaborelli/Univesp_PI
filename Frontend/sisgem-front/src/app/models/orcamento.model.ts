@@ -7,6 +7,6 @@ export interface Orcamento {
     dataFim?: String;
     dataInicio?: String;
     cliente?: Cliente;
-    endereco?: Endereco;
+    endereco?: Endereco | null;
     produtosPedidos?: ProdutoPedido[];
 }

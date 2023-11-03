@@ -37,12 +37,12 @@ public class ProdutoPedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<addProdutoPedidoResponse> salvar(@RequestBody addProdutoPedidoRequest pedidoRequest){
+    public ResponseEntity<ProdutoPedido> salvar(@RequestBody addProdutoPedidoRequest pedidoRequest){
         return service.addProdutoPedido(pedidoRequest);
     }
 
     @PutMapping
-    public ResponseEntity<updateProdutoPedidoResponse> atualizar(@RequestBody updateProdutoPedidoRequest pedidoRequest){
+    public ResponseEntity<ProdutoPedido> atualizar(@RequestBody updateProdutoPedidoRequest pedidoRequest){
         return service.updateProdutoPedido(pedidoRequest);
     }
     

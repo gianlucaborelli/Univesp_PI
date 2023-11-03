@@ -4,7 +4,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, catchError, map, startWith, tap } from 'rxjs';
 import { Cliente } from 'src/app/models/clientes.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
@@ -19,6 +19,8 @@ import {
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ProdutosService } from 'src/app/service/produto-service/produtos.service';
 import { Orcamento } from 'src/app/models/orcamento.model';
+import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-orcamento-novo-cadastro',
@@ -45,10 +47,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   searchControl = new FormControl();
 
   enderecoDataSource: MatTableDataSource<Endereco>;
-  produtosEmEstoqueDataSource: MatTableDataSource<ProdutoEmEstoque>;
-
-  selectedAddress!: Endereco;
-  selectedCliente: Cliente | undefined;
+  produtosEmEstoqueDataSource: MatTableDataSource<ProdutoEmEstoque>;  
 
   orcamento: Orcamento = {};
 
@@ -58,7 +57,8 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private clienteService: ClientesService,
     private enderecoService: EnderecoService,
-    private produtoService: ProdutosService,) {
+    private produtoService: ProdutosService,
+    private orcamentoService: OrcamentoService) {
     this.enderecoDataSource = new MatTableDataSource<Endereco>();
     this.produtosEmEstoqueDataSource = new MatTableDataSource<ProdutoEmEstoque>();
     this.range = this._formBuilder.group({
@@ -88,14 +88,16 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   onClienteSelecionado(event: MatAutocompleteSelectedEvent): void {
     const selectedName = event.option.value;
 
-    if(this.orcamento?.cliente==null){
-      this.selectedCliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);      
-      this.orcamento.cliente = this.selectedCliente;
-      
-      console.log(this.orcamento.cliente);
+    if(this.orcamento.cliente==null){
+      this.orcamento.cliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);  
+      console.log(this.orcamento);           
+    }else if (this.orcamento.cliente != selectedName){
+      this.orcamento.cliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
+      this.orcamento.endereco = null;  
+      console.log(this.orcamento);                 
     }
     
-    this.findEnderecoByClienteId(this.selectedCliente?.id || 'valorPadrao');
+    this.findEnderecoByClienteId(this.orcamento.cliente?.id || 'valorPadrao');
 
     this.myStepper?.next();
   }
@@ -107,6 +109,78 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     });
   }
 
+  onEnderecoSelecionado(endereco: any) {    
+    this.orcamento.endereco = endereco;
+
+    if (this.orcamento.id != null){
+      this.atualizaOrcamento();
+    }
+    
+    this.myStepper?.next();
+  }
+
+  onDateRangeChange(event: any): void {
+    const startDate = this.range.get('start')?.value;
+    const endDate = this.range.get('end')?.value;
+
+    if (startDate && endDate) {  
+      this.consultarProdutosDisponiveis(startDate, endDate);
+
+      this.orcamento.dataInicio = format(new Date(startDate), 'dd/MM/yyyy');
+      this.orcamento.dataFim = format(new Date(endDate), 'dd/MM/yyyy');
+
+      if(this.orcamento.id ==null){
+        this.criaOrcamento();
+      } else{
+        this.atualizaOrcamento();
+      }      
+    }
+  }
+
+  consultarProdutosDisponiveis(startDate: Date, endDate: Date): void {
+    this.produtoService.findProdutosDisponiveis(startDate, endDate)
+    .pipe(
+      tap((resposta) => {
+        console.log(resposta);
+        this.produtosEmEstoqueDataSource.data = resposta;
+      }),
+      catchError((error) => {
+        console.error('Ocorreu um erro:', error);
+        throw error; // Re-throw the error to propagate it further if needed.
+      })
+    )
+    .subscribe();
+  }
+
+  criaOrcamento(){
+    this.orcamentoService.create(this.orcamento)
+    .pipe(
+      tap((resposta) => {
+        console.log(resposta);
+        this.orcamento = resposta;
+      }),
+      catchError((error) => {
+        console.error('Ocorreu um erro:', error);
+        throw error; // Re-throw the error to propagate it further if needed.
+      })
+    )
+    .subscribe();
+  }
+
+  atualizaOrcamento(){
+    this.orcamentoService.update(this.orcamento)
+    .pipe(
+      tap((resposta) => {
+        console.log(resposta);
+        this.orcamento = resposta;
+      }),
+      catchError((error) => {
+        console.error('Ocorreu um erro:', error);
+        throw error; // Re-throw the error to propagate it further if needed.
+      })
+    )
+    .subscribe();
+  }
 
   novoOrcamento = this._formBuilder.group({
     dadosDoCliente: this._formBuilder.group({
@@ -128,15 +202,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   }
   get ProdutosDoOrcamentoForm() {
     return this.novoOrcamento.get("selecaoDeProdutos") as unknown as FormGroup;
-  }
-
-  onSelectionChange(endereco: any) {
-    this.selectedAddress = endereco;
-
-    console.log(this.selectedAddress);
-
-    this.myStepper?.next();
-  }
+  }  
 
   HandleSubmit() {
     if (this.novoOrcamento.valid) {
@@ -144,26 +210,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     }
   }
 
-  onDateRangeChange(event: any): void {
-    const startDate = this.range.get('start')?.value;
-    const endDate = this.range.get('end')?.value;
-
-    if (startDate && endDate) {  
-      this.consultarBancoDeDados(startDate, endDate);
-    }
-  }
-
-  consultarBancoDeDados(startDate: Date, endDate: Date): void {
-    this.produtoService.findProdutosDisponiveis(startDate, endDate).subscribe(
-      (resposta) => {
-        console.log(resposta);
-        this.produtosEmEstoqueDataSource.data = resposta;
-      },
-      (error) => {
-        console.error('Ocorreu um erro:', error);        
-      }
-    );
-  }
+  
 
   salvar() { }
 

@@ -37,7 +37,7 @@ public class ProdutoPedidoService {
     @Autowired
     private EntityManager entityManager;
 
-    public ResponseEntity<addProdutoPedidoResponse> addProdutoPedido (addProdutoPedidoRequest addProduto){
+    public ResponseEntity<ProdutoPedido> addProdutoPedido (addProdutoPedidoRequest addProduto){
         HttpHeaders headers = new HttpHeaders();
 
         try{
@@ -66,7 +66,8 @@ public class ProdutoPedidoService {
             entityManager.clear();
             
             headers.add("Resposta", "Adicionado com sucesso");            
-            return ResponseEntity.ok().headers(headers).body(mapper.toAddProdutoPedidoResponse(pedido));
+            return ResponseEntity.ok().headers(headers).body(pedido);
+
         }catch(NoSuchElementException e){
             headers.add("Erro", e.getMessage());            
             return ResponseEntity.notFound().headers(headers).build();
@@ -79,7 +80,7 @@ public class ProdutoPedidoService {
         }        
     }
 
-    public ResponseEntity<updateProdutoPedidoResponse> updateProdutoPedido (updateProdutoPedidoRequest updatePedido){
+    public ResponseEntity<ProdutoPedido> updateProdutoPedido (updateProdutoPedidoRequest updatePedido){
         HttpHeaders headers = new HttpHeaders();
 
         try{
@@ -103,7 +104,7 @@ public class ProdutoPedidoService {
             entityManager.clear();
             
             headers.add("Resposta", "Atualizado com sucesso");            
-            return ResponseEntity.ok().headers(headers).body(mapper.toUpdateProdutoPedidoResponse(pedido));
+            return ResponseEntity.ok().headers(headers).body(pedido);
         }catch(NoSuchElementException e){
             headers.add("Erro", e.getMessage());            
             return ResponseEntity.notFound().headers(headers).build();

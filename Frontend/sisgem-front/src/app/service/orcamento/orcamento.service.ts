@@ -25,4 +25,13 @@ export class OrcamentoService {
     return this.http.get<ProdutoEmEstoque[]>(url);
   }
 
+  create(body: Orcamento):Observable<Orcamento> {
+    const url = `${this.baseUrl}/orcamentos`
+    return this.http.post<Orcamento>(url,body);
+  }
+
+  update(body: Orcamento): Observable<Orcamento> {
+    const url = `${this.baseUrl}/clientes`
+    return this.http.put<Orcamento>(url, body)
+  }
 }

@@ -61,7 +61,7 @@
             <ng-container matColumnDef="select">
               <th class="mat-header" mat-header-cell *matHeaderCellDef>SELECIONADO</th>
               <td mat-cell *matCellDef="let row" class="actionsButtonsContainer">
-                <mat-radio-button [value]="row.id" (change)="onSelectionChange(row)"></mat-radio-button>
+                <mat-radio-button [value]="row.id" (change)="onEnderecoSelecionado(row)"></mat-radio-button>
               </td>
             </ng-container>
 

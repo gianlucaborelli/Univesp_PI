@@ -74,6 +74,6 @@ public class ProdutoController {
 
     @DeleteMapping("/{id}")
     public void excluir(@PathVariable Long id) {
-        repositorio.deleteById(id);
+        repositorio.deleteById(id);        
     }
 }
