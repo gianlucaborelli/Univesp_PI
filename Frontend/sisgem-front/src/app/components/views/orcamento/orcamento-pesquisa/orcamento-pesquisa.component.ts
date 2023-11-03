@@ -5,8 +5,7 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { FormGroup, FormControl, NumberValueAccessor } from '@angular/forms';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { FormGroup, FormControl } from '@angular/forms';
 import 'moment/locale/pt';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OrcamentoNovoCadastroComponent } from '../orcamento-novo-cadastro/orcamento-novo-cadastro.component';
@@ -14,18 +13,10 @@ import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Orcamento } from 'src/app/models/orcamento.model';
 
-
 @Component({
   selector: 'app-orcamento',
   styleUrls: ['./orcamento-pesquisa.component.css'],
-  templateUrl: './orcamento-pesquisa.component.html',
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+  templateUrl: './orcamento-pesquisa.component.html',  
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     {
@@ -36,7 +27,6 @@ import { Orcamento } from 'src/app/models/orcamento.model';
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
 })
-
 
 export class OrcamentoPesquisaComponent {
   displayedColumns: string[] = ['dataFim', 'dataInicio', 'cliente', 'endereco', 'produtosPedidos'];
@@ -81,8 +71,4 @@ export class OrcamentoPesquisaComponent {
     dialogConfig.height = "80%";
     this.dialog.open(OrcamentoNovoCadastroComponent, dialogConfig);
   }
-
-
 }
-
-

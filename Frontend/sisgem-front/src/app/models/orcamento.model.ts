@@ -1,10 +1,12 @@
+import { Cliente } from "./clientes.model";
+import { Endereco } from "./endereco.model";
 import { ProdutoPedido } from "./produto-pedido.model";
 
 export interface Orcamento {
     id?: String;
-    dataFim: String;
-    dataInicio: String;
-    clienteId: String;
-    enderecoId: String;
-    produtosPedidos: ProdutoPedido[];
+    dataFim?: String;
+    dataInicio?: String;
+    cliente?: Cliente;
+    endereco?: Endereco;
+    produtosPedidos?: ProdutoPedido[];
 }

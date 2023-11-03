@@ -1,5 +1,6 @@
 package com.pi1.sisgem.data.DTO;
 
+import java.math.BigDecimal;
 public class ProdutosDisponiveisDto {
     
     private Long id;
@@ -7,6 +8,16 @@ public class ProdutosDisponiveisDto {
     private String name;
 
     private int estoque;
+    
+    private BigDecimal precos;
+
+    public BigDecimal getPrecos() {
+        return precos;
+    }
+
+    public void setPrecos(BigDecimal precos) {
+        this.precos = precos;
+    }
 
     public Long getId() {
         return id;
@@ -30,6 +41,5 @@ public class ProdutosDisponiveisDto {
 
     public void setEstoque(int estoque) {
         this.estoque = estoque;
-    }
-    
+    }    
 }

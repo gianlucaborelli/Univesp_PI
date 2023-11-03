@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
+import { format } from 'date-fns';
+import * as moment from 'moment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +21,18 @@ export class ProdutosService {
   findAll(): Observable<Produto[]> {
     const url = `${this.baseUrl}/produtos`
     return this.http.get<Produto[]>(url);
+  }  
+
+  findProdutosDisponiveis(dataInicio: Date, dataFinal: Date): Observable<ProdutoEmEstoque[]> {
+    
+    const dataInicioFormatada = format(new Date(dataInicio), 'dd/MM/yyyy');  
+    const dataFinalFormatada = format(new Date(dataFinal), 'dd/MM/yyyy');    
+
+    console.log(dataInicioFormatada);
+    console.log(dataFinalFormatada);
+
+    const url = `${this.baseUrl}/produtos/produtosDisponiveis?dataInicio=${dataInicioFormatada}&dataFinal=${dataFinalFormatada}`;
+    return this.http.get<ProdutoEmEstoque[]>(url);
   }
 
   findById(id: Number): Observable<Produto> {

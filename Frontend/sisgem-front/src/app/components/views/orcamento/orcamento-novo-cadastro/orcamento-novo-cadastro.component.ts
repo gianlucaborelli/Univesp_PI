@@ -11,11 +11,30 @@ import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
 import { ClientesService } from 'src/app/service/cliente-service/clientes.service';
 import { EnderecoService } from 'src/app/service/endereco.service';
 
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ProdutosService } from 'src/app/service/produto-service/produtos.service';
+import { Orcamento } from 'src/app/models/orcamento.model';
+
 @Component({
   selector: 'app-orcamento-novo-cadastro',
   templateUrl: './orcamento-novo-cadastro.component.html',
-  styleUrls: ['./orcamento-novo-cadastro.component.css']
+  styleUrls: ['./orcamento-novo-cadastro.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+  ],
 })
+
 export class OrcamentoNovoCadastroComponent implements OnInit {
   @ViewChild('stepper') private myStepper: MatStepper | null = null;
   displayedColumnsEndereco: string[] = ["id", "logradouro", "localidade", "obs", "select"];
@@ -31,12 +50,21 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   selectedAddress!: Endereco;
   selectedCliente: Cliente | undefined;
 
+  orcamento: Orcamento = {};
+
+  range: FormGroup;
+
   constructor(private dialogRef: MatDialogRef<OrcamentoNovoCadastroComponent>,
     private _formBuilder: FormBuilder,
     private clienteService: ClientesService,
-    private enderecoService: EnderecoService) {
+    private enderecoService: EnderecoService,
+    private produtoService: ProdutosService,) {
     this.enderecoDataSource = new MatTableDataSource<Endereco>();
     this.produtosEmEstoqueDataSource = new MatTableDataSource<ProdutoEmEstoque>();
+    this.range = this._formBuilder.group({
+      start: null,
+      end: null,
+    });       
   }
 
   ngOnInit(): void {
@@ -57,14 +85,16 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     );
   }
 
-  calculateTotal() {
-    //return this.produtosEmEstoque.reduce((total, product) => total + (product.pr * product.desiredQuantity), 0);
-  }
-
-  onOptionSelected(event: MatAutocompleteSelectedEvent): void {
+  onClienteSelecionado(event: MatAutocompleteSelectedEvent): void {
     const selectedName = event.option.value;
-    this.selectedCliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
-    console.log(this.selectedCliente);
+
+    if(this.orcamento?.cliente==null){
+      this.selectedCliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);      
+      this.orcamento.cliente = this.selectedCliente;
+      
+      console.log(this.orcamento.cliente);
+    }
+    
     this.findEnderecoByClienteId(this.selectedCliente?.id || 'valorPadrao');
 
     this.myStepper?.next();
@@ -114,10 +144,30 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     }
   }
 
+  onDateRangeChange(event: any): void {
+    const startDate = this.range.get('start')?.value;
+    const endDate = this.range.get('end')?.value;
+
+    if (startDate && endDate) {  
+      this.consultarBancoDeDados(startDate, endDate);
+    }
+  }
+
+  consultarBancoDeDados(startDate: Date, endDate: Date): void {
+    this.produtoService.findProdutosDisponiveis(startDate, endDate).subscribe(
+      (resposta) => {
+        console.log(resposta);
+        this.produtosEmEstoqueDataSource.data = resposta;
+      },
+      (error) => {
+        console.error('Ocorreu um erro:', error);        
+      }
+    );
+  }
+
   salvar() { }
 
   close() {
     this.dialogRef.close();
-
   }
 }

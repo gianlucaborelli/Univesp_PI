@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,8 +50,8 @@ public class ProdutoController {
 
     @GetMapping("/produtosDisponiveis")
     public ResponseEntity<List<ProdutosDisponiveisDto>> getProdutosDisponiveis(
-            @RequestParam("dataInicio") Date dataInicio,
-            @RequestParam("dataFinal") Date dataFinal) {
+            @RequestParam("dataInicio") @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicio,
+            @RequestParam("dataFinal") @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataFinal) {
         return new ResponseEntity<List<ProdutosDisponiveisDto>>(service.getProdutosDisponiveis(dataInicio, dataFinal),
                 HttpStatus.OK);
     }
