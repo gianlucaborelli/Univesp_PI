@@ -2,8 +2,10 @@ package com.pi1.sisgem.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,44 +22,45 @@ import com.pi1.sisgem.entity.Orcamento;
 @RestController
 @RequestMapping("/orcamentos")
 public class OncamentoController {
-    
+
     @Autowired
     private OrcamentoRepositorio repositorio;
 
     @GetMapping
-    public List<Orcamento> listar(){        
+    public List<Orcamento> listar() {
         return repositorio.findAll();
     }
 
     @GetMapping("/{id}")
-    public Orcamento listar(@PathVariable Long id){        
-        return repositorio.findById(id).get();
+    public ResponseEntity<Optional<Orcamento>> listar(@PathVariable Long id) {
+
+        return ResponseEntity.ok(repositorio.findById(id));
     }
 
     @GetMapping("/intervaloDeDatas")
     public List<Orcamento> buscarPorIntervaloDeDatas(@RequestParam("dataInicio") Date dataInicio,
-                                                      @RequestParam("dataFim") Date dataFim) {
+            @RequestParam("dataFim") Date dataFim) {
         return repositorio.findByIntervaloDeDatas(dataInicio, dataFim);
     }
 
     @GetMapping("/cliente/{id}")
-    public List<Orcamento> listarPorCliente(@PathVariable Long id){        
+    public List<Orcamento> listarPorCliente(@PathVariable Long id) {
         return repositorio.findAllByClienteId(id);
     }
 
     @PostMapping
-    public void salvar(@RequestBody Orcamento produto){
+    public void salvar(@RequestBody Orcamento produto) {
         repositorio.save(produto);
     }
 
     @PutMapping
-    public void alterar(@RequestBody Orcamento produto){
-        if(produto.getId() > 0)
+    public void alterar(@RequestBody Orcamento produto) {
+        if (produto.getId() > 0)
             repositorio.save(produto);
     }
 
     @DeleteMapping("/{id}")
-    public void excluir(@PathVariable Long id){
+    public void excluir(@PathVariable Long id) {
         repositorio.deleteById(id);
-    }     
+    }
 }

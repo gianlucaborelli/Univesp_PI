@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,19 +17,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 
 @Entity
-public class Orcamento{
-    
+public class Orcamento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
     private Date dataFim;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
     private Date dataInicio;
 
     @Transient
@@ -42,7 +50,7 @@ public class Orcamento{
     private Endereco endereco;
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinColumn( name = "fk_orcamento_id", referencedColumnName = "id")
+    @JoinColumn(name = "fk_orcamento_id", referencedColumnName = "id")
     private List<ProdutoPedido> produtoPedidos = new ArrayList<>();
 
     public Long getId() {
@@ -103,8 +111,8 @@ public class Orcamento{
         atualizaValorTotal();
     }
 
-    public void atualizaValorTotal(){
-        valorTotal =BigDecimal.ZERO;
+    public void atualizaValorTotal() {
+        valorTotal = BigDecimal.ZERO;
         for (ProdutoPedido produtoPedido : produtoPedidos) {
             valorTotal = produtoPedido.getPreco().add(valorTotal);
         }

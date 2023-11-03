@@ -8,7 +8,6 @@ import { Observable, map, startWith } from 'rxjs';
 import { Cliente } from 'src/app/models/clientes.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
-import { ProdutoPedido } from 'src/app/models/produto-pedido.model';
 import { ClientesService } from 'src/app/service/cliente-service/clientes.service';
 import { EnderecoService } from 'src/app/service/endereco.service';
 
@@ -19,27 +18,25 @@ import { EnderecoService } from 'src/app/service/endereco.service';
 })
 export class OrcamentoNovoCadastroComponent implements OnInit {
   @ViewChild('stepper') private myStepper: MatStepper | null = null;
-  displayedColumns: string[] = ["id", "logradouro", "localidade", "obs", "select"];
+  displayedColumnsEndereco: string[] = ["id", "logradouro", "localidade", "obs", "select"];
+  displayedColumnsProdutos: string[] = ["id", "name", "price", "quantity", "desiredQuantity"];
 
   listaDeClientes!: Cliente[];
   filterOptionsList!: Observable<Cliente[]>;
   searchControl = new FormControl();
 
   enderecoDataSource: MatTableDataSource<Endereco>;
+  produtosEmEstoqueDataSource: MatTableDataSource<ProdutoEmEstoque>;
 
   selectedAddress!: Endereco;
-
   selectedCliente: Cliente | undefined;
-
-  produtosEmEstoque!: ProdutoEmEstoque[];
-  produtosSelecionados!: ProdutoPedido[];
-
 
   constructor(private dialogRef: MatDialogRef<OrcamentoNovoCadastroComponent>,
     private _formBuilder: FormBuilder,
     private clienteService: ClientesService,
     private enderecoService: EnderecoService) {
     this.enderecoDataSource = new MatTableDataSource<Endereco>();
+    this.produtosEmEstoqueDataSource = new MatTableDataSource<ProdutoEmEstoque>();
   }
 
   ngOnInit(): void {
@@ -58,6 +55,10 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.listaDeClientes.filter(cliente => cliente.name.toLowerCase().includes(filterValue)
     );
+  }
+
+  calculateTotal() {
+    //return this.produtosEmEstoque.reduce((total, product) => total + (product.pr * product.desiredQuantity), 0);
   }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent): void {
@@ -117,24 +118,6 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
-  }
 
-  adicionarProduto(produto: any) {
-    const produtoSelecionado = { ...produto, quantidade: 1 };
-    this.produtosSelecionados.push(produtoSelecionado);
-  }
-
-  removerProduto(produto: any) {
-    const index = this.produtosSelecionados.findIndex(p => p.id === produto.id);
-    if (index !== -1) {
-      this.produtosSelecionados.splice(index, 1);
-    }
-  }
-
-  removerProdutoSelecionado(produto: any) {
-    const index = this.produtosSelecionados.indexOf(produto);
-    if (index !== -1) {
-      this.produtosSelecionados.splice(index, 1);
-    }
   }
 }

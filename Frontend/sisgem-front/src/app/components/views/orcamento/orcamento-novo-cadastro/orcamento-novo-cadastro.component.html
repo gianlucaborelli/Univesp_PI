@@ -65,8 +65,8 @@
               </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsEndereco"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsEndereco"></tr>
           </table>
 
           <div [align]="'end'">
@@ -80,37 +80,37 @@
         <form formGroupName="selecaoDeProdutos">
           <ng-template matStepLabel>Selecione os Produtos</ng-template>
 
-          <div style="display: flex; justify-content: space-between;">
-            <div>
-              <h2>Produtos em Estoque</h2>
-              <mat-list>
-                <mat-list-item *ngFor="let produto of produtosEmEstoque">
-                  {{ produto.name }} - {{ produto.quantidade }} disponíveis
-                  <button mat-icon-button (click)="adicionarProduto(produto)">
-                    <mat-icon>Adicionar</mat-icon>
-                  </button>
-                  <button mat-icon-button (click)="removerProduto(produto)">
-                    <mat-icon>remover</mat-icon>
-                  </button>
-                </mat-list-item>
-              </mat-list>
-            </div>
+          <mat-table [dataSource]="produtosEmEstoqueDataSource" class="mat-elevation-z1">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>Id</th>
+              <td mat-cell *matCellDef="let produtoEmEstoque">{{ produtoEmEstoque.id }}</td>
+            </ng-container>
 
-            <div>
-              <h2>Produtos Selecionados</h2>
-              <mat-list>
-                <mat-list-item *ngFor="let produto of produtosSelecionados">
-                  {{produto.produto.name}} - Quantidade: {{ produto.quantidade }}
-                  <button mat-icon-button (click)="removerProdutoSelecionado(produto)">
-                    <mat-icon>Deletar</mat-icon>
-                  </button>
-                </mat-list-item>
-              </mat-list>
-            </div>
-          </div>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Nome</th>
+              <td mat-cell *matCellDef="let produtoEmEstoque">{{ produtoEmEstoque.nome }}</td>
+            </ng-container>
 
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef>Preço</th>
+              <td mat-cell *matCellDef="let produtoEmEstoque">{{ produtoEmEstoque.preco | currency }}</td>
+            </ng-container>
 
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+              <td mat-cell *matCellDef="let produtoEmEstoque">{{ produtoEmEstoque.quantidade }}</td>
+            </ng-container>
 
+            <ng-container matColumnDef="desiredQuantity">
+              <th class="mat-header" mat-header-cell *matHeaderCellDef>Desejado</th>
+              <td mat-cell *matCellDef="let row" class="actionsButtonsContainer">
+                <input type="number">
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsProdutos"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsProdutos"></tr>
+          </mat-table>
 
 
           <div [align]="'end'">
