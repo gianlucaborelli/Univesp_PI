@@ -146,7 +146,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
       }),
       catchError((error) => {
         console.error('Ocorreu um erro:', error);
-        throw error; // Re-throw the error to propagate it further if needed.
+        throw error;
       })
     )
     .subscribe();
@@ -161,7 +161,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
       }),
       catchError((error) => {
         console.error('Ocorreu um erro:', error);
-        throw error; // Re-throw the error to propagate it further if needed.
+        throw error;
       })
     )
     .subscribe();
@@ -180,6 +180,14 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
       })
     )
     .subscribe();
+  }
+
+  addProdutoPedido(){
+
+  }
+
+  atualizaProdutoPedido(){
+    
   }
 
   novoOrcamento = this._formBuilder.group({

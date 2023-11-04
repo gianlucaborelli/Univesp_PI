@@ -35,61 +35,82 @@
   <div class="mat-elevation-z1 content-table">
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z1">
 
-      <!-- Defina as colunas da tabela -->
-      <ng-container matColumnDef="dataFim">
-        <th mat-header-cell *matHeaderCellDef>Data de Fim</th>
-        <td mat-cell *matCellDef="let orcamento">{{ orcamento.dataFim }}</td>
-      </ng-container>
-
       <ng-container matColumnDef="dataInicio">
         <th mat-header-cell *matHeaderCellDef>Data de Início</th>
         <td mat-cell *matCellDef="let orcamento">{{ orcamento.dataInicio }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="dataFim">
+        <th mat-header-cell *matHeaderCellDef>Data de Fim</th>
+        <td mat-cell *matCellDef="let orcamento">{{ orcamento.dataFim }}</td>
+      </ng-container>
+
       <ng-container matColumnDef="cliente">
         <th mat-header-cell *matHeaderCellDef>Cliente</th>
-        <td mat-cell *matCellDef="let orcamento">{{ orcamento.clienteId }}</td>
+        <td mat-cell *matCellDef="let orcamento">{{ orcamento.cliente.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="endereco">
         <th mat-header-cell *matHeaderCellDef>Endereço</th>
-        <td mat-cell *matCellDef="let orcamento">{{ orcamento.enderecoId }}</td>
+        <td mat-cell *matCellDef="let orcamento">{{ orcamento.endereco.logradouro }}</td>
       </ng-container>
 
-      <!-- Defina uma coluna para produtos pedidos expansíveis -->
-      <ng-container matColumnDef="produtosPedidos">
-        <th mat-header-cell *matHeaderCellDef>Produtos Pedidos</th>
-        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-          <div class="inner-table">
-            <table mat-table [dataSource]="element.produtosPedidos">
-              <!-- Defina as colunas para os produtos pedidos -->
-              <ng-container matColumnDef="preco">
-                <th mat-header-cell *matHeaderCellDef>Preço</th>
-                <td mat-cell *matCellDef="let produtoPedido">{{ produtoPedido.preco }}</td>
-              </ng-container>
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">Detalhes</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+            <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-              <ng-container matColumnDef="quantidade">
-                <th mat-header-cell *matHeaderCellDef>Quantidade</th>
-                <td mat-cell *matCellDef="let produtoPedido">{{ produtoPedido.quantidade }}</td>
-              </ng-container>
+      <ng-container matColumnDef="acoes">
+        <th class="mat-header" mat-header-cell *matHeaderCellDef>AÇÕES</th>
+        <td mat-cell *matCellDef="let row" class="actionsButtonsContainer">
+          <button class="actionButton" mat-icon-button color="primary"
+            (click)="navegarParaOrcamentoCadastro(row.id )"><mat-icon>open_in_new</mat-icon></button>
+          <button class="actionButton" mat-icon-button color="warn"
+            (click)="deletarOrcamento(row.id )"><mat-icon>delete_outline</mat-icon></button>
+        </td>
+      </ng-container>
 
-              <!-- Adicione mais colunas conforme necessário para os detalhes dos produtos pedidos -->
-              <!-- Exemplo: Nome do Produto, ID do Pedido, etc. -->
 
-              <tr mat-header-row *matHeaderRowDef="columnsForProdutosPedidos"></tr>
-              <tr mat-row *matRowDef="let row; columns: columnsForProdutosPedidos;"></tr>
-            </table>
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+          <div class="example-element-detail"
+               [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+               <table mat-table [dataSource]="element.produtosPedidos">
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef>Produto</th>
+                  <td mat-cell *matCellDef="let produtoPedido">{{ produtoPedido.produto.name }}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="preco">
+                  <th mat-header-cell *matHeaderCellDef>Preço</th>
+                  <td mat-cell *matCellDef="let produtoPedido">{{ produtoPedido.preco }}</td>
+                </ng-container>
+  
+                <ng-container matColumnDef="quantidade">
+                  <th mat-header-cell *matHeaderCellDef>Quantidade</th>
+                  <td mat-cell *matCellDef="let produtoPedido">{{ produtoPedido.quantidade }}</td>
+                </ng-container>
+               
+                <tr mat-header-row *matHeaderRowDef="columnsForProdutosPedidos"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsForProdutosPedidos;"></tr>
+              </table>      
           </div>
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let orcamento; columns: displayedColumns;" class="example-element-row"
-        [class.example-expanded-row]="expandedElement === orcamento" (click)="expandRow(orcamento)"></tr>
-
-      <tr mat-row *matRowDef="let row; columns: ['produtosPedidos']" class="example-detail-row"></tr>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>      
     </table>
-
-
   </div>
 </div>

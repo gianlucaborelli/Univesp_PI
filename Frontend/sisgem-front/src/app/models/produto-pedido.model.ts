@@ -1,3 +1,4 @@
+import { Orcamento } from "./orcamento.model";
 import { Produto } from "./produtos.model";
 
 export interface ProdutoPedido {
@@ -5,5 +6,11 @@ export interface ProdutoPedido {
     preco: String;
     quantidade: String;
     produto: Produto;
-    orcamentoId: String
+    orcamento: Orcamento;
+}
+
+export interface AddProdutoPedido {    
+    quantidade: String;
+    produtoId: String;
+    orcamentoId: String;
 }

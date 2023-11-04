@@ -12,10 +12,7 @@ import com.pi1.sisgem.data.OrcamentoRepositorio;
 import com.pi1.sisgem.data.ProdutoPedidoRepositorio;
 import com.pi1.sisgem.data.ProdutoRepositorio;
 import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoRequest;
-import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoResponse;
 import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoRequest;
-import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoResponse;
-import com.pi1.sisgem.data.Mapper.ProdutoPedidoMapper;
 import com.pi1.sisgem.entity.Orcamento;
 import com.pi1.sisgem.entity.Produto;
 import com.pi1.sisgem.entity.ProdutoPedido;
@@ -32,8 +29,6 @@ public class ProdutoPedidoService {
     private ProdutoService produtoService;
     @Autowired
     private ProdutoPedidoRepositorio produtoPedidoRepositorio;
-    @Autowired
-    private ProdutoPedidoMapper mapper;
     @Autowired
     private EntityManager entityManager;
 

@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pi1.sisgem.data.ProdutoPedidoRepositorio;
 import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoRequest;
-import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoResponse;
 import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoRequest;
-import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoResponse;
 import com.pi1.sisgem.entity.ProdutoPedido;
 import com.pi1.sisgem.service.ProdutoPedidoService;
 

@@ -10,8 +10,13 @@ import 'moment/locale/pt';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OrcamentoNovoCadastroComponent } from '../orcamento-novo-cadastro/orcamento-novo-cadastro.component';
 import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Orcamento } from 'src/app/models/orcamento.model';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { NgFor, NgIf } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
 
 @Component({
   selector: 'app-orcamento',
@@ -26,11 +31,19 @@ import { Orcamento } from 'src/app/models/orcamento.model';
     },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],  
 })
 
 export class OrcamentoPesquisaComponent {
-  displayedColumns: string[] = ['dataFim', 'dataInicio', 'cliente', 'endereco', 'produtosPedidos'];
-  columnsForProdutosPedidos: string[] = ['preco', 'quantidade']; // Adicione mais colunas conforme necessário
+  displayedColumns: string[] = ['dataInicio', 'dataFim',  'cliente', 'endereco', 'acoes'];
+  columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
+  columnsForProdutosPedidos: string[] = ['name', 'preco', 'quantidade']; 
   expandedElement: Orcamento | null | undefined;
 
   dataSource!: MatTableDataSource<Orcamento>;
@@ -57,11 +70,7 @@ export class OrcamentoPesquisaComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  expandRow(orcamento: Orcamento) {
-    this.expandedElement = this.expandedElement === orcamento ? null : orcamento;
-  }
+  }  
 
   openAddNewOrcamentoDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -70,5 +79,13 @@ export class OrcamentoPesquisaComponent {
     dialogConfig.width = "70%";
     dialogConfig.height = "80%";
     this.dialog.open(OrcamentoNovoCadastroComponent, dialogConfig);
+  }
+
+  navegarParaOrcamentoCadastro(id: String){
+  }
+
+  @needConfirmation()
+  deletarOrcamento(id: String){
+
   }
 }
