@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Produto } from '../../models/produtos.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,8 +13,9 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class ProdutosService {
+  public produtoUpdate: Subject<boolean>;
 
-  constructor(private http: HttpClient, private _snack: MatSnackBar) { }
+  constructor(private http: HttpClient, private _snack: MatSnackBar) { this.produtoUpdate =new Subject<boolean>();}
 
   baseUrl: String = environment.baseUrl;
 

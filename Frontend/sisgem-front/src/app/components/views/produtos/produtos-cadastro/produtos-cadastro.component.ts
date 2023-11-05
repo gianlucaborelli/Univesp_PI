@@ -28,6 +28,8 @@ export class ProdutosCadastroComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.initProduto();
+
     this.router.queryParams.subscribe(params => {
       const valor = params['parametro'];
       if (valor) {
@@ -37,6 +39,22 @@ export class ProdutosCadastroComponent implements OnInit {
         });
       }
     });
+  }
+
+  public initProduto(){
+    this.router.queryParams.subscribe(params => {
+      const valor = params['parametro'];
+      if (valor) {
+        this.service.produtoUpdate.subscribe((resposta) => {
+          console.log(resposta);
+          if (resposta) {
+            this.service.findById(valor).subscribe((produto) =>{
+              this.produto= produto;
+            })
+          }
+        });
+      }
+    }); 
   }
 
 

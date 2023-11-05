@@ -13,8 +13,19 @@ export class ProdutoPedidoService {
 
   baseUrl: String = environment.baseUrl;
 
-  addProduto(body: AddProdutoPedido): Observable<ProdutoPedido> {
-    const url = `${this.baseUrl}/produtoPedido`
+  async addProduto(body: AddProdutoPedido): Promise<Observable<ProdutoPedido>> {
+    const url = `${this.baseUrl}/produtoPedido`;
     return this.http.post<ProdutoPedido>(url, body);
   }
+
+  updateProduto(body: ProdutoPedido): Observable<ProdutoPedido> {
+    const url = `${this.baseUrl}/produtoPedido`
+    return this.http.put<ProdutoPedido>(url, body);
+  }
+
+  deleteProduto(id: String): Observable<ProdutoPedido> {
+    const url = `${this.baseUrl}/produtoPedido/${id}`
+    return this.http.delete<ProdutoPedido>(url);
+  }
+
 }

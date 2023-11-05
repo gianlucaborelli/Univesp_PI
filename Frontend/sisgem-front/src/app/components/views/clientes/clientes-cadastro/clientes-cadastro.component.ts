@@ -28,33 +28,33 @@ export class ClientesCadastroComponent implements OnInit {
 
   }
 
- ngOnInit(): void {
- this.initClienteAdd();
+  ngOnInit(): void {
+    this.initClienteAdd();
 
- this.router.queryParams.subscribe(params => {
-  const valor = params['parametro'];
-  if (valor) {
-        this.service.findById(valor).subscribe((cliente) =>{
-          this.cliente= cliente;
+    this.router.queryParams.subscribe(params => {
+      const valor = params['parametro'];
+      if (valor) {
+        this.service.findById(valor).subscribe((cliente) => {
+          this.cliente = cliente;
         })
       }
- });
+    });
   }
-  
-  public initClienteAdd(){
+
+  public initClienteAdd() {
     this.router.queryParams.subscribe(params => {
       const valor = params['parametro'];
       if (valor) {
         this.service.enderecoAdd.subscribe((resposta) => {
           console.log(resposta);
           if (resposta) {
-            this.service.findById(valor).subscribe((cliente) =>{
-              this.cliente= cliente;
+            this.service.findById(valor).subscribe((cliente) => {
+              this.cliente = cliente;
             })
           }
         });
       }
-    }); 
+    });
   }
 
   back(): void {

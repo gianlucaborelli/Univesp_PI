@@ -185,18 +185,21 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
       .subscribe();
   }
 
-  onQuantityChange(novoProdutoPedido: any) {
-
+  async onQuantityChange(novoProdutoPedido: any) {
     const produtoPedidoExiste = this.orcamento.produtosPedidos?.find(produtoPedido => produtoPedido.id === novoProdutoPedido.id)
 
+    console.log(produtoPedidoExiste);
+
     if (produtoPedidoExiste) {
-      this.atualizaProdutoPedido();
+      this.atualizaProdutoPedido(produtoPedidoExiste);
     } else {
-      this.addProdutoPedido(novoProdutoPedido)
+      await this.addProdutoPedido(novoProdutoPedido)
     }
+
+    console.log(this.orcamento);
   }
 
-  addProdutoPedido(novoPedido: any) {
+  async addProdutoPedido(novoPedido: any) {
     const pedido: AddProdutoPedido = {
       quantidade: novoPedido.quantidadeDesejada,
       produtoId: novoPedido.id,
@@ -205,11 +208,37 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
 
     console.log(pedido);
 
-    this.produtoPedidoService.addProduto(pedido)
+    (await this.produtoPedidoService.addProduto(pedido))
+      .subscribe(
+        (resposta) => {
+          console.log(resposta);
+          this.orcamento.produtosPedidos!.push(resposta);
+        }),
+      catchError((error) => {
+        console.error('Ocorreu um erro:', error);
+        throw error;
+      })
+  }
+
+
+  atualizaProdutoPedido(pedidoAtualizado: ProdutoPedido) {
+    console.log(pedidoAtualizado);
+
+    this.produtoPedidoService.updateProduto(pedidoAtualizado)
       .pipe(
         tap((resposta) => {
           console.log(resposta);
-          this.orcamento.produtosPedidos?.includes(resposta);
+          if (this.orcamento.produtosPedidos) {
+            const index = this.orcamento.produtosPedidos.findIndex(item => item.id === resposta.id);
+            if (index !== -1) {
+              this.orcamento.produtosPedidos.splice(index, 1);
+            }
+          }
+
+
+          if (this.orcamento.produtosPedidos) {
+            this.orcamento.produtosPedidos.push(resposta);
+          }
         }),
         catchError((error) => {
           console.error('Ocorreu um erro:', error);
@@ -217,11 +246,6 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
         })
       )
       .subscribe();
-  }
-
-
-  atualizaProdutoPedido() {
-
   }
 
   removerProdutoPedido() {

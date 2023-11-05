@@ -28,6 +28,13 @@ export class ProdutosPesquisaComponent {
   ngOnInit(): void {
   }
 
+  refreshTable() {
+    this.service.findAll().subscribe((resposta) => {
+      this.posts = resposta;
+      this.dataSource = new MatTableDataSource(resposta);
+    });
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -52,6 +59,8 @@ export class ProdutosPesquisaComponent {
 
   @needConfirmation()
   deletarProduto(idCliente: String) {
-    this.service.delete(idCliente).subscribe();
+    this.service.delete(idCliente).subscribe(() => {
+      this.refreshTable(); 
+    });
   }
 }

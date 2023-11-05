@@ -37,7 +37,7 @@ export class ClienteDetailDialogComponent implements OnInit {
 
   salvar() {
     if (this.cliente.id === undefined) {
-      this.service.create(this.cliente).subscribe((resposta) => {
+      this.service.create(this.cliente).subscribe((resposta) => {        
         this.close();
         this.router.navigate(['clientescadastro'], { queryParams: { parametro: resposta.id } })
         this.service.mensagem('Cliente cadastrado com sucesso!');
@@ -48,6 +48,7 @@ export class ClienteDetailDialogComponent implements OnInit {
       })
     } else {
       this.service.update(this.cliente).subscribe((resposta) => {
+        this.service.enderecoAdd.next(true);
         this.close();
         this.router.navigate(['clientescadastro'], { queryParams: { parametro: resposta.id } })
         this.service.mensagem('Cliente atualizado com sucesso!');

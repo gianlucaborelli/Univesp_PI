@@ -10,7 +10,12 @@ import { environment } from 'src/environments/environment.development';
 })
 export class ClientesService {
   public enderecoAdd: Subject<boolean>;
-  constructor(private http: HttpClient, private _snack: MatSnackBar) {this.enderecoAdd = new Subject<boolean>(); }
+  public clienteUpdate: Subject<boolean>;
+
+  constructor(private http: HttpClient, 
+              private _snack: MatSnackBar) 
+              {this.enderecoAdd = new Subject<boolean>();
+               this.clienteUpdate =new Subject<boolean>();}
 
   baseUrl: String = environment.baseUrl;
 

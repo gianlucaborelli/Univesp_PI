@@ -48,6 +48,7 @@ export class ProdutosDetailComponent implements OnInit {
       })
     } else {
       this.service.update(this.produto).subscribe((resposta) => {
+        this.service.produtoUpdate.next(true)
         this.close();
         this.router.navigate(['produtoscadastro'], { queryParams: { parametro: resposta.id } })
         this.service.mensagem('Produto atualizado com sucesso!');
