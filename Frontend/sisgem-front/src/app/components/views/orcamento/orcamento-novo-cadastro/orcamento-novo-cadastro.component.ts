@@ -8,6 +8,7 @@ import { Observable, catchError, map, startWith, tap } from 'rxjs';
 import { Cliente } from 'src/app/models/clientes.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
+import { ProdutoPedido, AddProdutoPedido } from 'src/app/models/produto-pedido.model';
 import { ClientesService } from 'src/app/service/cliente-service/clientes.service';
 import { EnderecoService } from 'src/app/service/endereco.service';
 
@@ -21,6 +22,7 @@ import { ProdutosService } from 'src/app/service/produto-service/produtos.servic
 import { Orcamento } from 'src/app/models/orcamento.model';
 import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
 import { format } from 'date-fns';
+import { ProdutoPedidoService } from 'src/app/service/produto-pedido/produto-pedido.service';
 
 @Component({
   selector: 'app-orcamento-novo-cadastro',
@@ -47,7 +49,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   searchControl = new FormControl();
 
   enderecoDataSource: MatTableDataSource<Endereco>;
-  produtosEmEstoqueDataSource: MatTableDataSource<ProdutoEmEstoque>;  
+  produtosEmEstoqueDataSource: MatTableDataSource<ProdutoEmEstoque>;
 
   orcamento: Orcamento = {};
 
@@ -58,13 +60,14 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     private clienteService: ClientesService,
     private enderecoService: EnderecoService,
     private produtoService: ProdutosService,
-    private orcamentoService: OrcamentoService) {
+    private orcamentoService: OrcamentoService,
+    private produtoPedidoService: ProdutoPedidoService) {
     this.enderecoDataSource = new MatTableDataSource<Endereco>();
     this.produtosEmEstoqueDataSource = new MatTableDataSource<ProdutoEmEstoque>();
     this.range = this._formBuilder.group({
       start: null,
       end: null,
-    });       
+    });
   }
 
   ngOnInit(): void {
@@ -88,15 +91,15 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   onClienteSelecionado(event: MatAutocompleteSelectedEvent): void {
     const selectedName = event.option.value;
 
-    if(this.orcamento.cliente==null){
-      this.orcamento.cliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);  
-      console.log(this.orcamento);           
-    }else if (this.orcamento.cliente != selectedName){
+    if (this.orcamento.cliente == null) {
       this.orcamento.cliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
-      this.orcamento.endereco = null;  
-      console.log(this.orcamento);                 
+      console.log(this.orcamento);
+    } else if (this.orcamento.cliente != selectedName) {
+      this.orcamento.cliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
+      this.orcamento.endereco = null;
+      console.log(this.orcamento);
     }
-    
+
     this.findEnderecoByClienteId(this.orcamento.cliente?.id || 'valorPadrao');
 
     this.myStepper?.next();
@@ -109,13 +112,13 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     });
   }
 
-  onEnderecoSelecionado(endereco: any) {    
+  onEnderecoSelecionado(endereco: any) {
     this.orcamento.endereco = endereco;
 
-    if (this.orcamento.id != null){
+    if (this.orcamento.id != null) {
       this.atualizaOrcamento();
     }
-    
+
     this.myStepper?.next();
   }
 
@@ -123,71 +126,106 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     const startDate = this.range.get('start')?.value;
     const endDate = this.range.get('end')?.value;
 
-    if (startDate && endDate) {  
+    if (startDate && endDate) {
       this.consultarProdutosDisponiveis(startDate, endDate);
 
       this.orcamento.dataInicio = format(new Date(startDate), 'dd/MM/yyyy');
       this.orcamento.dataFim = format(new Date(endDate), 'dd/MM/yyyy');
 
-      if(this.orcamento.id ==null){
+      if (this.orcamento.id == null) {
         this.criaOrcamento();
-      } else{
+      } else {
         this.atualizaOrcamento();
-      }      
+      }
     }
   }
 
   consultarProdutosDisponiveis(startDate: Date, endDate: Date): void {
     this.produtoService.findProdutosDisponiveis(startDate, endDate)
-    .pipe(
-      tap((resposta) => {
-        console.log(resposta);
-        this.produtosEmEstoqueDataSource.data = resposta;
-      }),
-      catchError((error) => {
-        console.error('Ocorreu um erro:', error);
-        throw error;
-      })
-    )
-    .subscribe();
+      .pipe(
+        tap((resposta) => {
+          console.log(resposta);
+          this.produtosEmEstoqueDataSource.data = resposta;
+        }),
+        catchError((error) => {
+          console.error('Ocorreu um erro:', error);
+          throw error;
+        })
+      )
+      .subscribe();
   }
 
-  criaOrcamento(){
+  criaOrcamento() {
     this.orcamentoService.create(this.orcamento)
-    .pipe(
-      tap((resposta) => {
-        console.log(resposta);
-        this.orcamento = resposta;
-      }),
-      catchError((error) => {
-        console.error('Ocorreu um erro:', error);
-        throw error;
-      })
-    )
-    .subscribe();
+      .pipe(
+        tap((resposta) => {
+          console.log(resposta);
+          this.orcamento = resposta;
+        }),
+        catchError((error) => {
+          console.error('Ocorreu um erro:', error);
+          throw error;
+        })
+      )
+      .subscribe();
   }
 
-  atualizaOrcamento(){
+  atualizaOrcamento() {
     this.orcamentoService.update(this.orcamento)
-    .pipe(
-      tap((resposta) => {
-        console.log(resposta);
-        this.orcamento = resposta;
-      }),
-      catchError((error) => {
-        console.error('Ocorreu um erro:', error);
-        throw error; // Re-throw the error to propagate it further if needed.
-      })
-    )
-    .subscribe();
+      .pipe(
+        tap((resposta) => {
+          console.log(resposta);
+          this.orcamento = resposta;
+        }),
+        catchError((error) => {
+          console.error('Ocorreu um erro:', error);
+          throw error;
+        })
+      )
+      .subscribe();
   }
 
-  addProdutoPedido(){
+  onQuantityChange(novoProdutoPedido: any) {
+
+    const produtoPedidoExiste = this.orcamento.produtosPedidos?.find(produtoPedido => produtoPedido.id === novoProdutoPedido.id)
+
+    if (produtoPedidoExiste) {
+      this.atualizaProdutoPedido();
+    } else {
+      this.addProdutoPedido(novoProdutoPedido)
+    }
+  }
+
+  addProdutoPedido(novoPedido: any) {
+    const pedido: AddProdutoPedido = {
+      quantidade: novoPedido.quantidadeDesejada,
+      produtoId: novoPedido.id,
+      orcamentoId: this.orcamento.id!
+    };
+
+    console.log(pedido);
+
+    this.produtoPedidoService.addProduto(pedido)
+      .pipe(
+        tap((resposta) => {
+          console.log(resposta);
+          this.orcamento.produtosPedidos?.includes(resposta);
+        }),
+        catchError((error) => {
+          console.error('Ocorreu um erro:', error);
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+
+
+  atualizaProdutoPedido() {
 
   }
 
-  atualizaProdutoPedido(){
-    
+  removerProdutoPedido() {
+
   }
 
   novoOrcamento = this._formBuilder.group({
@@ -210,7 +248,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   }
   get ProdutosDoOrcamentoForm() {
     return this.novoOrcamento.get("selecaoDeProdutos") as unknown as FormGroup;
-  }  
+  }
 
   HandleSubmit() {
     if (this.novoOrcamento.valid) {
@@ -218,7 +256,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     }
   }
 
-  
+
 
   salvar() { }
 

@@ -116,7 +116,7 @@
               <td mat-cell *matCellDef="let row" class="actionsButtonsContainer">
                 <mat-form-field appearance="outline" class="inputform">
                   <mat-label>Quantidade Desejada</mat-label>
-                  <input matInput type="number" min="0" [max]="row.estoque" name="desiredQuantity" [(ngModel)]="row.quantidadeDesejada">
+                  <input matInput type="number" min="0" [max]="row.estoque" name="desiredQuantity" [(ngModel)]="row.quantidadeDesejada" (change)="onQuantityChange(row)">
                 </mat-form-field>
               </td>
             </ng-container>

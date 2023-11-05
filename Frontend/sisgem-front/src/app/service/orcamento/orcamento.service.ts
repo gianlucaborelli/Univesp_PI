@@ -18,7 +18,7 @@ export class OrcamentoService {
   findAll(): Observable<Orcamento[]> {
     const url = `${this.baseUrl}/orcamentos`
     return this.http.get<Orcamento[]>(url);
-  }
+  }  
 
   findProdutosEmEstoque(): Observable<ProdutoEmEstoque[]> {
     const url = `${this.baseUrl}/orcamentos`
@@ -31,7 +31,12 @@ export class OrcamentoService {
   }
 
   update(body: Orcamento): Observable<Orcamento> {
-    const url = `${this.baseUrl}/clientes`
+    const url = `${this.baseUrl}/orcamentos`
     return this.http.put<Orcamento>(url, body)
+  }
+
+  delete(id: String): Observable<Orcamento> {
+    const url = `${this.baseUrl}/orcamentos/${id}`
+    return this.http.delete<Orcamento>(url)
   }
 }

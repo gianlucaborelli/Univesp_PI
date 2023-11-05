@@ -86,6 +86,6 @@ export class OrcamentoPesquisaComponent {
 
   @needConfirmation()
   deletarOrcamento(id: String){
-
-  }
+    this.service.delete(id).subscribe();
+  }  
 }
