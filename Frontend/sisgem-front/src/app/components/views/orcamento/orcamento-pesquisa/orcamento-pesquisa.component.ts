@@ -67,6 +67,13 @@ export class OrcamentoPesquisaComponent {
     end: new FormControl<Date | null>(null),
   });
 
+  refreshTable() {
+    this.service.findAll().subscribe((resposta) => {
+      this.posts = resposta;
+      this.dataSource = new MatTableDataSource(resposta);
+    });
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -86,6 +93,8 @@ export class OrcamentoPesquisaComponent {
 
   @needConfirmation()
   deletarOrcamento(id: String){
-    this.service.delete(id).subscribe();
+    this.service.delete(id).subscribe(() => {
+      this.refreshTable();
+    });
   }  
 }

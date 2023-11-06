@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi1.sisgem.data.ProdutoPedidoRepositorio;
 import com.pi1.sisgem.data.DTO.produtosPedidos.addProdutoPedidoRequest;
-import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoRequest;
+import com.pi1.sisgem.data.DTO.produtosPedidos.produtoPedidoExisteDTO;
+import com.pi1.sisgem.data.DTO.produtosPedidos.updateProdutoPedidoResponse;
 import com.pi1.sisgem.entity.ProdutoPedido;
 import com.pi1.sisgem.service.ProdutoPedidoService;
 
@@ -34,13 +36,21 @@ public class ProdutoPedidoController {
         return repositorio.findAll();
     }
 
+    @GetMapping("/produtoPedidoJaExiste")
+    public ResponseEntity<produtoPedidoExisteDTO> checkIfWasProdutoPedido(
+            @RequestParam("orcamentoId") Long orcamentoId,
+            @RequestParam("produtoId") Long produtoId) {
+                
+        return service.checkIfWasProdutoPedidoInOrcamento(orcamentoId, produtoId);
+    }
+
     @PostMapping
     public ResponseEntity<ProdutoPedido> salvar(@RequestBody addProdutoPedidoRequest pedidoRequest){
         return service.addProdutoPedido(pedidoRequest);
     }
 
     @PutMapping
-    public ResponseEntity<ProdutoPedido> atualizar(@RequestBody updateProdutoPedidoRequest pedidoRequest){
+    public ResponseEntity<updateProdutoPedidoResponse> atualizar(@RequestBody ProdutoPedido pedidoRequest){
         return service.updateProdutoPedido(pedidoRequest);
     }
     

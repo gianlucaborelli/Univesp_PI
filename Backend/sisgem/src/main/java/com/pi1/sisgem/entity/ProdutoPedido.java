@@ -30,7 +30,7 @@ public class ProdutoPedido {
 
     @ManyToOne
     @JoinColumn(name = "fk_orcamento_id")
-    @JsonBackReference
+    @JsonBackReference    
     private Orcamento orcamento;
 
     public Long getId() {

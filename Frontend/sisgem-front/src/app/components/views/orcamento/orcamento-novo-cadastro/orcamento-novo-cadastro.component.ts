@@ -8,10 +8,8 @@ import { Observable, catchError, map, startWith, tap } from 'rxjs';
 import { Cliente } from 'src/app/models/clientes.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
-import { ProdutoPedido, AddProdutoPedido } from 'src/app/models/produto-pedido.model';
 import { ClientesService } from 'src/app/service/cliente-service/clientes.service';
 import { EnderecoService } from 'src/app/service/endereco.service';
-
 import {
   MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter,
@@ -23,6 +21,8 @@ import { Orcamento } from 'src/app/models/orcamento.model';
 import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
 import { format } from 'date-fns';
 import { ProdutoPedidoService } from 'src/app/service/produto-pedido/produto-pedido.service';
+import { ProdutoExiste } from 'src/app/models/produto-existe.model';
+import { AddProdutoPedido } from 'src/app/models/add-produto-pedido.model';
 
 @Component({
   selector: 'app-orcamento-novo-cadastro',
@@ -72,9 +72,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.clienteService.findAll().subscribe((resposta) => {
-      console.log(resposta);
       this.listaDeClientes = resposta;
-
       this.filterOptionsList = this.searchControl.valueChanges.pipe(
         startWith(''),
         map(value => this._filter(value || ''))
@@ -93,21 +91,17 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
 
     if (this.orcamento.cliente == null) {
       this.orcamento.cliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
-      console.log(this.orcamento);
     } else if (this.orcamento.cliente != selectedName) {
       this.orcamento.cliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
       this.orcamento.endereco = null;
-      console.log(this.orcamento);
     }
 
     this.findEnderecoByClienteId(this.orcamento.cliente?.id || 'valorPadrao');
-
     this.myStepper?.next();
   }
 
   findEnderecoByClienteId(id: String) {
     this.enderecoService.findAllByClienteId(id).subscribe((resposta) => {
-      console.log(resposta);
       this.enderecoDataSource.data = resposta;
     });
   }
@@ -144,7 +138,6 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     this.produtoService.findProdutosDisponiveis(startDate, endDate)
       .pipe(
         tap((resposta) => {
-          console.log(resposta);
           this.produtosEmEstoqueDataSource.data = resposta;
         }),
         catchError((error) => {
@@ -159,7 +152,6 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     this.orcamentoService.create(this.orcamento)
       .pipe(
         tap((resposta) => {
-          console.log(resposta);
           this.orcamento = resposta;
         }),
         catchError((error) => {
@@ -174,7 +166,6 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     this.orcamentoService.update(this.orcamento)
       .pipe(
         tap((resposta) => {
-          console.log(resposta);
           this.orcamento = resposta;
         }),
         catchError((error) => {
@@ -185,59 +176,28 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
       .subscribe();
   }
 
-  async onQuantityChange(novoProdutoPedido: any) {
-    const produtoPedidoExiste = this.orcamento.produtosPedidos?.find(produtoPedido => produtoPedido.id === novoProdutoPedido.id)
-
-    console.log(produtoPedidoExiste);
-
-    if (produtoPedidoExiste) {
-      this.atualizaProdutoPedido(produtoPedidoExiste);
-    } else {
-      await this.addProdutoPedido(novoProdutoPedido)
-    }
-
-    console.log(this.orcamento);
-  }
-
-  async addProdutoPedido(novoPedido: any) {
-    const pedido: AddProdutoPedido = {
-      quantidade: novoPedido.quantidadeDesejada,
-      produtoId: novoPedido.id,
-      orcamentoId: this.orcamento.id!
-    };
-
-    console.log(pedido);
-
-    (await this.produtoPedidoService.addProduto(pedido))
-      .subscribe(
-        (resposta) => {
-          console.log(resposta);
-          this.orcamento.produtosPedidos!.push(resposta);
-        }),
-      catchError((error) => {
-        console.error('Ocorreu um erro:', error);
-        throw error;
-      })
-  }
-
-
-  atualizaProdutoPedido(pedidoAtualizado: ProdutoPedido) {
-    console.log(pedidoAtualizado);
-
-    this.produtoPedidoService.updateProduto(pedidoAtualizado)
+  onQuantityChange(novoProdutoPedido: any) {
+    this.produtoPedidoService.produtoExiste(this.orcamento.id!, novoProdutoPedido.id)
       .pipe(
         tap((resposta) => {
-          console.log(resposta);
-          if (this.orcamento.produtosPedidos) {
-            const index = this.orcamento.produtosPedidos.findIndex(item => item.id === resposta.id);
-            if (index !== -1) {
-              this.orcamento.produtosPedidos.splice(index, 1);
+
+          if (novoProdutoPedido.quantidadeDesejada == 0) {
+
+            console.log("Deletando produto");
+            this.deletaProdutoPedido(novoProdutoPedido.id);
+
+          } else {
+            console.log(resposta);
+            
+            if (resposta.id != null) {
+              
+              resposta.orcamentoId = this.orcamento.id;
+              resposta.quantidade = novoProdutoPedido.quantidadeDesejada;
+              this.atualizaProdutoPedido(resposta);
+            } else {              
+              console.log(novoProdutoPedido);
+              this.addProdutoPedido(novoProdutoPedido)
             }
-          }
-
-
-          if (this.orcamento.produtosPedidos) {
-            this.orcamento.produtosPedidos.push(resposta);
           }
         }),
         catchError((error) => {
@@ -248,8 +208,53 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
       .subscribe();
   }
 
-  removerProdutoPedido() {
 
+  addProdutoPedido(novoPedido: any) {
+    const pedido: AddProdutoPedido = {
+      quantidade: novoPedido.quantidadeDesejada,
+      produtoId: novoPedido.id,
+      orcamentoId: this.orcamento.id!
+    };
+
+    console.log(pedido);
+    this.produtoPedidoService.addProduto(pedido)
+      .subscribe(
+        (resposta) => {
+          console.log(resposta);
+        }),
+      catchError((error) => {
+        console.error('Ocorreu um erro:', error);
+        throw error;
+      })
+  }
+
+  deletaProdutoPedido(id: String) {
+    this.produtoPedidoService.deleteProduto(id)
+      .subscribe(),
+      catchError((error) => {
+        console.error('Ocorreu um erro:', error);
+        throw error;
+      })
+  }
+
+
+  atualizaProdutoPedido(pedidoAtualizado: ProdutoExiste) {
+    console.log(pedidoAtualizado);
+
+    this.produtoPedidoService.updateProduto(pedidoAtualizado)
+      .pipe(
+        tap((resposta) => {
+          console.log(resposta);
+        }),
+        catchError((error) => {
+          console.error('Ocorreu um erro:', error);
+          throw error;
+        })
+      )
+      .subscribe();
+  }
+
+  removerProdutoPedido() {
   }
 
   novoOrcamento = this._formBuilder.group({

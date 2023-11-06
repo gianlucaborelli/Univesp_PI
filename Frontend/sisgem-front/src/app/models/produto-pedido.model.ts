@@ -8,9 +8,3 @@ export interface ProdutoPedido {
     produto: Produto;
     orcamento: Orcamento;
 }
-
-export interface AddProdutoPedido {    
-    quantidade: String;
-    produtoId: String;
-    orcamentoId: String;
-}

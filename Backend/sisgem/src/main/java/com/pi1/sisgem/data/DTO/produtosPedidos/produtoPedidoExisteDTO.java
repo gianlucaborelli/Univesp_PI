@@ -2,8 +2,7 @@ package com.pi1.sisgem.data.DTO.produtosPedidos;
 
 import java.math.BigDecimal;
 
-public class updateProdutoPedidoResponse {
-    
+public class produtoPedidoExisteDTO {
     private Long id;
     
     private Integer quantidade;
@@ -52,5 +51,7 @@ public class updateProdutoPedidoResponse {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
-    }    
+    }
+
+    
 }

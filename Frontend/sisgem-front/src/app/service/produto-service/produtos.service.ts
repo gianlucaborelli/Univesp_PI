@@ -6,8 +6,6 @@ import { environment } from 'src/environments/environment.development';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
 import { format } from 'date-fns';
-import * as moment from 'moment';
-
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +26,6 @@ export class ProdutosService {
     
     const dataInicioFormatada = format(new Date(dataInicio), 'dd/MM/yyyy');  
     const dataFinalFormatada = format(new Date(dataFinal), 'dd/MM/yyyy');    
-
-    console.log(dataInicioFormatada);
-    console.log(dataFinalFormatada);
 
     const url = `${this.baseUrl}/produtos/produtosDisponiveis?dataInicio=${dataInicioFormatada}&dataFinal=${dataFinalFormatada}`;
     return this.http.get<ProdutoEmEstoque[]>(url);
