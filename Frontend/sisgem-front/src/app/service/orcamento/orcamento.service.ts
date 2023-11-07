@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { Orcamento } from 'src/app/models/orcamento.model';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
@@ -10,8 +11,11 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class OrcamentoService {
-
-  constructor(private http: HttpClient, private _snack: MatSnackBar) { }
+  public orcamentoUpdate: Subject<boolean>;
+  
+  constructor(private http: HttpClient, private _snack: MatSnackBar) { 
+    this.orcamentoUpdate =new Subject<boolean>();
+  }
 
   baseUrl: String = environment.baseUrl;
 
@@ -38,5 +42,13 @@ export class OrcamentoService {
   delete(id: String): Observable<Orcamento> {
     const url = `${this.baseUrl}/orcamentos/${id}`
     return this.http.delete<Orcamento>(url)
+  }
+
+  mensagem(str: String): void {
+    this._snack.open(`${str}`, 'OK', {
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      duration: 3000
+    })
   }
 }

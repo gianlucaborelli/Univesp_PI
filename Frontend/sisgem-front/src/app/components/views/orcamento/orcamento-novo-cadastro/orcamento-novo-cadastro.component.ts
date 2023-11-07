@@ -1,7 +1,7 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, catchError, map, startWith, tap } from 'rxjs';
@@ -23,6 +23,8 @@ import { format } from 'date-fns';
 import { ProdutoPedidoService } from 'src/app/service/produto-pedido/produto-pedido.service';
 import { ProdutoExiste } from 'src/app/models/produto-existe.model';
 import { AddProdutoPedido } from 'src/app/models/add-produto-pedido.model';
+import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orcamento-novo-cadastro',
@@ -56,6 +58,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   range: FormGroup;
 
   constructor(private dialogRef: MatDialogRef<OrcamentoNovoCadastroComponent>,
+    private router: Router,
     private _formBuilder: FormBuilder,
     private clienteService: ClientesService,
     private enderecoService: EnderecoService,
@@ -285,11 +288,21 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     }
   }
 
+  salvar() { 
+    this.orcamentoService.orcamentoUpdate.next(true);    
+    this.router.navigate(['cadastro-do-orcamento'], { queryParams: { parametro: this.orcamento.id! } })
+    this.orcamentoService.mensagem('Cliente atualizado com sucesso!');
+    this.dialogRef.close();
+  }
 
-
-  salvar() { }
-
-  close() {
+  @needConfirmation({
+    title : "Realmente deseja sair sem salvar?",
+    message : "Ao sair os dados não salvos serão perdidos",
+  })
+  close() {    
+    if (this.orcamento.id != undefined){      
+      this.orcamentoService.delete(this.orcamento.id).subscribe();
+    }    
     this.dialogRef.close();
   }
 }

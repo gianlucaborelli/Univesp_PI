@@ -67,7 +67,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'fazerorcamento',
+    path: 'cadastro-do-orcamento',
     component: OrcamentoCadastroComponent,
     canActivate: [SecureInnerPageGuard]
   }
