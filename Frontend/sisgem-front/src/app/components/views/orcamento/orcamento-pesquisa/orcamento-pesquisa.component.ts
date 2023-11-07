@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orcamento',
@@ -54,6 +55,7 @@ export class OrcamentoPesquisaComponent {
     @Inject(MAT_DATE_LOCALE) private _locale: string,
     private dialog: MatDialog,
     private service: OrcamentoService,
+    private router: Router
   ) {
     this.service.findAll().subscribe((resposta) => {
       console.log(resposta);
@@ -88,8 +90,14 @@ export class OrcamentoPesquisaComponent {
     this.dialog.open(OrcamentoNovoCadastroComponent, dialogConfig);
   }
 
-  navegarParaOrcamentoCadastro(id: String){
-  }
+  navegarParaOrcamentoCadastro(id: String){    
+      this.router.navigate(['cadastro-do-orcamento'], { queryParams: { parametro: id } })
+        .then(nav => {
+          console.log(nav);
+        }, err => {
+          console.log(err)
+        });
+    }
 
   @needConfirmation()
   deletarOrcamento(id: String){

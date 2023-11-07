@@ -24,6 +24,11 @@ export class OrcamentoService {
     return this.http.get<Orcamento[]>(url);
   }  
 
+  findById(id: String): Observable<Orcamento> {
+    const url = `${this.baseUrl}/orcamentos/${id}`
+    return this.http.get<Orcamento>(url)
+  }
+
   findProdutosEmEstoque(): Observable<ProdutoEmEstoque[]> {
     const url = `${this.baseUrl}/orcamentos`
     return this.http.get<ProdutoEmEstoque[]>(url);
