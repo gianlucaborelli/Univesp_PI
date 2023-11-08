@@ -56,6 +56,7 @@ import { environment } from 'src/environments/environment.development';
 import { AuthService } from './service/auth/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatRadioModule } from '@angular/material/radio';
+import { AddNewProductDialogComponent } from './components/views/orcamento/orcamento-cadastro/add-new-product-dialog/add-new-product-dialog/add-new-product-dialog.component';
 
 
 
@@ -87,7 +88,8 @@ export function initializeDialogService() {
     SignUpComponent,
     SignInComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    AddNewProductDialogComponent
 
   ],
 

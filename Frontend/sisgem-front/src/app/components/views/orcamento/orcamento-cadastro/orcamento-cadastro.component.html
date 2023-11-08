@@ -12,7 +12,7 @@
           <mat-card-actions>
             <button mat-fab color="primary" matTooltip="Editar dados do cliente." [matTooltipShowDelay]="500"
               aria-label="Este botão abre um card para editar dados do cliente"
-              (click)="openEditClienteDialog()"><mat-icon>edit</mat-icon></button>
+              (click)="openAddNewProductDialog()"><mat-icon>edit</mat-icon></button>
           </mat-card-actions>
         </mat-card-header>
         <mat-card-content class="dadosDoCliente" style="margin-top: 20px;">
@@ -32,21 +32,47 @@
       <mat-card-header class="cards-header">
         <mat-card-title>Lista de Produtos</mat-card-title>
         <mat-card-actions>
-          <button mat-fab color="accent" (click)="openAddAddressDialog()" matTooltip="Adicionar novo produto."
+          <button mat-fab color="accent" (click)="openAddNewProductDialog()" matTooltip="Adicionar novo produto."
             [matTooltipShowDelay]="500"
             aria-label="Este botão abre um card para adicionar novo produto ao orçamento"><mat-icon>add</mat-icon></button>
         </mat-card-actions>
-      </mat-card-header>      
-        <app-endereco-card [endereco]="orcamento.endereco!" class="card-endereco"></app-endereco-card>
+      </mat-card-header>  
+      <mat-card-content>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+         
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Produto </th>
+            <td mat-cell *matCellDef="let element"> {{element.produto.name}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="precoUn">
+            <th mat-header-cell *matHeaderCellDef> Preço Unitario </th>
+            <td mat-cell *matCellDef="let element"> {{element.produto.precos | currency}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="quantidade">
+            <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+            <td mat-cell *matCellDef="let element"> {{element.quantidade}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="precoTotal">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let element"> {{element.preco | currency}} </td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card-content>
     </mat-card>
 
     <mat-card class="card-endereco" >
       <mat-card-header class="cards-header">
         <mat-card-title>Endereço de Entrega</mat-card-title>
         <mat-card-actions>
-          <button mat-fab color="accent" (click)="openAddAddressDialog()" matTooltip="Adicionar novo endereço."
+          <button mat-fab color="accent" (click)="openAddAddressDialog()" matTooltip="Alterar endereço."
             [matTooltipShowDelay]="500"
-            aria-label="Este botão abre um card para adicionar novo endereço ao cliente"><mat-icon>add</mat-icon></button>
+            aria-label="Este botão abre um card para anterar o endereço do Orçamento"><mat-icon>add</mat-icon></button>
         </mat-card-actions>
       </mat-card-header>      
         <app-endereco-card [endereco]="orcamento.endereco!" style="margin: 15px;"></app-endereco-card>

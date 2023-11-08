@@ -1,6 +1,7 @@
 package com.pi1.sisgem.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,11 @@ public class ProdutoPedidoController {
     @GetMapping
     public List<ProdutoPedido> findAll(){
         return repositorio.findAll();
+    }
+
+    @GetMapping("/orcamento={id}")
+    public Optional<List<ProdutoPedido>> findByOrcamentoId(@PathVariable Long id) {
+        return repositorio.findAllByOrcamento_Id(id);
     }
 
     @GetMapping("/produtoPedidoJaExiste")

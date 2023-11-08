@@ -22,12 +22,8 @@ export class ProdutosService {
     return this.http.get<Produto[]>(url);
   }  
 
-  findProdutosDisponiveis(dataInicio: Date, dataFinal: Date): Observable<ProdutoEmEstoque[]> {
-    
-    const dataInicioFormatada = format(new Date(dataInicio), 'dd/MM/yyyy');  
-    const dataFinalFormatada = format(new Date(dataFinal), 'dd/MM/yyyy');    
-
-    const url = `${this.baseUrl}/produtos/produtosDisponiveis?dataInicio=${dataInicioFormatada}&dataFinal=${dataFinalFormatada}`;
+  findProdutosDisponiveis(dataInicio: String, dataFinal: String): Observable<ProdutoEmEstoque[]> {
+    const url = `${this.baseUrl}/produtos/produtosDisponiveis?dataInicio=${dataInicio}&dataFinal=${dataFinal}`;
     return this.http.get<ProdutoEmEstoque[]>(url);
   }
 

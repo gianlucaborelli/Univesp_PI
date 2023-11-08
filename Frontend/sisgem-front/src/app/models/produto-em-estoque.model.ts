@@ -1,6 +1,6 @@
 export interface ProdutoEmEstoque {
     id: String;
     name: String;
-    quantidade: String;
+    estoque: String;
     preco: String;
 }

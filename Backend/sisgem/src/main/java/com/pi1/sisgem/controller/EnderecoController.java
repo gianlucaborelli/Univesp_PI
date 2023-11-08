@@ -41,7 +41,7 @@ public class EnderecoController {
     @GetMapping("/{id}")
     public Optional<Endereco> findById(@PathVariable Long id) {
         return repositorio.findById(id);
-    }
+    }    
 
     @GetMapping("/cliente/{id}")
     public ResponseEntity<List<Endereco>> findEnderecosByClienteID(@PathVariable Long id) {

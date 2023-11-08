@@ -53,7 +53,9 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   enderecoDataSource: MatTableDataSource<Endereco>;
   produtosEmEstoqueDataSource: MatTableDataSource<ProdutoEmEstoque>;
 
-  orcamento: Orcamento = {};
+  orcamento: Orcamento = {
+    produtosPedidos: null
+  };
 
   range: FormGroup;
 
@@ -138,7 +140,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   }
 
   consultarProdutosDisponiveis(startDate: Date, endDate: Date): void {
-    this.produtoService.findProdutosDisponiveis(startDate, endDate)
+    this.produtoService.findProdutosDisponiveis(format(new Date(startDate), 'dd/MM/yyyy'),format(new Date(endDate), 'dd/MM/yyyy'))
       .pipe(
         tap((resposta) => {
           this.produtosEmEstoqueDataSource.data = resposta;
@@ -291,7 +293,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   salvar() { 
     this.orcamentoService.orcamentoUpdate.next(true);    
     this.router.navigate(['cadastro-do-orcamento'], { queryParams: { parametro: this.orcamento.id! } })
-    this.orcamentoService.mensagem('Cliente atualizado com sucesso!');
+    this.orcamentoService.mensagem('Orçamento criado com sucesso!');
     this.dialogRef.close();
   }
 

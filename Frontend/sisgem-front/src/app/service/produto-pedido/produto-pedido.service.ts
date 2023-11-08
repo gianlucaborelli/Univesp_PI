@@ -15,6 +15,16 @@ export class ProdutoPedidoService {
 
   baseUrl: String = environment.baseUrl;
 
+  getAllByOrcamentoId(orcamentoId: String): Observable<ProdutoPedido[]> {
+    const url = `${this.baseUrl}/produtoPedido/orcamento=${orcamentoId}`    
+    return this.http.get<ProdutoPedido[]>(url);
+  }
+
+  produtoExiste(orcamentoId: String, produtoId:String): Observable<ProdutoExiste> {
+    const url = `${this.baseUrl}/produtoPedido/produtoPedidoJaExiste?orcamentoId=${orcamentoId}&produtoId=${produtoId}`    
+    return this.http.get<ProdutoExiste>(url);
+  }
+
   addProduto(body: AddProdutoPedido): Observable<ProdutoPedido> {
     const url = `${this.baseUrl}/produtoPedido`;
     console.log('Body', body);
@@ -24,15 +34,18 @@ export class ProdutoPedidoService {
   updateProduto(body: ProdutoExiste): Observable<ProdutoPedido> {
     const url = `${this.baseUrl}/produtoPedido`
     return this.http.put<ProdutoPedido>(url, body);
-  }
-
-  produtoExiste(orcamentoId: String, produtoId:String): Observable<ProdutoExiste> {
-    const url = `${this.baseUrl}/produtoPedido/produtoPedidoJaExiste?orcamentoId=${orcamentoId}&produtoId=${produtoId}`    
-    return this.http.get<ProdutoExiste>(url);
-  }
+  }  
 
   deleteProduto(id: String): Observable<ProdutoPedido> {
     const url = `${this.baseUrl}/produtoPedido/${id}`
     return this.http.delete<ProdutoPedido>(url);
+  }
+
+  mensagem(str: String): void {
+    this._snack.open(`${str}`, 'OK', {
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      duration: 3000
+    })
   }
 }

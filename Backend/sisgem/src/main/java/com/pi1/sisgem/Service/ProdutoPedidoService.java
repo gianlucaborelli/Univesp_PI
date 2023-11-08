@@ -1,6 +1,7 @@
 package com.pi1.sisgem.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -40,6 +41,10 @@ public class ProdutoPedidoService {
     @Autowired
     private ProdutoPedidoMapper mapper;
 
+    public ResponseEntity<Optional<List<ProdutoPedido>>> addProdutoPedido (Long id){
+        return ResponseEntity.ok().body(this.produtoPedidoRepositorio.findAllByOrcamento_Id(id));
+    }
+    
     public ResponseEntity<ProdutoPedido> addProdutoPedido (addProdutoPedidoRequest addProduto){
         HttpHeaders headers = new HttpHeaders();
 
