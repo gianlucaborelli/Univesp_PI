@@ -78,10 +78,16 @@ public class Orcamento {
     }
 
     public BigDecimal getValorTotal() {
-        return valorTotal;
+        BigDecimal novoValorTotal = BigDecimal.ZERO;
+
+        for (ProdutoPedido pedido : this.produtoPedidos) {
+            novoValorTotal = novoValorTotal.add(pedido.getPreco());
+        }
+
+        return novoValorTotal;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
+    public void setValorTotal(BigDecimal valorTotal) {        
         this.valorTotal = valorTotal;
     }
 
@@ -101,8 +107,7 @@ public class Orcamento {
         this.endereco = endereco;
     }
 
-    public List<ProdutoPedido> getProdutoPedidos() {
-        atualizaValorTotal();
+    public List<ProdutoPedido> getProdutoPedidos() {        
         return produtoPedidos;
     }
 
@@ -112,9 +117,11 @@ public class Orcamento {
     }
 
     public void atualizaValorTotal() {
-        valorTotal = BigDecimal.ZERO;
-        for (ProdutoPedido produtoPedido : produtoPedidos) {
-            valorTotal = produtoPedido.getPreco().add(valorTotal);
+        BigDecimal novoValorTotal = BigDecimal.ZERO;
+
+        for (ProdutoPedido pedido : this.produtoPedidos) {
+            novoValorTotal = novoValorTotal.add(pedido.getPreco());
         }
+        setValorTotal(novoValorTotal);
     }
 }
