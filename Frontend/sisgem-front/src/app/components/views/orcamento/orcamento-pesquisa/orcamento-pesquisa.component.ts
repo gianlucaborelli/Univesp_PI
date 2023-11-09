@@ -18,6 +18,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
 import { Router } from '@angular/router';
+import { OrcamentoBase } from 'src/app/models/orcamento-base.model';
 
 @Component({
   selector: 'app-orcamento',
@@ -47,7 +48,7 @@ export class OrcamentoPesquisaComponent {
   columnsForProdutosPedidos: string[] = ['name', 'preco', 'quantidade']; 
   expandedElement: Orcamento | null | undefined;
 
-  dataSource!: MatTableDataSource<Orcamento>;
+  dataSource!: MatTableDataSource<OrcamentoBase>;
   posts: any;
 
   constructor(

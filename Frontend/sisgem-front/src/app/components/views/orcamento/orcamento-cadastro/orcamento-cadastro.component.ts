@@ -21,7 +21,7 @@ import { AddNewProductDialogComponent } from './add-new-product-dialog/add-new-p
 })
 
 export class OrcamentoCadastroComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'precoUn', 'quantidade', 'precoTotal'];
+  displayedColumns: string[] = ['name', 'precoUn', 'quantidade', 'precoTotal', 'acoes'];
   dataSource: MatTableDataSource<ProdutoPedido>;
 
   orcamento: Orcamento = {
@@ -96,6 +96,6 @@ export class OrcamentoCadastroComponent implements OnInit {
 
   openAddAddressDialog(){}
 
-  
+  onOptionClick(){}
 
 }

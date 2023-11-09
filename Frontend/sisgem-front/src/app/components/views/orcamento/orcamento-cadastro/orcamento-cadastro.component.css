@@ -12,11 +12,11 @@
 }
 
 .card-cliente {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(238, 231, 231);
 }
 
 .card-produtos{
-    background-color: rgb(240, 240, 240);  
+    background-color: rgb(238, 231, 231);  
     grid-column: 2/3;
     grid-row: 1/3;
 }
@@ -27,6 +27,6 @@
 }
 
 .card-endereco {    
-    background-color: rgb(240, 240, 240);    
+    background-color: rgb(238, 231, 231);    
 }
 

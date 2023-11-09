@@ -2,6 +2,13 @@
     width: 100%;    
 }
 
+.inputs{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 20px;
+    margin-right: 20px;
+}
+
 mat-dialog-actions {
     margin-bottom: 20px;
     margin-left: 20px;

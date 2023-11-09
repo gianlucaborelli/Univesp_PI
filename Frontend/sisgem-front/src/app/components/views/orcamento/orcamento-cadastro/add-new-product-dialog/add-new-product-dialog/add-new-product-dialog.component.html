@@ -13,17 +13,21 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-  </form>  
+  </form> 
+   
+  <div class="inputs">
 
-  <mat-form-field appearance="outline" style="width: 100%">
-    <mat-label>Quantidade disponivel</mat-label>
-    <input [(ngModel)]="quantidadeValue" #quantidadeInput name="quantidadeEmEstoqe" matInput type="text" />
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" style="width: 100%">
-    <mat-label>Quantidade Desejada</mat-label>
-    <input [(ngModel)]="desejadoValue" #desejadoInput name="quantidadeDesejada" matInput type="number" [min]="0" (change)="onQuantityChange()"/>
-  </mat-form-field>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Quantidade disponivel</mat-label>
+      <input [(ngModel)]="quantidadeValue" #quantidadeInput name="quantidadeEmEstoqe" matInput type="text" />
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Quantidade Desejada</mat-label>
+      <input [(ngModel)]="desejadoValue" #desejadoInput name="quantidadeDesejada" matInput type="number" [min]="0" (change)="onQuantityChange()"/>
+    </mat-form-field>
+  </div>
+  
 
 </mat-dialog-content>
 
