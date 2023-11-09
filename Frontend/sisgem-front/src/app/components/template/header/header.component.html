@@ -19,10 +19,10 @@
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z3">
     <img
       class="avatar mat-elevation-z3"
-      src="{{authService.UserData.Photo}}" onerror="this.src='assets/img/user_avatar.png'"/>
+      src="" onerror="this.src='assets/img/user_avatar.png'"/>
 
-    <h4 class="name">{{authService.UserData.displayName}}</h4>
-    <p class="designation">{{authService.UserData.email}}</p>
+      <!-- <h4 class="name">{{authService.UserData.displayName ?? 'null'}}</h4>
+      <p class="designation">{{authService.UserData.email ?? 'null'}}</p> -->
 
     <mat-divider></mat-divider>
 

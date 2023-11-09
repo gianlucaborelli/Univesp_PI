@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { SignInComponent } from '../../views/login/sign-in/sign-in.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogModule  } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'

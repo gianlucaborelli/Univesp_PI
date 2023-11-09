@@ -35,7 +35,7 @@ import { ProdutosPesquisaComponent } from './components/views/produtos/produtos-
 import { ProdutosCadastroComponent } from './components/views/produtos/produtos-cadastro/produtos-cadastro.component';
 import { EnderecoCadastroDialogComponent } from './components/views/clientes/clientes-cadastro/endereco-cadastro.dialog/endereco-cadastro.dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ClienteDetailDialogComponent } from './components/views/clientes/clientes-cadastro/cliente-detail.dialog/cliente-detail.dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DialogService } from './service/confirm-dialog/dialog.service';
@@ -118,7 +118,8 @@ export function initializeDialogService() {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     FontAwesomeModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
   ],
   providers: [
     importProvidersFrom(MatDialogModule),
@@ -127,6 +128,10 @@ export function initializeDialogService() {
       useFactory: initializeDialogService,
       deps: [MatDialog],
       multi: true
+    },
+    {
+      provide: MatDialogRef,
+      useValue: {}
     },
     AuthService
   ],

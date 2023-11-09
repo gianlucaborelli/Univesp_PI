@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgModule, NgZone } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -35,33 +35,27 @@ export class AuthService {
     })
   }
 
-
   getAuthFire() {
     return this.auth.currentUser;
   }
-
-  //get Authenticated user from Local Storage
+  
   getAuthLocal() {
     const token = localStorage.getItem('user')
     const user = JSON.parse(token as string);
     return user;
   }
 
-  //Check wither User Is looged in or not
   get isLoggedIn(): boolean {
     const token = localStorage.getItem('user')
     const user = JSON.parse(token as string);
     return user !== null ? true : false;
   }
 
-  //Register Method
   Register(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .then((result) => {
         this.UserData = result.user;
-        this.ngZone.run(() => {
-          /* Call the SendVerificaitonMail() function when new user sign
-       up and returns promise */
+        this.ngZone.run(() => {        
           this.sendEmailVerification()
           this.router.navigate(['/home']);
         });
@@ -71,7 +65,6 @@ export class AuthService {
       });
   }
 
-  //Login Method
   async Login(email: string, password: string) {
     return await signInWithEmailAndPassword(this.auth, email, password)
       .then((result: any) => {
@@ -85,7 +78,6 @@ export class AuthService {
       });
   }
 
-  //Logout
   Logout() {
     signOut(this.auth).then(() => {
       {
@@ -97,28 +89,17 @@ export class AuthService {
       }
     })
   }
-
-  //login with Email or Facebook
-  //Login with Google
+  
   GoogleAuth() {
     return this.loginWithPopup(new GoogleAuthProvider());
   }
-
-
-  //Login with Facebook
-  //FacebookAuth() {
-  //  return this.loginWithPopup(new FacebookAuthProvider());
-  //}
-
-
-  //Pop Up Provider
+  
   loginWithPopup(provider: any) {
     return signInWithPopup(this.auth, provider).then(() => {
       this.router.navigate(['home']);
     });
   }
 
-  //Send Password Reset Email
   async sendPasswordResetEmails(email: string) {
     sendPasswordResetEmail(this.auth, email)
       .then(() => {

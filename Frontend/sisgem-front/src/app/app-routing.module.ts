@@ -8,11 +8,6 @@ import { OrcamentoCadastroComponent } from './components/views/orcamento/orcamen
 import { ProdutosPesquisaComponent } from './components/views/produtos/produtos-pesquisa/produtos-pesquisa.component';
 import { ProdutosCadastroComponent } from './components/views/produtos/produtos-cadastro/produtos-cadastro.component';
 import { SecureInnerPageGuard } from './components/shared/guard/secure-inner-page.guard';
-import { SignInComponent } from './components/views/login/sign-in/sign-in.component';
-import { AuthGuard } from './components/shared/guard/auth.guard';
-import { SignUpComponent } from './components/views/login/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './components/views/login/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './components/views/login/verify-email/verify-email.component';
 
 const routes: Routes = [
   {
@@ -24,14 +19,11 @@ const routes: Routes = [
   // L O G I N
   {
     path: '',
-    redirectTo: '/sign-in',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
 
-  { path: 'sign-in', component: SignInComponent, canActivate: [AuthGuard] },
-  { path: 'register-user', component: SignUpComponent, canActivate: [AuthGuard] },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'verify-email-address', component: VerifyEmailComponent },
+  
 
   // C L I E N T E S
   {
