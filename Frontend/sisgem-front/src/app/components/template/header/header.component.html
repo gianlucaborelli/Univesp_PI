@@ -1,17 +1,62 @@
-<mat-toolbar class="header">
-    <img src="assets/img/mobilia.jpg">
-    <span>
-        <h1>SISGEM - Sistema de Gestão de Estoque de Mobiliários</h1>
-    </span>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+<mat-toolbar class="mat-elevation-z3">  
 
-        <mat-icon>face</mat-icon>
+  <button
+    mat-icon-button
+    *ngIf="sidenav.mode === 'over'"
+    (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+    <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+  </button>
 
+  <div class="header">    
+    <img class="logo" src="assets/img/mobilia.jpg" />    
+    <h1>SISGEM - Sistema de Gestão de Estoque de Mobiliários</h1>
+  </div>   
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z3">
+    <img
+      class="avatar mat-elevation-z3"
+      src="{{authService.UserData.Photo}}" onerror="this.src='assets/img/user_avatar.png'"/>
+
+    <h4 class="name">{{authService.UserData.displayName}}</h4>
+    <p class="designation">{{authService.UserData.email}}</p>
+
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button" routerLink="">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-button class="menu-button" (click)="authService.Logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+    
+    <mat-divider></mat-divider>    
+
+    <button mat-button class="menu-button" routerLink="/clientes">
+      <mat-icon>people</mat-icon>
+      <span>Clientes</span>
     </button>
 
-    <mat-menu #menu="matMenu">
+    <button mat-button class="menu-button" routerLink="/produtos">
+      <mat-icon>shopping_bag</mat-icon>
+      <span>Produtos</span>
+    </button>
 
-        <button mat-menu-item (click)="authService.Logout()">Logout</button>
+    <button mat-button class="menu-button" routerLink="/orcamentos">
+      <mat-icon>shopping_bag</mat-icon>
+      <span>Orçamentos</span>
+    </button>
+  </mat-sidenav>
 
-    </mat-menu>
-</mat-toolbar>
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z3">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

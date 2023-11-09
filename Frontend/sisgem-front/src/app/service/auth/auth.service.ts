@@ -36,8 +36,6 @@ export class AuthService {
   }
 
 
-  //get User
-  //get Authenticated user from firebase
   getAuthFire() {
     return this.auth.currentUser;
   }
@@ -130,7 +128,7 @@ export class AuthService {
         window.alert(error.message);
       });
   }
-  //Send Email Verification
+
   sendEmailVerification() {
     return sendEmailVerification(this.auth.currentUser as User);
   }
