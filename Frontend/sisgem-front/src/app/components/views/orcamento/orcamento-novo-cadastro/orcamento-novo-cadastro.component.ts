@@ -54,6 +54,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   produtosEmEstoqueDataSource: MatTableDataSource<ProdutoEmEstoque>;
 
   orcamento: Orcamento = {
+    valorTotal:'',
     produtosPedidos: null
   };
 

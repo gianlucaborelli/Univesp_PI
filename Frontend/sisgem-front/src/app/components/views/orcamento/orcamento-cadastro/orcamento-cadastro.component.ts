@@ -28,6 +28,7 @@ export class OrcamentoCadastroComponent implements OnInit {
     dataFim:'',
     dataInicio:'',
     id: '',
+    valorTotal:'',
     endereco: null,
     cliente: null,
     produtosPedidos: null

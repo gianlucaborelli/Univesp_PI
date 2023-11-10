@@ -43,7 +43,7 @@ import { OrcamentoBase } from 'src/app/models/orcamento-base.model';
 })
 
 export class OrcamentoPesquisaComponent {
-  displayedColumns: string[] = ['dataInicio', 'dataFim',  'cliente', 'endereco', 'acoes'];
+  displayedColumns: string[] = ['dataInicio', 'dataFim',  'cliente', 'endereco', 'total', 'acoes'];
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
   columnsForProdutosPedidos: string[] = ['name', 'preco', 'quantidade']; 
   expandedElement: Orcamento | null | undefined;

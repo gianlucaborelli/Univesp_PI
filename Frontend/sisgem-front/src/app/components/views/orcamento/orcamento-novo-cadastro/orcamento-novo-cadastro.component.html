@@ -125,24 +125,10 @@
 
           <div [align]="'end'" style="margin-top: 20px;">
             <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
-            <button mat-raised-button color="primary" matStepperNext>Proximo</button>
+          <button mat-raised-button color="accent" (click)="salvar()">Salvar</button>
           </div>
         </form>
       </mat-step>
-
-      <mat-step>
-        <ng-template matStepLabel>Confirmação</ng-template>
-        <p>Os dados do pedido estão corretos?.</p>
-
-        
-
-
-        <div [align]="'end'">
-          <button mat-raised-button color="primary" matStepperPrevious>Voltar</button>
-          <button mat-raised-button color="accent" (click)="salvar()">Salvar</button>
-        </div>
-      </mat-step>
-
     </mat-stepper>
   </form>
 </mat-dialog-content>

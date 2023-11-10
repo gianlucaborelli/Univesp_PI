@@ -4,14 +4,14 @@
     <form>
         <table class="content">
             <tr>
-                <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-form-field appearance="outline" style="width: 95%;">
                     <mat-label>Nome</mat-label>
                     <input [formControl]="name" [(ngModel)]="cliente.name" name="name" matInput type="text">
                     <mat-error *ngIf="name.invalid">{{getMessage()}} </mat-error>
                 </mat-form-field>
             </tr>
             <tr>
-                <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-form-field appearance="outline" style="width: 95%;">
                     <mat-label>Observação</mat-label>
                     <textarea [(ngModel)]="cliente.obs" name="obs" matInput type="text"></textarea>
                 </mat-form-field>
