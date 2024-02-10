@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sisgem.main.entity.Cliente;
+
 import com.sisgem.main.entity.Endereco;
+import com.sisgem.main.entity.Usuario;
 import com.sisgem.main.exception.ResourceNotFound;
-import com.sisgem.main.repository.ClienteRepositorio;
 import com.sisgem.main.repository.EnderecoRepositorio;
 import com.sisgem.main.repository.DTO.enderecos.autoCompleteEnderecoResponse;
 import com.sisgem.main.service.EnderecoService;
@@ -29,7 +29,7 @@ public class EnderecoController {
     @Autowired
     private EnderecoRepositorio repositorio;
     @Autowired
-    private ClienteRepositorio clienteRepository;
+    private UsuarioController usuarioController;
     @Autowired
     private EnderecoService service;
 
@@ -46,7 +46,7 @@ public class EnderecoController {
     @GetMapping("/cliente/{id}")
     public ResponseEntity<List<Endereco>> findEnderecosByClienteID(@PathVariable Long id) {
 
-        return new ResponseEntity<List<Endereco>>(service.findEnderecosByClienteID(id), HttpStatus.OK);
+        return new ResponseEntity<List<Endereco>>(service.findEnderecosByUsuarioId(id), HttpStatus.OK);
     }
 
     @GetMapping("/findByCep/{cep}")
@@ -71,7 +71,7 @@ public class EnderecoController {
     @PostMapping
     public ResponseEntity<Endereco> salvar(@RequestBody Endereco endereco) {
         Long clienteId = endereco.getClienteId();
-        Cliente cliente = clienteRepository.findById(clienteId).orElse(null);
+        Usuario cliente = usuarioController.findById(clienteId).orElse(null);
 
         if (cliente == null) {
             return ResponseEntity.badRequest().build();

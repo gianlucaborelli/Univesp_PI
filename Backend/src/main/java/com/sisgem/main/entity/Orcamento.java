@@ -43,7 +43,7 @@ public class Orcamento {
 
     @ManyToOne
     @JoinColumn(name = "fk_cliente_id")
-    private Cliente cliente;
+    private Usuario cliente;
 
     @ManyToOne
     @JoinColumn(name = "endereco_id")
@@ -91,11 +91,11 @@ public class Orcamento {
         this.valorTotal = valorTotal;
     }
 
-    public Cliente getCliente() {
+    public Usuario getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Usuario cliente) {
         this.cliente = cliente;
     }
 

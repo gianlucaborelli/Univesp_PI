@@ -11,6 +11,6 @@ import com.sisgem.main.entity.Endereco;
 
 @Repository
 public interface EnderecoRepositorio extends JpaRepository<Endereco, Long> {
-    @Query("SELECT e FROM Endereco e WHERE e.cliente.id = :clienteId")
-    List<Endereco> findByClienteId(@Param("clienteId") Long clienteId);
+    @Query("SELECT e FROM Endereco e WHERE e.usuario.id = :usuarioId")
+    List<Endereco> findByUsuarioId(@Param("usuarioId") Long usuarioId);
 }
