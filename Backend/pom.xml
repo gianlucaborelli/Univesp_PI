@@ -56,11 +56,7 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.2.0</version>
 		</dependency>
-<<<<<<< HEAD
-				
-=======
 
->>>>>>> 53e2d09dfd89f517805b242f9d560ac17ba6fbf0
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -71,10 +67,6 @@
 			<artifactId>java-jwt</artifactId>
 			<version>4.4.0</version>
 		</dependency>
-<<<<<<< HEAD
-=======
-		
->>>>>>> 53e2d09dfd89f517805b242f9d560ac17ba6fbf0
 	</dependencies>
 
 	<build>
