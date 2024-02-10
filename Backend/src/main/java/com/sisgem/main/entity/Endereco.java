@@ -40,12 +40,12 @@ public class Endereco {
     private String obs;
 
     @Transient
-    private Long clienteId;
+    private Long usuarioId;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "usuario_id")
     @JsonBackReference
-    private Cliente cliente;
+    private Usuario usuario;
 
     public Long getId() {
         return id;
@@ -111,22 +111,22 @@ public class Endereco {
         this.obs = obs;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getCliente() {
+        return usuario;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Long getClienteId() {
-        if (clienteId == null) {
-            return this.cliente.getId();
+        if (usuarioId == null) {
+            return this.usuario.getId();
         }
-        return this.clienteId;
+        return this.usuarioId;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setClienteId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 }

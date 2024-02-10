@@ -18,8 +18,8 @@ public class EnderecoService {
     @Autowired
     private EnderecoRepositorio repositorio;
 
-    public List<Endereco> findEnderecosByClienteID(long id) {
-        return this.repositorio.findByClienteId(id);
+    public List<Endereco> findEnderecosByUsuarioId(long id) {
+        return this.repositorio.findByUsuarioId(id);
 
     }
 
