@@ -13,15 +13,16 @@ import com.sisgem.main.entity.Usuario;
 
 @Service
 public class TokenService {
-
+    
     @Value("${api.security.token.secret}")
-    private static String secret;
+    private String secret;
 
     public String gerarToken(Usuario usuario) {
         return JWT.create()
                 .withIssuer("auth-api")
                 .withSubject(usuario.getUsername())
                 .withClaim("id", usuario.getId())
+                .withClaim("role", usuario.getRole().toString())                
                 .withExpiresAt(LocalDateTime.now()
                         .plusMinutes(30)
                         .toInstant(ZoneOffset.of("-03:00")))

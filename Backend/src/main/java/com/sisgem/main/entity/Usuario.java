@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sisgem.main.enums.RoleEnum;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,7 +18,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Usuario implements UserDetails {
 
@@ -28,21 +35,15 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = true)
     private String password;
 
-    private String login;
+    @Column(nullable = true)
+    private String login; //Email
 
-    private String role;
+    private RoleEnum role = RoleEnum.USER;    
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String obs;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -83,7 +84,15 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.role == RoleEnum.ADMIN) {
+            return List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+        }
+        return List.of(
+                new SimpleGrantedAuthority("ROLE_USER")
+        );
     }
 
     @Override

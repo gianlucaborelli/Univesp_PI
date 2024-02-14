@@ -30,8 +30,9 @@ public class ConfiguracaoDeSeguranca {
                         .requestMatchers("/configuration/**").permitAll()
                         .requestMatchers("/swagger*/**").permitAll()
                         .requestMatchers("/webjars/**").permitAll()
-                        .requestMatchers("/auth/**").permitAll()                        
-                        .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()                        
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
