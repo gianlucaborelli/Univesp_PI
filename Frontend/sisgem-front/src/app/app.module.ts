@@ -18,10 +18,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { provideAuth, getAuth } from '@angular/fire/auth';
-
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -46,11 +42,7 @@ import { OrcamentoNovoCadastroComponent } from './components/views/orcamento/orc
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProdutosDetailComponent } from './components/views/produtos/produtos-detail/produtos-detail.component';
-import { SignUpComponent } from './components/views/login/sign-up/sign-up.component';
 import { SignInComponent } from './components/views/login/sign-in/sign-in.component';
-import { ForgotPasswordComponent } from './components/views/login/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './components/views/login/verify-email/verify-email.component';
-import { environment } from 'src/environments/environment.development';
 import { AuthService } from './service/auth/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatRadioModule } from '@angular/material/radio';
@@ -81,10 +73,7 @@ export function initializeDialogService() {
     EnderecoCardComponent,
     OrcamentoNovoCadastroComponent,
     ProdutosDetailComponent,
-    SignUpComponent,
     SignInComponent,
-    ForgotPasswordComponent,
-    VerifyEmailComponent,
     AddNewProductDialogComponent
 
   ],
@@ -115,11 +104,10 @@ export function initializeDialogService() {
     MatMenuModule,
     MatStepperModule,
     MatAutocompleteModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
     FontAwesomeModule,
     MatRadioModule,
     MatDialogModule,
+    
   ],
   providers: [
     importProvidersFrom(MatDialogModule),

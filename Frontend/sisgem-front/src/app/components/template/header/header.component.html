@@ -30,24 +30,24 @@
       <mat-icon>home</mat-icon>
       <span>Home</span>
     </button>
-    <button mat-button class="menu-button" (click)="authService.Logout()">
+    <button mat-button class="menu-button" (click)="authService.logout()">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>
     
     <mat-divider></mat-divider>    
 
-    <button mat-button class="menu-button" routerLink="/clientes">
+    <button mat-button class="menu-button" (click)="cliente()">
       <mat-icon>people</mat-icon>
       <span>Clientes</span>
     </button>
 
-    <button mat-button class="menu-button" routerLink="/produtos">
+    <button mat-button class="menu-button" (click)="produto()">
       <mat-icon>shopping_bag</mat-icon>
       <span>Produtos</span>
     </button>
 
-    <button mat-button class="menu-button" routerLink="/orcamentos">
+    <button mat-button class="menu-button" (click)="orcamento()">
       <mat-icon>shopping_cart_checkout</mat-icon>
       <span>Orçamentos</span>
     </button>

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { delay, filter } from 'rxjs/operators';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';;
 import { AuthService } from 'src/app/service/auth/auth.service';
 
@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 export class HeaderComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  constructor(public authService: AuthService, private observer: BreakpointObserver, private router: Router) { }
+  constructor(public authService: AuthService, private observer: BreakpointObserver, private router: Router, private route: ActivatedRoute, ) { }
 
   ngAfterViewInit() {
     this.observer
@@ -41,5 +41,17 @@ export class HeaderComponent {
           this.sidenav.close();
         }
       });
+  }
+
+  orcamento(){
+    this.router.navigate(['orcamentos'], {relativeTo:this.route});
+  }
+
+  cliente(){
+    this.router.navigate(['clientes'], {relativeTo:this.route});
+  }
+
+  produto(){
+    this.router.navigate(['produtos'], {relativeTo:this.route});
   }
 }

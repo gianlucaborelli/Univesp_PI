@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { LoginModel } from 'src/app/models/login.model';
+import { Router } from '@angular/router';
+import { UserStoreService } from 'src/app/service/user-store/user-store.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,7 +21,9 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<SignInComponent>,
-    public authService: AuthService
+    public authService: AuthService,
+    private router: Router,
+    private userStore: UserStoreService,
 
   ) { }
 
@@ -28,14 +33,27 @@ export class SignInComponent implements OnInit {
     this.showRegister = formType === 'register';
   }
 
-  async Login(userName: string, password: string) {
+  async Login(userName: string, pass: string) {
+    
 
-    await this.authService.Login(userName, password);
+    this.authService.login({ senha: pass, login:userName }).subscribe({
+      next: (res) => {
+        console.log(res);        
+        this.router.navigate(['home']);
+        
+        this.authService.storeToken(res.accessToken!);
+        this.authService.storeRefreshToken(res.refreshToken!);
+        let decodedValue = this.authService.decodedToken();
+        this.userStore.storeFullName(decodedValue.name);
+        this.userStore.storeRole(decodedValue.role);
+      }
+    });  
+  }
 
-    if (this.authService.isLoggedIn) {
-      this.dialogRef.close();
-    }
+  async Register(userName: string, pass: string, email: string) {
 
+    await this.authService.register({name: userName, password: pass, login:email });
+     
   }
 
   ngOnInit() { }

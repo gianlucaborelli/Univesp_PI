@@ -9,16 +9,15 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, public router: Router) { }
+  constructor(private auth: AuthService, public router: Router) { }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {    
-
-    if (this.authService.isLoggedIn === true) {
-      this.router.navigate(['/home']);
+  canActivate():boolean{
+    if(this.auth.isLoggedIn()){
+      return true
+    }else{
+      //this.toast.error({detail:"ERROR", summary:"Please Login First!"});
+      this.router.navigate(['login'])
+      return false;
     }
-
-    return true;
   }
 }

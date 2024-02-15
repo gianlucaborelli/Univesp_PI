@@ -84,7 +84,7 @@
             </mat-form-field>
 
             <button mat-raised-button color="accent" value="Reset Password"
-                (click)="authService.sendPasswordResetEmails(passwordResetEmail.value)"> Enviar Email</button>
+                > Enviar Email</button>
 
         </div>
     </mat-dialog-content>
@@ -107,6 +107,12 @@
             </div>
 
             <mat-form-field appearance="outline" style="width: 100%; margin-top: 5px;">
+                <mat-label>Nome</mat-label>
+                <mat-icon matPrefix>user</mat-icon>
+                <input matInput placeholder="Nome" #userName required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%; margin-top: 5px;">
                 <mat-label>Email</mat-label>
                 <mat-icon matPrefix>mail</mat-icon>
                 <input matInput type="email" placeholder="Email Address" #userEmail required>
@@ -118,7 +124,7 @@
                 <input matInput type="password" placeholder="Password" #userPwd required>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" (click)="authService.Register(userEmail.value, userPwd.value)">
+            <button mat-raised-button color="primary" (click)="Register(userEmail.value, userPwd.value, userName.value)">
                 Register
             </button>
         </div>

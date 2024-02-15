@@ -1,116 +1,76 @@
-import { Injectable, NgModule, NgZone } from '@angular/core';
-import {
-  Auth,
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  sendEmailVerification,
-  User
-} from '@angular/fire/auth';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignInComponent } from 'src/app/components/views/login/sign-in/sign-in.component';
+import { TokenApiModel } from 'src/app/models/token-api.model';
+import { environment } from 'src/environments/environment';
+import {JwtHelperService} from '@auth0/angular-jwt'
+import { LoginModel } from 'src/app/models/login.model';
+import { RegisterModel } from 'src/app/models/register.model';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-
-  UserData: any;
-  constructor(private auth: Auth, private router: Router, public ngZone: NgZone, private dialog: MatDialog) {
-    onAuthStateChanged(this.auth, (user: any) => {
-      if (user) {
-        this.UserData = user;
-        localStorage.setItem('user', JSON.stringify(this.UserData));
-        JSON.parse(localStorage.getItem('user')!);
-      } else {
-        localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
-      }
-    })
+  baseUrl: String = environment.baseUrl;
+  private userPayload: any;
+  constructor(private http: HttpClient, private router: Router) {
+    this.userPayload = this.decodedToken();
   }
 
-  getAuthFire() {
-    return this.auth.currentUser;
-  }
-  
-  getAuthLocal() {
-    const token = localStorage.getItem('user')
-    const user = JSON.parse(token as string);
-    return user;
+  register(userObj: RegisterModel) {
+    return this.http.post<any>(`${this.baseUrl}/register`, userObj)
   }
 
-  get isLoggedIn(): boolean {
-    const token = localStorage.getItem('user')
-    const user = JSON.parse(token as string);
-    return user !== null ? true : false;
+  login(loginObj: LoginModel) {
+    console.log(loginObj);
+    const url = `${this.baseUrl}/auth/login`
+    console.log(url);
+    return this.http.post<any>(url, loginObj)
   }
 
-  Register(email: string, password: string) {
-    return createUserWithEmailAndPassword(this.auth, email, password)
-      .then((result) => {
-        this.UserData = result.user;
-        this.ngZone.run(() => {        
-          this.sendEmailVerification()
-          this.router.navigate(['/home']);
-        });
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['login'])
   }
 
-  async Login(email: string, password: string) {
-    return await signInWithEmailAndPassword(this.auth, email, password)
-      .then((result: any) => {
-        this.UserData = result.user;
-        this.ngZone.run(() => {
-          this.router.navigate(['/home']);
-        });
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+  storeToken(tokenValue: string) {
+    localStorage.setItem('token', tokenValue)
+  }
+  storeRefreshToken(tokenValue: string) {
+    localStorage.setItem('refreshToken', tokenValue)
   }
 
-  Logout() {
-    signOut(this.auth).then(() => {
-      {
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.width = "25%";
-        this.dialog.open(SignInComponent, dialogConfig);
-      }
-    })
+  getToken() {
+    return localStorage.getItem('token')
   }
-  
-  GoogleAuth() {
-    return this.loginWithPopup(new GoogleAuthProvider());
-  }
-  
-  loginWithPopup(provider: any) {
-    return signInWithPopup(this.auth, provider).then(() => {
-      this.router.navigate(['home']);
-    });
+  getRefreshToken() {
+    return localStorage.getItem('refreshToken')
   }
 
-  async sendPasswordResetEmails(email: string) {
-    sendPasswordResetEmail(this.auth, email)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token')
   }
 
-  sendEmailVerification() {
-    return sendEmailVerification(this.auth.currentUser as User);
+  decodedToken() {
+    const jwtHelper = new JwtHelperService();
+    const token = this.getToken()!;
+    console.log(jwtHelper.decodeToken(token))
+    return jwtHelper.decodeToken(token)
   }
+
+  getfullNameFromToken() {
+    if (this.userPayload)
+      return this.userPayload.name;
+  }
+
+  getRoleFromToken() {
+    if (this.userPayload)
+      return this.userPayload.role;
+  }
+
+  renewToken(tokenApi: TokenApiModel) {
+    return this.http.post<any>(`${this.baseUrl}refresh`, tokenApi)
+  }
+
 }
