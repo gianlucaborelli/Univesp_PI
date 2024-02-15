@@ -1,6 +1,6 @@
 import { ENVIRONMENT_INITIALIZER, NgModule, importProvidersFrom, inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,6 +47,7 @@ import { AuthService } from './service/auth/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatRadioModule } from '@angular/material/radio';
 import { AddNewProductDialogComponent } from './components/views/orcamento/orcamento-cadastro/add-new-product-dialog/add-new-product-dialog/add-new-product-dialog.component';
+import { TokenInterceptor } from './interceptor/token.interceptor';
 
 
 
@@ -107,7 +108,7 @@ export function initializeDialogService() {
     FontAwesomeModule,
     MatRadioModule,
     MatDialogModule,
-    
+
   ],
   providers: [
     importProvidersFrom(MatDialogModule),
@@ -119,7 +120,13 @@ export function initializeDialogService() {
     },
     {
       provide: MatDialogRef,
-      useValue: {}
+      useValue: {},
+      multi: true
+    }, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
     },
     AuthService
   ],

@@ -11,6 +11,11 @@ import { AuthGuard } from './components/shared/guard/auth.guard';
 import { SignInComponent } from './components/views/login/sign-in/sign-in.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
 
   // L O G I N
   {
@@ -22,14 +27,17 @@ const routes: Routes = [
       {
         path: 'clientes',
         component: ClientesPesquisaComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'clientescadastro',
+            component: ClientesCadastroComponent,
+            canActivate: [AuthGuard]
+          },
+        ],
       },
 
-      {
-        path: 'clientescadastro',
-        component: ClientesCadastroComponent,
-        canActivate: [AuthGuard]
-      },
+
 
       // P R O D U T O S
       {

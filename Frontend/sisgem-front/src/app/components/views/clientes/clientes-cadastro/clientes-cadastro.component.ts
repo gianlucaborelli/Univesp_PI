@@ -30,7 +30,7 @@ export class ClientesCadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.initClienteAdd();
-
+    
     this.router.queryParams.subscribe(params => {
       const valor = params['parametro'];
       if (valor) {

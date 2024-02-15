@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../../../../models/clientes.model';
 import { ClientesService } from '../../../../service/cliente-service/clientes.service';
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ClienteDetailDialogComponent } from '../clientes-cadastro/cliente-detail.dialog/cliente-detail.dialog.component';
@@ -17,7 +17,7 @@ export class ClientesPesquisaComponent implements OnInit {
   displayedColumns: string[] = ["id", "name", "obs", "acoes"];
   posts: any;
 
-  constructor(private service: ClientesService, private router: Router, private dialog: MatDialog) {
+  constructor(private service: ClientesService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute) {
     this.service.findAll().subscribe((resposta) => {
       console.log(resposta);
       this.posts = resposta;
@@ -41,7 +41,7 @@ export class ClientesPesquisaComponent implements OnInit {
   }
 
   navegarParaClientesCadastro(idCliente?: String) {
-    this.router.navigate(['clientescadastro'], { queryParams: { parametro: idCliente } })
+    this.router.navigate(['clientescadastro'], { queryParams: { parametro: idCliente }, relativeTo:this.route })
       .then(nav => {
         console.log(nav);
       }, err => {
