@@ -48,6 +48,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatRadioModule } from '@angular/material/radio';
 import { AddNewProductDialogComponent } from './components/views/orcamento/orcamento-cadastro/add-new-product-dialog/add-new-product-dialog/add-new-product-dialog.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { SpinnerComponent } from './components/shared/spinner/spinner/spinner.component';
+import { LoadingInterceptor } from './interceptor/loading/loading.interceptor';
 
 
 
@@ -75,7 +77,8 @@ export function initializeDialogService() {
     OrcamentoNovoCadastroComponent,
     ProdutosDetailComponent,
     SignInComponent,
-    AddNewProductDialogComponent
+    AddNewProductDialogComponent,
+    SpinnerComponent
 
   ],
 
@@ -126,6 +129,11 @@ export function initializeDialogService() {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: LoadingInterceptor, 
       multi: true
     },
     AuthService
