@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AddProdutoPedido } from 'src/app/models/add-produto-pedido.model';
 import { ProdutoExiste } from 'src/app/models/produto-existe.model';
 import { ProdutoPedido } from 'src/app/models/produto-pedido.model';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

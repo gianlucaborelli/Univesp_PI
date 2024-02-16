@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Produto } from '../../models/produtos.model';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
 import { format } from 'date-fns';
