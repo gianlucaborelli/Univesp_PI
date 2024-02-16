@@ -9,7 +9,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-            .allowedOrigins("*") // Defina a origem permitida
+            .allowedOrigins("http://localhost:4200", "https://sisgem.netlify.app/login") // Defina a origem permitida
             .allowedMethods("GET", "POST", "PUT", "DELETE") // Defina os métodos HTTP permitidos
             .allowedHeaders("*") // Defina os cabeçalhos permitidos
             .allowCredentials(true); // Permitir credenciais (por exemplo, cookies)
