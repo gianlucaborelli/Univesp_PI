@@ -1,3 +1,3 @@
 export const environment = {
-    baseUrl: 'https://sisgem-backend.onrender.com'    
+    baseUrl: 'https://sisgem.netlify.app/'    
 };
