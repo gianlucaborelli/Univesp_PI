@@ -41,7 +41,7 @@ export class ProdutosPesquisaComponent {
   }
 
   navegarParaProdutosCadastro(productId?: String) {
-    this.router.navigate(['produtoscadastro'], { queryParams: { parametro: productId } })
+    this.router.navigate(['/home/produtoscadastro'], { queryParams: { parametro: productId } })
       .then(nav => {
         console.log(nav);
       }, err => {

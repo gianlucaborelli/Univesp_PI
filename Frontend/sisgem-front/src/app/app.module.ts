@@ -17,6 +17,8 @@ import { OrcamentoPesquisaComponent } from './components/views/orcamento/orcamen
 import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
@@ -50,6 +52,7 @@ import { AddNewProductDialogComponent } from './components/views/orcamento/orcam
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { SpinnerComponent } from './components/shared/spinner/spinner/spinner.component';
 import { LoadingInterceptor } from './interceptor/loading/loading.interceptor';
+import { SnackBarComponent } from './components/shared/snack-bar/snack-bar.component';
 
 
 
@@ -78,7 +81,8 @@ export function initializeDialogService() {
     ProdutosDetailComponent,
     SignInComponent,
     AddNewProductDialogComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SnackBarComponent
 
   ],
 
@@ -93,6 +97,7 @@ export function initializeDialogService() {
     MatCardModule,
     MatTableModule,
     MatDatepickerModule,
+    MatProgressBarModule,
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,

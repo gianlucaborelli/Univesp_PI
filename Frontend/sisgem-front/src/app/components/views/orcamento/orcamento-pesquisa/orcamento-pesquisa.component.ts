@@ -92,7 +92,7 @@ export class OrcamentoPesquisaComponent {
   }
 
   navegarParaOrcamentoCadastro(id: String){    
-      this.router.navigate(['cadastro-do-orcamento'], { queryParams: { parametro: id } })
+      this.router.navigate(['/home/cadastro-do-orcamento'], { queryParams: { parametro: id } })
         .then(nav => {
           console.log(nav);
         }, err => {

@@ -41,7 +41,7 @@ export class ClientesPesquisaComponent implements OnInit {
   }
 
   navegarParaClientesCadastro(idCliente?: String) {
-    this.router.navigate(['clientescadastro'], { queryParams: { parametro: idCliente }, relativeTo:this.route })
+    this.router.navigate(['/home/clientescadastro'], { queryParams: { parametro: idCliente } })
       .then(nav => {
         console.log(nav);
       }, err => {

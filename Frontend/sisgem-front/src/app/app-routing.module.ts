@@ -27,17 +27,14 @@ const routes: Routes = [
       {
         path: 'clientes',
         component: ClientesPesquisaComponent,
-        canActivate: [AuthGuard],
-        children: [
-          {
-            path: 'clientescadastro',
-            component: ClientesCadastroComponent,
-            canActivate: [AuthGuard]
-          },
-        ],
+        canActivate: [AuthGuard],        
       },
 
-
+      {
+        path: 'clientescadastro',
+        component: ClientesCadastroComponent,
+        canActivate: [AuthGuard]
+      },
 
       // P R O D U T O S
       {

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { UserStoreService } from 'src/app/service/user-store/user-store.service';
+import { SnackBarService } from 'src/app/service/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,7 +11,7 @@ import { UserStoreService } from 'src/app/service/user-store/user-store.service'
   styleUrls: ['./sign-in.component.css']
 })
 
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   faCoffee = faCoffee;
 
   showLogin = true;
@@ -21,6 +22,7 @@ export class SignInComponent implements OnInit {
     public authService: AuthService,
     private router: Router,
     private userStore: UserStoreService,
+    private snackbarService: SnackBarService,
   ) { }
 
   toggleForm(formType: string) {
@@ -40,18 +42,28 @@ export class SignInComponent implements OnInit {
         let decodedValue = this.authService.decodedToken();
         this.userStore.storeFullName(decodedValue.name);
         this.userStore.storeRole(decodedValue.role);
+      },
+      error: (err) => {
+        console.error(err);        
+        this.snackbarService.open("Erro durante o login. Verifique suas credenciais.");
       }
     });  
   }
 
   async Register(userName: string, pass: string, email: string) {
-    await this.authService.register({name: userName, password: pass, login:email }).subscribe({
+    this.authService.register({name: userName, password: pass, login:email }).subscribe({
       next: (res) => {
         console.log(res);        
         this.toggleForm('login');       
+      },
+      error: (err) => {
+        console.error(err);        
+        this.snackbarService.open("Erro durante o registro. Verifique suas credenciais.");
       }
     });
   }
 
-  ngOnInit() { }
+  NotImplemented(){
+    this.snackbarService.open("Não implementado.");
+  }
 }
