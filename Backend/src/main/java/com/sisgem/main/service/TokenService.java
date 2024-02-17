@@ -1,7 +1,7 @@
 package com.sisgem.main.service;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.Duration;
+import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,10 +22,9 @@ public class TokenService {
                 .withIssuer("auth-api")
                 .withSubject(usuario.getUsername())
                 .withClaim("id", usuario.getId())
-                .withClaim("role", usuario.getRole().toString())                
-                .withExpiresAt(LocalDateTime.now()
-                        .plusMinutes(30)
-                        .toInstant(ZoneOffset.of("-03:00")))
+                .withClaim("role", usuario.getRole().toString())
+                .withClaim("name", usuario.getName())                
+                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(30)))
                 .sign(Algorithm.HMAC256(secret));
     }
 
