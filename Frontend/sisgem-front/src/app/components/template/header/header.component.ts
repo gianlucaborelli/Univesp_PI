@@ -5,6 +5,7 @@ import { delay, filter } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';;
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { UserStoreService } from 'src/app/service/user-store/user-store.service';
 
 @UntilDestroy()
 @Component({
@@ -15,7 +16,12 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 export class HeaderComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  constructor(public authService: AuthService, private observer: BreakpointObserver, private router: Router, private route: ActivatedRoute, ) { }
+  constructor(
+    public authService: AuthService, 
+    private observer: BreakpointObserver, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    public user: UserStoreService) { }
 
   ngAfterViewInit() {
     this.observer

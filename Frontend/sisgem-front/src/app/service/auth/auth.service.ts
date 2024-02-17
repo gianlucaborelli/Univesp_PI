@@ -19,7 +19,8 @@ export class AuthService {
   }
 
   register(userObj: RegisterModel) {
-    return this.http.post<any>(`${this.baseUrl}/auth/register`, userObj)
+    const url = `${this.baseUrl}/auth/register`;
+    return this.http.post<any>( url, userObj)
   }
 
   login(loginObj: LoginModel) {

@@ -21,15 +21,15 @@
       class="avatar mat-elevation-z3"
       src="" onerror="this.src='assets/img/user_avatar.png'"/>
 
-      <!-- <h4 class="name">{{authService.UserData.displayName ?? 'null'}}</h4>
-      <p class="designation">{{authService.UserData.email ?? 'null'}}</p> -->
+      <!-- <h4 class="name">{{user.getFullName()}}</h4>
+      <p class="designation">{{user.getRole()}}</p> -->
 
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button" routerLink="">
+    <!-- <button mat-button class="menu-button" routerLink="">
       <mat-icon>home</mat-icon>
       <span>Home</span>
-    </button>
+    </button> -->
     <button mat-button class="menu-button" (click)="authService.logout()">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
