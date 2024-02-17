@@ -11,19 +11,27 @@ export class UserStoreService {
   constructor() {
   }
 
-  public getFullName():Observable<string>{
-    return this.fullName$.asObservable();
+  public getFullName(){
+    return localStorage.getItem('userName');
   }
 
   public storeFullName(fullname:string){
-    this.fullName$.next(fullname);
+    localStorage.setItem('userName', fullname);    
   }
 
-  public getRole():Observable<string>{
-    return this.role$.asObservable();
+  public getEmail(){
+    return localStorage.getItem('userEmail');
+  }
+
+  public storeEmail(email:string){
+    localStorage.setItem('userEmail', email);    
+  }
+
+  public getRole(){
+    return localStorage.getItem('role');
   }
 
   public storeRole(role:string){
-    this.role$.next(role)
+    localStorage.setItem('role', role);
   }
 }

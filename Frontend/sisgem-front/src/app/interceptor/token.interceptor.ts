@@ -10,11 +10,12 @@ import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../service/auth/auth.service';
 import { Router } from '@angular/router';
 import { TokenApiModel } from '../models/token-api.model';
+import { SnackBarService } from '../service/snack-bar/snack-bar.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router, private snackbarService: SnackBarService,) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const myToken = this.auth.getToken();
@@ -53,8 +54,8 @@ export class TokenInterceptor implements HttpInterceptor {
       }),
       catchError((err)=>{
         return throwError(()=>{
-          //this.toast.warning({detail:"Warning", summary:"Token is expired, Please Login again"});
-          this.router.navigate(['login'])
+          this.snackbarService.open("Token expirado. Faça login novamente.");          
+          this.auth.logout();
         })
       })
     )

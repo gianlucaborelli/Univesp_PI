@@ -48,19 +48,25 @@ mat-sidenav-container {
 }
 
 .avatar {
-  margin-top: 16px;
+  margin-top: 10px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
 }
 
 .name {
-  margin-top: 8px;
+  margin-top: 5px;
   font-weight: normal;
 }
 
+.email {  
+  margin-top: -10px;
+  font-size: 0.7rem;
+  color: lightgrey;
+}
+
 .designation {
-  margin-top: 2px;
+  margin-top: -15px;  
   font-size: 0.7rem;
   color: lightgrey;
 }

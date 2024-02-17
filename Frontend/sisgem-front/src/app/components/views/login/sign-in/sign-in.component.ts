@@ -41,6 +41,7 @@ export class SignInComponent {
         this.authService.storeRefreshToken(res.refreshToken!);
         let decodedValue = this.authService.decodedToken();
         this.userStore.storeFullName(decodedValue.name);
+        this.userStore.storeEmail(decodedValue.sub);
         this.userStore.storeRole(decodedValue.role);
       },
       error: (err) => {
