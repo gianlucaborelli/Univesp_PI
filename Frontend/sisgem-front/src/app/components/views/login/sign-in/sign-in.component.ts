@@ -54,6 +54,7 @@ export class SignInComponent {
     this.authService.register({name: userName, password: pass, login:email }).subscribe({
       next: (res) => {
         console.log(res);        
+        this.snackbarService.open("Registro criado com sucesso. Faça seu Login.");
         this.toggleForm('login');       
       },
       error: (err) => {

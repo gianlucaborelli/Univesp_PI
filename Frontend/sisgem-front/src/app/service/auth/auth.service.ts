@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   register(userObj: RegisterModel) {
-    return this.http.post<any>(`${this.baseUrl}/register`, userObj)
+    return this.http.post<any>(`${this.baseUrl}/auth/register`, userObj)
   }
 
   login(loginObj: LoginModel) {
