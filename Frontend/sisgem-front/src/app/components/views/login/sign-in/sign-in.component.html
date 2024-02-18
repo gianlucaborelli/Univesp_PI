@@ -13,7 +13,13 @@
         <mat-form-field appearance="outline">
           <mat-label>Senha</mat-label>
           <mat-icon matPrefix>key</mat-icon>
-          <input matInput type="password" #userPassword required />
+          <input
+            matInput
+            type="password"
+            #userPassword
+            required
+            (keyup.enter)="Login(userName.value, userPassword.value)"
+          />
         </mat-form-field>
 
         <p class="forgot-password-text" (click)="toggleForm('forgotPassword')">
@@ -50,7 +56,12 @@
           [matTooltipShowDelay]="500"
           aria-label="Fazer login usando sua conta do google"
         >
-          <img src="assets/img/google-logo.svg" width="48" height="48" (click)="NotImplemented()"/>
+          <img
+            src="assets/img/google-logo.svg"
+            width="48"
+            height="48"
+            (click)="NotImplemented()"
+          />
         </div>
 
         <div
@@ -58,7 +69,12 @@
           [matTooltipShowDelay]="500"
           aria-label="Fazer login usando sua conta do FaceBook"
         >
-          <img src="assets/img/facebook.svg" width="48" height="48" (click)="NotImplemented()"/>
+          <img
+            src="assets/img/facebook.svg"
+            width="48"
+            height="48"
+            (click)="NotImplemented()"
+          />
         </div>
 
         <div
@@ -66,7 +82,12 @@
           [matTooltipShowDelay]="500"
           aria-label="Fazer login usando sua conta da rede social X."
         >
-          <img src="assets/img/twitterx.svg" width="48" height="48" (click)="NotImplemented()"/>
+          <img
+            src="assets/img/twitterx.svg"
+            width="48"
+            height="48"
+            (click)="NotImplemented()"
+          />
         </div>
       </div>
     </mat-card-content>
@@ -165,7 +186,7 @@
         <button
           mat-raised-button
           color="primary"
-          (click)="Register(userEmail.value, userPwd.value, userName.value)"
+          (click)="Register( userName.value, userPwd.value, userEmail.value )"
         >
           Register
         </button>

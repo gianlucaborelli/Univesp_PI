@@ -23,10 +23,8 @@ export class AuthService {
     return this.http.post<any>( url, userObj)
   }
 
-  login(loginObj: LoginModel) {
-    console.log(loginObj);
-    const url = `${this.baseUrl}/auth/login`
-    console.log(url);
+  login(loginObj: LoginModel) {    
+    const url = `${this.baseUrl}/auth/login`    
     return this.http.post<any>(url, loginObj)
   }
 

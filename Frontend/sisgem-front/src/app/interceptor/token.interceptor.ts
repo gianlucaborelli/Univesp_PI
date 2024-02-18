@@ -22,7 +22,7 @@ export class TokenInterceptor implements HttpInterceptor {
     
     if(myToken){
       request = request.clone({
-        setHeaders: {Authorization:`Bearer ${myToken}`}  // "Bearer "+myToken
+        setHeaders: {Authorization:`Bearer ${myToken}`} 
       })
     }
 
@@ -48,7 +48,7 @@ export class TokenInterceptor implements HttpInterceptor {
         this.auth.storeRefreshToken(data.refreshToken);
         this.auth.storeToken(data.accessToken);
         req = req.clone({
-          setHeaders: {Authorization:`Bearer ${data.accessToken}`}  // "Bearer "+myToken
+          setHeaders: {Authorization:`Bearer ${data.accessToken}`}
         })
         return next.handle(req);
       }),
