@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Sisgem API", version = "1.0", description = "Sistema de gerenciamento de Estoque"))
-@SecurityScheme(name = "Token", scheme = "bearer", bearerFormat ="JWT", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
+@SecurityScheme(name = "Token", scheme = "bearer", bearerFormat = "JWT", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 public class MainApplication {
 
 	public static void main(String[] args) {
