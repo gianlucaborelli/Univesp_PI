@@ -12,19 +12,19 @@
       <tr>
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>Preço do Produto</mat-label>
-          <input matInput type="number" name="precos" placeholder="Preço" [(ngModel)]="produto.precos">
+          <input matInput type="number" name="precos" placeholder="Preço" [(ngModel)]="produto.price">
           <span matTextPrefix>R$&nbsp;</span>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Quantidade em Estoque</mat-label>
-          <input matInput type="number" name="estoque" placeholder="Estoque" [(ngModel)]="produto.estoque">
+          <input matInput type="number" name="estoque" placeholder="Estoque" [(ngModel)]="produto.stock">
         </mat-form-field>
       </tr>
       <tr>
         <mat-form-field appearance="outline" style="width: 100%;">
           <mat-label>Observações sobre o Produto</mat-label>
           <textarea matInput type="text" name="obs" placeholder="Observações"
-            [(ngModel)]="produto.descricao"></textarea>
+            [(ngModel)]="produto.description"></textarea>
         </mat-form-field>
       </tr>
     </table>

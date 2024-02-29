@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Produto } from 'src/app/models/produtos.model';
-import { ProdutosService } from 'src/app/service/produto-service/produtos.service';
+import { Product } from 'src/app/models/product.model';
+import { ProductService } from 'src/app/service/product-service/product.service';
 import { Location } from '@angular/common'
 import { ProdutosDetailComponent } from '../produtos-detail/produtos-detail.component';
 
@@ -12,14 +12,14 @@ import { ProdutosDetailComponent } from '../produtos-detail/produtos-detail.comp
   styleUrls: ['./produtos-cadastro.component.css']
 })
 export class ProdutosCadastroComponent implements OnInit {
-  produto: Produto = {
+  produto: Product = {
     name: ``,
-    descricao: ``,
-    estoque: ``,
-    precos: ``
+    description: ``,
+    stock: ``,
+    price: ``
   };
 
-  constructor(private service: ProdutosService,
+  constructor(private service: ProductService,
     private router: ActivatedRoute,
     private location: Location,
     private dialog: MatDialog) {

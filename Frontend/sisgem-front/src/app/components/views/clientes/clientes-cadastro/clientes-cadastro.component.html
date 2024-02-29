@@ -38,7 +38,7 @@
       </mat-card-header>
 
       <mat-grid-list cols="1" rowHeight="130px" gutterSize="0px" class="card-endereco-list">
-        <mat-grid-tile *ngFor="let endereco of cliente.enderecos" class="enderecos">
+        <mat-grid-tile *ngFor="let endereco of cliente.addresses" class="enderecos">
           <app-endereco-card [endereco]="endereco" class="card-endereco"></app-endereco-card>
         </mat-grid-tile>
       </mat-grid-list>

@@ -32,7 +32,7 @@ export class SignInComponent {
   }
 
   async Login(userName: string, pass: string) {
-    this.authService.login({ senha: pass, login:userName }).subscribe({
+    this.authService.login({ password: pass, email:userName }).subscribe({
       next: (res) => {
         console.log(res);        
         this.router.navigate(['home']);
@@ -52,7 +52,7 @@ export class SignInComponent {
   }
 
   async Register(userName: string, pass: string, email: string) {
-    this.authService.register({name: userName, password: pass, login:email }).subscribe({
+    this.authService.register({name: userName, password: pass, email:email }).subscribe({
       next: (res) => {
         console.log(res);        
         this.snackbarService.open("Registro criado com sucesso. Faça seu Login.");

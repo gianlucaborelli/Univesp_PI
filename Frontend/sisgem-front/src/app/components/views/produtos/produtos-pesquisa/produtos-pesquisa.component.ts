@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Produto } from '../../../../models/produtos.model';
+import { Product } from '../../../../models/product.model';
 import { Router } from '@angular/router';
-import { ProdutosService } from '../../../../service/produto-service/produtos.service';
+import { ProductService } from '../../../../service/product-service/product.service';
 import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -13,11 +13,11 @@ import { ProdutosDetailComponent } from '../produtos-detail/produtos-detail.comp
   styleUrls: ['./produtos-pesquisa.component.css']
 })
 export class ProdutosPesquisaComponent {
-  dataSource!: MatTableDataSource<Produto>;
+  dataSource!: MatTableDataSource<Product>;
   posts: any;
-  displayedColumns: string[] = ["id", "name", "descricao", "acoes"];
+  displayedColumns: string[] = ["id", "name", "description", "acoes"];
 
-  constructor(private service: ProdutosService, private router: Router, private dialog: MatDialog) {
+  constructor(private service: ProductService, private router: Router, private dialog: MatDialog) {
     this.service.findAll().subscribe((resposta) => {
       console.log(resposta);
       this.posts = resposta;

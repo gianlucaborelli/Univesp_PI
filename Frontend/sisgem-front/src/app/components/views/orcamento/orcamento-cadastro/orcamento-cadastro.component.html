@@ -17,11 +17,11 @@
       <mat-card-content class="dadosDoCliente" style="margin-top: 20px;">
         <mat-form-field appearance="outline" class="inputform">
           <mat-label>Nome do Cliente</mat-label>
-          <input matInput type="text" name="name" placeholder="Nome" [(ngModel)]="orcamento.cliente!.name">
+          <input matInput type="text" name="name" placeholder="Nome" [(ngModel)]="orcamento.user!.name">
         </mat-form-field>
         <mat-form-field appearance="outline" class="inputform">
           <mat-label>Observações sobre o Cliente</mat-label>
-          <textarea matInput type="text" name="obs" placeholder="Observações" [(ngModel)]="orcamento.cliente!.obs"></textarea>
+          <textarea matInput type="text" name="obs" placeholder="Observações" [(ngModel)]="orcamento.user!.obs"></textarea>
         </mat-form-field>
       </mat-card-content>
     </mat-card>
@@ -84,7 +84,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <h1 style="margin-top:20px ;"> Valor Total = R${{ orcamento.valorTotal }}</h1>
+        <h1 style="margin-top:20px ;"> Valor Total = R${{ orcamento.totalPrice }}</h1>
       </mat-card-content>
     </mat-card>    
 
@@ -97,7 +97,7 @@
             aria-label="Este botão abre um card para anterar o endereço do Orçamento"><mat-icon>add</mat-icon></button>
         </mat-card-actions>
       </mat-card-header>      
-        <app-endereco-card [endereco]="orcamento.endereco!" style="margin: 15px;"></app-endereco-card>
+        <app-endereco-card [endereco]="orcamento.address!" style="margin: 15px;"></app-endereco-card>
     </mat-card>
 
   </div>

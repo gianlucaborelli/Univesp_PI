@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Endereco } from '../models/endereco.model';
+import { Address } from '../models/address.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { EnderecoAutocomplete } from '../models/endereco-autocomplete.model';
@@ -15,29 +15,29 @@ export class EnderecoService {
 
   baseUrl: String = environment.baseUrl;
 
-  findById(id: String): Observable<Endereco> {
+  findById(id: String): Observable<Address> {
     const url = `${this.baseUrl}/enderecos/${id}`
-    return this.http.get<Endereco>(url);
+    return this.http.get<Address>(url);
   }
 
-  findAllByClienteId(id: String): Observable<Endereco[]> {
-    const url = `${this.baseUrl}/enderecos/cliente/${id}`
-    return this.http.get<Endereco[]>(url);
+  findAllByClienteId(id: String): Observable<Address[]> {
+    const url = `${this.baseUrl}/users/${id}/address`
+    return this.http.get<Address[]>(url);
   }
 
   findByCep(cep: String): Observable<EnderecoAutocomplete> {
-    const url = `${this.baseUrl}/enderecos/findByCep/${cep}`
+    const url = `${this.baseUrl}/address/findByCep/${cep}`
     return this.http.get<EnderecoAutocomplete>(url);
   }
 
-  create(body: Endereco): Observable<Endereco> {
+  create(body: Address): Observable<Address> {
     const url = `${this.baseUrl}/enderecos`;
-    return this.http.post<Endereco>(url, body);
+    return this.http.post<Address>(url, body);
   }
 
-  delete(id: String): Observable<Endereco> {
+  delete(id: String): Observable<Address> {
     const url = `${this.baseUrl}/enderecos/${id}`
-    return this.http.delete<Endereco>(url);
+    return this.http.delete<Address>(url);
   }
 
   mensagem(str: String): void {

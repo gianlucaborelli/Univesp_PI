@@ -2,7 +2,7 @@ import { Component, DEFAULT_CURRENCY_CODE, LOCALE_ID, OnInit } from '@angular/co
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Orcamento } from 'src/app/models/orcamento.model';
-import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
+import { OrcamentoService } from 'src/app/service/quotation/quotation.service';
 import { Location } from '@angular/common'
 import { ProdutoPedido } from 'src/app/models/produto-pedido.model';
 import { MatTableDataSource } from '@angular/material/table';
@@ -25,13 +25,13 @@ export class OrcamentoCadastroComponent implements OnInit {
   dataSource: MatTableDataSource<ProdutoPedido>;
 
   orcamento: Orcamento = {
-    dataFim:'',
-    dataInicio:'',
+    finalDate:'',
+    initialDate:'',
     id: '',
-    valorTotal:'',
-    endereco: null,
-    cliente: null,
-    produtosPedidos: null
+    totalPrice:'',
+    address: null,
+    user: null,
+    quotedProducts: null
   };  
   
   constructor(private service: OrcamentoService,

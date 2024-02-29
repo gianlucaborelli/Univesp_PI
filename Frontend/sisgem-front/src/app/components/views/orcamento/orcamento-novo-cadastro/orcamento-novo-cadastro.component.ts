@@ -5,10 +5,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, catchError, map, startWith, tap } from 'rxjs';
-import { Cliente } from 'src/app/models/clientes.model';
-import { Endereco } from 'src/app/models/endereco.model';
+import { User } from 'src/app/models/user.model';
+import { Address } from 'src/app/models/address.model';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
-import { ClientesService } from 'src/app/service/cliente-service/clientes.service';
+import { UserService } from 'src/app/service/user-service/user.service';
 import { EnderecoService } from 'src/app/service/endereco.service';
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -16,9 +16,9 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { ProdutosService } from 'src/app/service/produto-service/produtos.service';
+import { ProductService } from 'src/app/service/product-service/product.service';
 import { Orcamento } from 'src/app/models/orcamento.model';
-import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
+import { OrcamentoService } from 'src/app/service/quotation/quotation.service';
 import { format } from 'date-fns';
 import { ProdutoPedidoService } from 'src/app/service/produto-pedido/produto-pedido.service';
 import { ProdutoExiste } from 'src/app/models/produto-existe.model';
@@ -46,16 +46,16 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   displayedColumnsEndereco: string[] = ["id", "logradouro", "localidade", "obs", "select"];
   displayedColumnsProdutos: string[] = ["id", "name", "price", "quantity", "desiredQuantity"];
 
-  listaDeClientes!: Cliente[];
-  filterOptionsList!: Observable<Cliente[]>;
+  listaDeClientes!: User[];
+  filterOptionsList!: Observable<User[]>;
   searchControl = new FormControl();
 
-  enderecoDataSource: MatTableDataSource<Endereco>;
+  enderecoDataSource: MatTableDataSource<Address>;
   produtosEmEstoqueDataSource: MatTableDataSource<ProdutoEmEstoque>;
 
   orcamento: Orcamento = {
-    valorTotal:'',
-    produtosPedidos: null
+    totalPrice:'',
+    quotedProducts: null
   };
 
   range: FormGroup;
@@ -63,12 +63,12 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<OrcamentoNovoCadastroComponent>,
     private router: Router,
     private _formBuilder: FormBuilder,
-    private clienteService: ClientesService,
+    private clienteService: UserService,
     private enderecoService: EnderecoService,
-    private produtoService: ProdutosService,
+    private produtoService: ProductService,
     private orcamentoService: OrcamentoService,
     private produtoPedidoService: ProdutoPedidoService) {
-    this.enderecoDataSource = new MatTableDataSource<Endereco>();
+    this.enderecoDataSource = new MatTableDataSource<Address>();
     this.produtosEmEstoqueDataSource = new MatTableDataSource<ProdutoEmEstoque>();
     this.range = this._formBuilder.group({
       start: null,
@@ -86,7 +86,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     });
   }
 
-  private _filter(value: String): Cliente[] {
+  private _filter(value: String): User[] {
     const filterValue = value.toLowerCase();
     return this.listaDeClientes.filter(cliente => cliente.name.toLowerCase().includes(filterValue)
     );
@@ -95,14 +95,14 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   onClienteSelecionado(event: MatAutocompleteSelectedEvent): void {
     const selectedName = event.option.value;
 
-    if (this.orcamento.cliente == null) {
-      this.orcamento.cliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
-    } else if (this.orcamento.cliente != selectedName) {
-      this.orcamento.cliente = this.listaDeClientes.find(cliente => cliente.name === selectedName);
-      this.orcamento.endereco = null;
+    if (this.orcamento.user == null) {
+      this.orcamento.user = this.listaDeClientes.find(cliente => cliente.name === selectedName);
+    } else if (this.orcamento.user != selectedName) {
+      this.orcamento.user = this.listaDeClientes.find(cliente => cliente.name === selectedName);
+      this.orcamento.address = null;
     }
 
-    this.findEnderecoByClienteId(this.orcamento.cliente?.id || 'valorPadrao');
+    this.findEnderecoByClienteId(this.orcamento.user?.id || 'valorPadrao');
     this.myStepper?.next();
   }
 
@@ -113,7 +113,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
   }
 
   onEnderecoSelecionado(endereco: any) {
-    this.orcamento.endereco = endereco;
+    this.orcamento.address = endereco;
 
     if (this.orcamento.id != null) {
       this.atualizaOrcamento();
@@ -129,8 +129,8 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     if (startDate && endDate) {
       this.consultarProdutosDisponiveis(startDate, endDate);
 
-      this.orcamento.dataInicio = format(new Date(startDate), 'dd/MM/yyyy');
-      this.orcamento.dataFim = format(new Date(endDate), 'dd/MM/yyyy');
+      this.orcamento.initialDate = format(new Date(startDate), 'dd/MM/yyyy');
+      this.orcamento.finalDate = format(new Date(endDate), 'dd/MM/yyyy');
 
       if (this.orcamento.id == null) {
         this.criaOrcamento();

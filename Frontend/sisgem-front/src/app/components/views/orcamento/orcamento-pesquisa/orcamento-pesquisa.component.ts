@@ -9,7 +9,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import 'moment/locale/pt';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OrcamentoNovoCadastroComponent } from '../orcamento-novo-cadastro/orcamento-novo-cadastro.component';
-import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
+import { OrcamentoService } from 'src/app/service/quotation/quotation.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Orcamento } from 'src/app/models/orcamento.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';

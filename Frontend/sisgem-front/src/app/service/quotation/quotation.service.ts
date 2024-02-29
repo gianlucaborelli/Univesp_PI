@@ -21,32 +21,32 @@ export class OrcamentoService {
   baseUrl: String = environment.baseUrl;
 
   findAll(): Observable<OrcamentoBase[]> {
-    const url = `${this.baseUrl}/orcamentos`
+    const url = `${this.baseUrl}/quotation`
     return this.http.get<OrcamentoBase[]>(url);
   }  
 
   findById(id: String): Observable<Orcamento> {
-    const url = `${this.baseUrl}/orcamentos/${id}`
+    const url = `${this.baseUrl}/quotation/${id}`
     return this.http.get<Orcamento>(url)
   }
 
   findProdutosEmEstoque(): Observable<ProdutoEmEstoque[]> {
-    const url = `${this.baseUrl}/orcamentos`
+    const url = `${this.baseUrl}/quotation`
     return this.http.get<ProdutoEmEstoque[]>(url);
   }
 
   create(body: Orcamento):Observable<Orcamento> {
-    const url = `${this.baseUrl}/orcamentos`
+    const url = `${this.baseUrl}/quotation`
     return this.http.post<Orcamento>(url,body);
   }
 
   update(body: Orcamento): Observable<Orcamento> {
-    const url = `${this.baseUrl}/orcamentos`
+    const url = `${this.baseUrl}/quotation`
     return this.http.put<Orcamento>(url, body)
   }
 
   delete(id: String): Observable<Orcamento> {
-    const url = `${this.baseUrl}/orcamentos/${id}`
+    const url = `${this.baseUrl}/quotation/${id}`
     return this.http.delete<Orcamento>(url)
   }
 

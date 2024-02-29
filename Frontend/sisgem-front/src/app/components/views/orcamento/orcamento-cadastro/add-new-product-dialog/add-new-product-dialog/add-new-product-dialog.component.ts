@@ -7,9 +7,9 @@ import { AddProdutoPedido } from 'src/app/models/add-produto-pedido.model';
 import { Orcamento } from 'src/app/models/orcamento.model';
 import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
 import { ProdutoPedido } from 'src/app/models/produto-pedido.model';
-import { OrcamentoService } from 'src/app/service/orcamento/orcamento.service';
+import { OrcamentoService } from 'src/app/service/quotation/quotation.service';
 import { ProdutoPedidoService } from 'src/app/service/produto-pedido/produto-pedido.service';
-import { ProdutosService } from 'src/app/service/produto-service/produtos.service';
+import { ProductService } from 'src/app/service/product-service/product.service';
 
 @Component({
   selector: 'app-add-new-product-dialog',
@@ -40,7 +40,7 @@ export class AddNewProductDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private produtoPedidoService: ProdutoPedidoService,
     private orcamentoService: OrcamentoService,
-    private produtoService: ProdutosService) {
+    private produtoService: ProductService) {
       
       this.formGroup = this.formBuilder.group({
         searchControl: [''] 
@@ -48,7 +48,7 @@ export class AddNewProductDialogComponent implements OnInit {
 
     this.orcamentoService.findById(data.orcamentoId).subscribe((resposta) => {      
       this.produtoAddPedido.orcamentoId = resposta.id!; 
-      this.produtoService.findProdutosDisponiveis(resposta.dataInicio!, resposta.dataFim!).subscribe((resposta) => {        
+      this.produtoService.findProdutosDisponiveis(resposta.initialDate!, resposta.finalDate!).subscribe((resposta) => {        
         this.listaDeProdutoEmEstoque = resposta;
         this.filterOptionsList = this.searchControl.valueChanges.pipe(
           startWith(''),

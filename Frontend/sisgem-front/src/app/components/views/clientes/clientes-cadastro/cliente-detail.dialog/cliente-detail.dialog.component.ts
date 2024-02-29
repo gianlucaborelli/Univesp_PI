@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ClientesService } from '../../../../../service/cliente-service/clientes.service';
-import { Cliente } from '../../../../../models/clientes.model';
+import { UserService } from '../../../../../service/user-service/user.service';
+import { User } from '../../../../../models/user.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class ClienteDetailDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<ClienteDetailDialogComponent>,
-    private service: ClientesService,
+    private service: UserService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) data: any) {
     if (data != null) {
@@ -24,7 +24,7 @@ export class ClienteDetailDialogComponent implements OnInit {
     }
   }
 
-  cliente: Cliente = {
+  cliente: User = {
     name: '',
     obs: ''
   }

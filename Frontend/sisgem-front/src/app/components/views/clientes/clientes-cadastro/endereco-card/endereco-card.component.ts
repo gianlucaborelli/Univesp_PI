@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
-import { Endereco } from 'src/app/models/endereco.model';
+import { Address } from 'src/app/models/address.model';
 import { EnderecoService } from 'src/app/service/endereco.service';
 import { EnderecoCadastroDialogComponent } from '../endereco-cadastro.dialog/endereco-cadastro.dialog.component';
 
@@ -12,7 +12,7 @@ import { EnderecoCadastroDialogComponent } from '../endereco-cadastro.dialog/end
   styleUrls: ['./endereco-card.component.css']
 })
 export class EnderecoCardComponent {
-  @Input() endereco!: Endereco;
+  @Input() endereco!: Address;
 
   constructor(private service: EnderecoService, private dialog: MatDialog) { }
 

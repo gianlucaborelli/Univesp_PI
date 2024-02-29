@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from '../../../../models/clientes.model';
-import { ClientesService } from '../../../../service/cliente-service/clientes.service';
+import { User } from '../../../../models/user.model';
+import { UserService } from '../../../../service/user-service/user.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -13,11 +13,11 @@ import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
   styleUrls: ['./clientes-pesquisa.component.css']
 })
 export class ClientesPesquisaComponent implements OnInit {
-  dataSource!: MatTableDataSource<Cliente>;
+  dataSource!: MatTableDataSource<User>;
   displayedColumns: string[] = ["id", "name", "obs", "acoes"];
   posts: any;
 
-  constructor(private service: ClientesService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute) {
+  constructor(private service: UserService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute) {
     this.service.findAll().subscribe((resposta) => {
       console.log(resposta);
       this.posts = resposta;

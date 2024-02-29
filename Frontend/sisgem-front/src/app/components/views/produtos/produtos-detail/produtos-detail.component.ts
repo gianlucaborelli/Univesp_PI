@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Produto } from 'src/app/models/produtos.model';
-import { ProdutosService } from 'src/app/service/produto-service/produtos.service';
+import { Product } from 'src/app/models/product.model';
+import { ProductService } from 'src/app/service/product-service/product.service';
 
 @Component({
   selector: 'app-produtos-detail',
@@ -10,15 +10,15 @@ import { ProdutosService } from 'src/app/service/produto-service/produtos.servic
   styleUrls: ['./produtos-detail.component.css']
 })
 export class ProdutosDetailComponent implements OnInit {
-  produto: Produto = {
+  produto: Product = {
     name: ``,
-    descricao: ``,
-    estoque: ``,
-    precos: ``
+    description: ``,
+    stock: ``,
+    price: ``
   };
 
   constructor(private dialogRef: MatDialogRef<ProdutosDetailComponent>,
-    private service: ProdutosService,
+    private service: ProductService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) data: any) {
     if (data != null) {

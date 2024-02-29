@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Cliente } from '../../models/clientes.model';
+import { User } from '../../models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientesService {
+export class UserService {
   public enderecoAdd: Subject<boolean>;
   public clienteUpdate: Subject<boolean>;
 
@@ -19,29 +19,29 @@ export class ClientesService {
 
   baseUrl: String = environment.baseUrl;
 
-  findAll(): Observable<Cliente[]> {
-    const url = `${this.baseUrl}/usuarios`
-    return this.http.get<Cliente[]>(url);
+  findAll(): Observable<User[]> {
+    const url = `${this.baseUrl}/users/`
+    return this.http.get<User[]>(url);
   }
 
-  findById(id: String): Observable<Cliente> {
-    const url = `${this.baseUrl}/usuarios/${id}`
-    return this.http.get<Cliente>(url);
+  findById(id: String): Observable<User> {
+    const url = `${this.baseUrl}/users/${id}`
+    return this.http.get<User>(url);
   }
 
-  create(body: Cliente): Observable<Cliente> {
-    const url = `${this.baseUrl}/usuarios`;
-    return this.http.post<Cliente>(url, body);
+  create(body: User): Observable<User> {
+    const url = `${this.baseUrl}/users`;
+    return this.http.post<User>(url, body);
   }
 
-  update(body: Cliente): Observable<Cliente> {
-    const url = `${this.baseUrl}/usuarios`
-    return this.http.put<Cliente>(url, body)
+  update(body: User): Observable<User> {
+    const url = `${this.baseUrl}/users`
+    return this.http.put<User>(url, body)
   }
 
-  delete(id: String): Observable<Cliente> {
-    const url = `${this.baseUrl}/usuarios/${id}`
-    return this.http.delete<Cliente>(url);
+  delete(id: String): Observable<User> {
+    const url = `${this.baseUrl}/users/${id}`
+    return this.http.delete<User>(url);
   }
 
   mensagem(str: String): void {

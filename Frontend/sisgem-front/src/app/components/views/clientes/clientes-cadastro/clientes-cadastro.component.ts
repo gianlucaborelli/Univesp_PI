@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from '../../../../models/clientes.model';
-import { ClientesService } from '../../../../service/cliente-service/clientes.service';
+import { User } from '../../../../models/user.model';
+import { UserService } from '../../../../service/user-service/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
 import { EnderecoCadastroDialogComponent } from './endereco-cadastro.dialog/endereco-cadastro.dialog.component';
@@ -15,13 +15,13 @@ import { __await } from 'tslib';
 })
 
 export class ClientesCadastroComponent implements OnInit {
-  cliente: Cliente = {
+  cliente: User = {
     name: ``,
     obs: ``,
-    enderecos: []
+    addresses: []
   };
 
-  constructor(private service: ClientesService,
+  constructor(private service: UserService,
     private router: ActivatedRoute,
     private location: Location,
     private dialog: MatDialog) {

@@ -18,14 +18,14 @@
         </mat-menu>
 
         <mat-card-content style="padding-top:10px; ">
-            <p> <b>{{ endereco.logradouro }} - Nº: {{ endereco.numero }}</b></p>
+            <p> <b>{{ endereco.street }} - Nº: {{ endereco.number }}</b></p>
             <p>
-                <b>Bairro: </b> {{ endereco.bairro }}
-                <b>- Cidade: </b> {{endereco.localidade}}
-                <b>- UF: </b>{{endereco.uf}}
+                <b>Bairro: </b> {{ endereco.district }}
+                <b>- Cidade: </b> {{endereco.city}}
+                <b>- UF: </b>{{endereco.state}}
             </p>
             <p>
-                <b>Observações: </b> {{endereco.obs}}
+                <b>Observações: </b> {{endereco.description}}
             </p>
         </mat-card-content>
 
