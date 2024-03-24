@@ -3,6 +3,7 @@ package com.sisgem.main.infra;
 import java.io.IOException;
 
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,14 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             throws IOException, ServletException {
         // 401
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication Failed");
+    }
+
+    @ExceptionHandler(value = { BadCredentialsException.class })
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+            BadCredentialsException authException)
+            throws IOException, ServletException {
+        // 400
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Usuário ou senha inválidos");
     }
 
     @ExceptionHandler(value = { AccessDeniedException.class })

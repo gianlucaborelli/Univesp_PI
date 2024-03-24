@@ -21,12 +21,22 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     //     return problemDetail;
     // }
 
+    @ExceptionHandler(ResourceNotFound.class)    
+    public ProblemDetail handleUserAlreadyExistException(ResourceNotFound e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getLocalizedMessage());
+        problemDetail.setTitle("Recurso não encontrado.");
+        problemDetail.setDetail(e.getMessage());
+        problemDetail.setProperty("Categoria", "Recurso");
+        problemDetail.setProperty("TimeStamp", Instant.now());
+        return problemDetail;
+    }
+
     @ExceptionHandler(UserAlreadyExistException.class)    
     public ProblemDetail handleUserAlreadyExistException(UserAlreadyExistException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getLocalizedMessage());
         problemDetail.setTitle("Usuário já cadastrado.");
         problemDetail.setDetail(e.getMessage());
-        problemDetail.setProperty("Categoria", "Plataforma");
+        problemDetail.setProperty("Categoria", "Autenticação");
         problemDetail.setProperty("TimeStamp", Instant.now());
         return problemDetail;
     }
@@ -36,7 +46,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getLocalizedMessage());
         problemDetail.setTitle("Usuário não encontrado.");
         problemDetail.setDetail(e.getMessage());
-        problemDetail.setProperty("Categoria", "Plataforma");
+        problemDetail.setProperty("Categoria", "Usuário");
         problemDetail.setProperty("TimeStamp", Instant.now());
         return problemDetail;
     }

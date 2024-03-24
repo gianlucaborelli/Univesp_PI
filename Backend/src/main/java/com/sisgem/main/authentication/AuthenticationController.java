@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +16,11 @@ import com.sisgem.main.authentication.dto.RegisterUserRequestDto;
 import com.sisgem.main.configuration.security.TokenService;
 import com.sisgem.main.user.User;
 
-import jakarta.validation.Valid;
-
 @RestController
 @RequestMapping("/auth")
-public class AuthenticationController {
-
+public class AuthenticationController {    
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private TokenService tokenService;
 
@@ -34,14 +29,16 @@ public class AuthenticationController {
     
     @PostMapping("/login")
     public ResponseEntity<LoginResultDto> login (@RequestBody LoginRequest login){
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login.email(), login.password());
-        Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-
-        var user = (User) authenticate.getPrincipal();
-
-        LoginResultDto result = new LoginResultDto(tokenService.gerarToken(user), "");
-
-        return ResponseEntity.ok().body(result);
+        try{
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(login.email(), login.password());
+            Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+    
+            var user = (User) authenticate.getPrincipal();
+            return ResponseEntity.ok().body(new LoginResultDto(tokenService.gerarToken(user), ""));
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+        
     }
 
     @PostMapping("/register")

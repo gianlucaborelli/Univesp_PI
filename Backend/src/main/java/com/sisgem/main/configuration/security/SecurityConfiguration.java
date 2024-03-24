@@ -45,10 +45,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(WHITE_LIST_URL).permitAll()                        
                         .anyRequest().authenticated())
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(customAuthenticationEntryPoint))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(customAuthenticationEntryPoint))                
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-    }
+    }    
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)

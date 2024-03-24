@@ -1,13 +1,12 @@
-package com.sisgem.main.quotation;
+package com.sisgem.main.quotationCart;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sisgem.main.address.Address;
-import com.sisgem.main.quotedProduct.QuotedProduct;
+import com.sisgem.main.quotationCart.util.ShippingAddress;
+import com.sisgem.main.quotedProductCart.QuotedProductCart;
 import com.sisgem.main.user.User;
 
 import jakarta.persistence.Column;
@@ -15,28 +14,39 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@Table(name = "QUOTATION")
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Quotation {
-
+@Table(name = "QUOTATION_CART")
+public class QuotationCart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @JoinColumn(nullable = false, unique = true)
+    @ManyToOne
+    private User user;
+
+    @JoinColumn(nullable = true)
+    @OneToOne
+    private ShippingAddress shippingAddress;
+
+    @Column(nullable = true)
+    private String shippingDescription;
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
@@ -48,15 +58,6 @@ public class Quotation {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
     private Date initialDate;
 
-    @Transient
-    private BigDecimal valorTotal;
-
-    @ManyToOne
-    private User user;
-
-    @ManyToOne
-    private Address address;
-
-    @OneToMany(mappedBy = "quotation")
-    private List<QuotedProduct> quotedProducts;
+    @OneToMany(mappedBy = "quotationCart")
+    private List<QuotedProductCart> quotedProductsCart;
 }

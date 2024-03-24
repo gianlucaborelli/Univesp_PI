@@ -19,7 +19,7 @@ import com.sisgem.main.user.converter.UserMapper;
 import com.sisgem.main.user.dto.UserDetailDto;
 import com.sisgem.main.user.dto.UserUpdateRequestDto;
 
-import jakarta.annotation.Nonnull;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
@@ -30,21 +30,21 @@ public class UserController {
 
     @Autowired
     private UserMapper mapper;
-    
+
     @GetMapping("/")
-    public ResponseEntity<List<UserDetailDto>> listAll() {
+    public ResponseEntity<List<UserDetailDto>> listAll() {          
         return ResponseEntity.ok().body(mapper.toUserDetailList(repository.findAll()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id) {        
-        if (id != null){
+    public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id) {
+        if (id != null) {
             var user = repository.findById(id).orElse(null);
 
-            if(user != null){
+            if (user != null) {
                 return ResponseEntity.ok().body(mapper.toUserDetail(user));
             }
-            return  ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.badRequest().build();
     }
@@ -58,7 +58,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDetailDto> save(@RequestBody User user) {
-        if(user == null){
+        if (user == null) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -67,8 +67,8 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserDetailDto> edit(@RequestBody UserUpdateRequestDto userToUpdate) {
-        if (userToUpdate.getId() == null){
+    public ResponseEntity<UserDetailDto> edit(@Valid @RequestBody UserUpdateRequestDto userToUpdate) {
+        if (userToUpdate.getId() == null) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -90,11 +90,11 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        if(id == null){
-            return ResponseEntity.badRequest().build();    
+        if (id == null) {
+            return ResponseEntity.badRequest().build();
         }
 
         repository.deleteById(id);
-        return ResponseEntity.noContent().build(); 
+        return ResponseEntity.noContent().build();
     }
 }

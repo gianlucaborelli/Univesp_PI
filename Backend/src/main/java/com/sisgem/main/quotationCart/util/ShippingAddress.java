@@ -1,15 +1,12 @@
-package com.sisgem.main.address;
+package com.sisgem.main.quotationCart.util;
 
 import java.util.UUID;
-
-import com.sisgem.main.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,9 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ADDRESS")
-public class Address {
-
+@Table(name = "SHIPPING_ADDRESS")
+public class ShippingAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -48,7 +44,4 @@ public class Address {
 
     @Column(nullable = false)
     private String description;
-    
-    @ManyToOne    
-    private User user;     
 }

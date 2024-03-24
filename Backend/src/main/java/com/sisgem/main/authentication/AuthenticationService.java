@@ -1,6 +1,9 @@
 package com.sisgem.main.authentication;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +18,7 @@ import com.sisgem.main.user.enums.Role;
 import com.sisgem.main.user.User;
 
 @Service
-public class AuthenticationService implements UserDetailsService{
+public class AuthenticationService implements UserDetailsService{    
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -27,11 +30,21 @@ public class AuthenticationService implements UserDetailsService{
         return userRepository.findByEmail(userName).get();
     }
 
+    public UUID getCurrentUserId(){
+        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();        
+        return ((User) principal).getId();
+    }
+
+    public Role getCurrentUserRole(){
+        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();        
+        return ((User) principal).getRole();
+    }
+
     public User registerUser(RegisterUserRequestDto newUser) throws UserAlreadyExistException {
         var isPresent = userRepository.findByEmail(newUser.getEmail()).isPresent();
 
         if(isPresent){
-            throw new UserAlreadyExistException("Usuário já cadastrado!");
+            throw new UserAlreadyExistException(String.format("Usuário com email %s já cadastrado!", newUser.getEmail()));
         }
         
         var userToSave = mapper.toNovoUsuario(newUser);
@@ -40,5 +53,5 @@ public class AuthenticationService implements UserDetailsService{
 
         userToSave.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
         return userRepository.save(userToSave);
-    }
+    }    
 }
