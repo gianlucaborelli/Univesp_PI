@@ -55,7 +55,7 @@ public class Quotation {
     private User user;
 
     @ManyToOne
-    private Address address;
+    private Address address; // Mudar para ShippingAddress
 
     @OneToMany(mappedBy = "quotation")
     private List<QuotedProduct> quotedProducts;

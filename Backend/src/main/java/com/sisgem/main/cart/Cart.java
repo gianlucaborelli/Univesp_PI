@@ -1,12 +1,12 @@
-package com.sisgem.main.quotationCart;
+package com.sisgem.main.cart;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sisgem.main.quotationCart.util.ShippingAddress;
-import com.sisgem.main.quotedProductCart.QuotedProductCart;
+import com.sisgem.main.address.Address;
+import com.sisgem.main.cartItem.CartItem;
 import com.sisgem.main.user.User;
 
 import jakarta.persistence.Column;
@@ -15,7 +15,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -31,33 +30,37 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "QUOTATION_CART")
-public class QuotationCart {
+@Table(name = "CART")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @JoinColumn(nullable = false, unique = true)
-    @ManyToOne
+    @OneToOne
     private User user;
 
     @JoinColumn(nullable = true)
     @OneToOne
-    private ShippingAddress shippingAddress;
+    private Address shippingAddress;
 
     @Column(nullable = true)
     private String shippingDescription;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
     private Date finalDate;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
     private Date initialDate;
 
-    @OneToMany(mappedBy = "quotationCart")
-    private List<QuotedProductCart> quotedProductsCart;
+    @OneToMany(mappedBy = "cart")
+    private List<CartItem> cartItens;
+
+    public void setQuotedProductsCart(CartItem item){
+        cartItens.add(item);
+    }
 }

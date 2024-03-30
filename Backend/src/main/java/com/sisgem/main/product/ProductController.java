@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import com.sisgem.main.product.dto.AvailableProdutcsDto;
+import com.sisgem.main.product.dto.ProductStockDto;
 
 @RestController
 @RequestMapping("/products")
@@ -43,11 +43,11 @@ public class ProductController {
     }
 
     @GetMapping("/available-products")
-    public ResponseEntity<List<AvailableProdutcsDto>> getAvailableProducts(
+    public ResponseEntity<List<ProductStockDto>> getAvailableProducts(
             @RequestParam("initialDate") @DateTimeFormat(pattern = "dd/MM/yyyy") Date initialDate,
             @RequestParam("finalDate") @DateTimeFormat(pattern = "dd/MM/yyyy") Date finalDate) {
                 
-        return new ResponseEntity<List<AvailableProdutcsDto>>(productService.getProdutosDisponiveis(initialDate, finalDate),
+        return new ResponseEntity<List<ProductStockDto>>(productService.getAvailableProducts(initialDate, finalDate),
                 HttpStatus.OK);
     }
 

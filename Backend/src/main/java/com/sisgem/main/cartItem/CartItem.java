@@ -1,4 +1,4 @@
-package com.sisgem.main.quotedProductCart;
+package com.sisgem.main.cartItem;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -6,8 +6,8 @@ import java.util.UUID;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sisgem.main.cart.Cart;
 import com.sisgem.main.product.Product;
-import com.sisgem.main.quotationCart.QuotationCart;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,11 +24,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name = "QUOTED_PRODUCT_CART")
+@Table(name = "CART_ITEM")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class QuotedProductCart {
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -44,7 +44,7 @@ public class QuotedProductCart {
     private Product product;    
 
     @ManyToOne
-    @JoinColumn(name = "quotationCart_id")
+    @JoinColumn(name = "cart_id")
     @JsonBackReference    
-    private QuotationCart quotationCart;   
+    private Cart cart;   
 }

@@ -6,20 +6,26 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.sisgem.main.address.dto.AutoCompleteAddressResponse;
+import com.sisgem.main.address.exceptions.AddressNotFoundException;
 
 @Service
 public class AddressService {
 
     @Autowired
-    private AddressRepository repositorio;
+    private AddressRepository addressRepository;
 
-    public List<Address> findEnderecosByUsuarioId(UUID id) {
-        return this.repositorio.findByUserId(id);
+    public Address findById(@NonNull UUID addressId) {
+        return this.addressRepository.findById(addressId)
+                .orElseThrow(()  -> new AddressNotFoundException(addressId));
+    }
 
+    public List<Address> findAddressByUserId(UUID userId) {
+        return this.addressRepository.findByUserId(userId);
     }
 
     public AutoCompleteAddressResponse findByCep(String cep) {

@@ -60,7 +60,7 @@ public class AddressController {
         userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
 
-        var addresses = service.findEnderecosByUsuarioId(userId);
+        var addresses = service.findAddressByUserId(userId);
 
         return ResponseEntity.ok().body(mapper.toAddressDetailList(addresses));
     }

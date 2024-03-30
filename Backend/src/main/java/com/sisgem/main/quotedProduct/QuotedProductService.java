@@ -40,31 +40,31 @@ public class QuotedProductService {
     @Autowired
     private QuotedProductMapper mapper;
 
-    public ResponseEntity<Optional<List<QuotedProduct>>> addProdutoPedido(UUID id) {
+    public ResponseEntity<Optional<List<QuotedProduct>>> findAllByQuotationId(UUID id) {
         return ResponseEntity.ok().body(this.produtoPedidoRepositorio.findAllByQuotation_Id(id));
     }
 
     public ResponseEntity<QuotedProduct> addProdutoPedido(addProdutoPedidoRequest addProduto) throws ResourceNotFound {
 
-        Product produto = productRepository.findById(addProduto.getProductId())
+        Product product = productRepository.findById(addProduto.getProductId())
                 .orElseThrow(() -> new ResourceNotFound(
                         String.format("Produto com ID %s não encontrado!", addProduto.getProductId())));
 
-        Quotation orcamento = quotationRepository.findById(addProduto.getQuotationId())
+        Quotation quotation = quotationRepository.findById(addProduto.getQuotationId())
                 .orElseThrow(() -> new ResourceNotFound(
                         String.format("Orçamento com ID %s não encontrado!", addProduto.getQuotationId())));
 
-        productService.estoqueDisponivel(orcamento.getInitialDate(), orcamento.getFinalDate(), addProduto.getAmount(),
-                produto.getId());
+        productService.stockAvailable(quotation.getInitialDate(), quotation.getFinalDate(), addProduto.getAmount(),
+                product.getId());
 
         entityManager.clear();
 
         QuotedProduct pedido = new QuotedProduct();
 
-        pedido.setQuotation(orcamento);
-        pedido.setProduct(produto);
+        pedido.setQuotation(quotation);
+        pedido.setProduct(product);
         pedido.setAmount(addProduto.getAmount());
-        pedido.setPrice(BigDecimal.valueOf(addProduto.getAmount()).multiply(produto.getPrice()));
+        pedido.setPrice(BigDecimal.valueOf(addProduto.getAmount()).multiply(product.getPrice()));
 
         produtoPedidoRepositorio.save(pedido);
 
@@ -85,7 +85,7 @@ public class QuotedProductService {
         Quotation orcamento = pedido.getQuotation();
         Product produto = pedido.getProduct();
 
-        productService.estoqueDisponivel(orcamento.getInitialDate(), orcamento.getFinalDate(),
+        productService.stockAvailable(orcamento.getInitialDate(), orcamento.getFinalDate(),
                 updatePedido.getAmount(), produto.getId());
 
         pedido.setAmount(updatePedido.getAmount());

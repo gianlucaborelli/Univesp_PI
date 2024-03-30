@@ -5,68 +5,68 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import com.sisgem.main.product.converter.ProductMapper;
-import com.sisgem.main.product.dto.AvailableProdutcsDto;
+import com.sisgem.main.product.dto.ProductStockDto;
+import com.sisgem.main.product.exceptions.InsufficientStockException;
+import com.sisgem.main.product.exceptions.ProductNotFoundException;
+import com.sisgem.main.quotation.Quotation;
 import com.sisgem.main.quotation.QuotationRepository;
 import com.sisgem.main.quotedProduct.QuotedProduct;
-import com.sisgem.main.quotation.Quotation;
-
-import jakarta.persistence.EntityManager;
 
 @Service
 public class ProductService {
     
     @Autowired
-    private ProductRepository repositorioProdutos;    
+    private ProductRepository productRepository;
     @Autowired
-    private QuotationRepository repositorioOrcamento;
+    private QuotationRepository quotationRepository;
     @Autowired
     private ProductMapper mapper;
-    @Autowired
-    private EntityManager entityManager;
 
+    public Product findById (@NonNull UUID productId){
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+    }
 
-    public List<AvailableProdutcsDto> getProdutosDisponiveis (Date initialDate, Date finalDate){
-     
-        var produtos = repositorioProdutos.findAll();
+    public List<ProductStockDto> getAvailableProducts (Date initialDate, Date finalDate){
+        var products = productRepository.findAll();
 
-        var orcamentos = repositorioOrcamento.findByIntervalOfDates(initialDate, finalDate);
+        var quotations = quotationRepository.findByIntervalOfDates(initialDate, finalDate);
         
-        for(Quotation orcamento : orcamentos){
-            List<QuotedProduct> pedidos = orcamento.getQuotedProducts();
+        for(Quotation quotation : quotations){
+            List<QuotedProduct> quotedProducts = quotation.getQuotedProducts();
 
-            for(QuotedProduct pedido : pedidos){
-                Product produtoPedido = pedido.getProduct();
+            for(QuotedProduct quotedProduct : quotedProducts){
+                Product produtoPedido = quotedProduct.getProduct();
 
-                for(Product produto: produtos){
+                for(Product product: products){
 
-                    if(produto.getId() == produtoPedido.getId()){
-                        produto.setStock(produto.getStock() - pedido.getAmount());
+                    if(product.getId() == produtoPedido.getId()){
+                        product.setStock(product.getStock() - quotedProduct.getAmount());
                     }
                 }
             }
         }
-        entityManager.clear();
-        return mapper.toAvailableProductList(produtos);
+        
+        return mapper.toAvailableProductStockList(products);    
     }
     
-    public Boolean estoqueDisponivel (Date inicio, Date fim, Integer quantidade, UUID id){
-        var produtosDisponiveisList = getProdutosDisponiveis(inicio, fim);
+    public Boolean stockAvailable (Date initialData, Date finalData, Integer amount, UUID productId){
+        var availableProductsList = getAvailableProducts(initialData, finalData);
         
-        for (AvailableProdutcsDto produtoDisponivel : produtosDisponiveisList) {
-            if (produtoDisponivel.getId() == id){
+        for (ProductStockDto availableProduct : availableProductsList) {
+            if (availableProduct.getId().equals(productId)){
 
-                if ((produtoDisponivel.getStock() - quantidade) < 0 ){
-                    throw new IllegalArgumentException(String.format("Quantidade de %d unidades do produto %s, não disponivel em estoque.", 
-                                                                    quantidade, produtoDisponivel.getName()));
+                if (availableProduct.getStock() < amount ){
+                    throw new InsufficientStockException(amount, availableProduct.getName());
                 }
-                break;
+                return true;
             }
         }
 
-        entityManager.clear();
-        return true;
+        throw new ProductNotFoundException(productId);
     }
 }

@@ -7,8 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.sisgem.main.product.Product;
-import com.sisgem.main.product.dto.AvailableProdutcsDto;
 import com.sisgem.main.product.dto.ProductDetailDto;
+import com.sisgem.main.product.dto.ProductStockDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,11 +27,11 @@ public class ProductMapper {
                 .collect(Collectors.toList());
     }
 
-    public AvailableProdutcsDto toAvailableProduct(Product product) {
-        return mapper.map(product, AvailableProdutcsDto.class);
+    public ProductStockDto toAvailableProduct(Product product) {
+        return mapper.map(product, ProductStockDto.class);
     }
 
-    public List<AvailableProdutcsDto> toAvailableProductList(List<Product> products) {
+    public List<ProductStockDto> toAvailableProductStockList(List<Product> products) {
         return products.stream()
                 .map(this::toAvailableProduct)
                 .collect(Collectors.toList());
