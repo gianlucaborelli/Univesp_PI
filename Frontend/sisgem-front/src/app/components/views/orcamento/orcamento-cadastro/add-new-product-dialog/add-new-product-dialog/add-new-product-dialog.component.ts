@@ -5,11 +5,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, map, startWith } from 'rxjs';
 import { AddProdutoPedido } from 'src/app/models/add-produto-pedido.model';
 import { Orcamento } from 'src/app/models/orcamento.model';
-import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
-import { ProdutoPedido } from 'src/app/models/produto-pedido.model';
+import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.model';
+import { ProdutoPedido } from 'src/app/products/models/produto-pedido.model';
 import { OrcamentoService } from 'src/app/service/quotation/quotation.service';
 import { ProdutoPedidoService } from 'src/app/service/produto-pedido/produto-pedido.service';
-import { ProductService } from 'src/app/service/product-service/product.service';
+import { ProductService } from 'src/app/products/service/product.service';
 
 @Component({
   selector: 'app-add-new-product-dialog',

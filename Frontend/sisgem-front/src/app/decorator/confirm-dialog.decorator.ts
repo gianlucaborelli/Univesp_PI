@@ -1,6 +1,6 @@
-import { ConfirmDialogData } from "../service/confirm-dialog/confirm-dialog-data";
+import { ConfirmDialogData } from "./confirm-dialog/service/confirm-dialog-data";
 import { ConfirmDialogComponent } from "../components/shared/confirm-dialog/confirm-dialog.component";
-import { DialogService } from "../service/confirm-dialog/dialog.service";
+import { DialogService } from "./confirm-dialog/service/dialog.service";
 
 const defaultConfirmData = {
     title: "Confirmação",

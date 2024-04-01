@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { OrcamentoBase } from 'src/app/models/orcamento-base.model';
 import { Orcamento } from 'src/app/models/orcamento.model';
-import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
+import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

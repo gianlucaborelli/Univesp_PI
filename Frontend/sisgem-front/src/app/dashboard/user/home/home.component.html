@@ -1,0 +1,57 @@
+<mat-toolbar class="mat-elevation-z3">
+  <div class="header">
+    <img class="logo" src="assets/img/mobilia.jpg" />
+    <h1>SISGEM</h1>
+  </div>
+
+  <div>
+    <button
+      mat-icon-button
+      *ngIf="sidenav.mode === 'over'"
+      (click)="sidenav.toggle()"      
+    >
+      <mat-icon *ngIf="!sidenav.opened"> shopping_cart_outlined </mat-icon>
+      <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z3" position="end">
+    <img
+      class="avatar mat-elevation-z3"
+      src=""
+      onerror="this.src='assets/img/user_avatar.png'"
+    />
+
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button">
+      <mat-icon>people</mat-icon>
+      <span>Clientes</span>
+    </button>
+
+    <button mat-button class="menu-button">
+      <mat-icon>shopping_bag</mat-icon>
+      <span>Produtos</span>
+    </button>
+
+    <button mat-button class="menu-button">
+      <mat-icon>shopping_cart_checkout</mat-icon>
+      <span>Orçamentos</span>
+    </button>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z3">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,6 +1,6 @@
-import { User } from "./user.model";
+import { User } from "../user/models/user.model";
 import { Address } from "./address.model";
-import { ProdutoPedido } from "./produto-pedido.model";
+import { ProdutoPedido } from "../products/models/produto-pedido.model";
 
 export interface Orcamento {
     id?: String;

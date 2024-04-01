@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { AddProdutoPedido } from 'src/app/models/add-produto-pedido.model';
-import { ProdutoExiste } from 'src/app/models/produto-existe.model';
-import { ProdutoPedido } from 'src/app/models/produto-pedido.model';
+import { ProdutoExiste } from 'src/app/products/models/produto-existe.model';
+import { ProdutoPedido } from 'src/app/products/models/produto-pedido.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

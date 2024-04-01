@@ -5,10 +5,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, catchError, map, startWith, tap } from 'rxjs';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/user/models/user.model';
 import { Address } from 'src/app/models/address.model';
-import { ProdutoEmEstoque } from 'src/app/models/produto-em-estoque.model';
-import { UserService } from 'src/app/service/user-service/user.service';
+import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.model';
+import { UserService } from 'src/app/user/service/user.service';
 import { EnderecoService } from 'src/app/service/endereco.service';
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -16,12 +16,12 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { ProductService } from 'src/app/service/product-service/product.service';
+import { ProductService } from 'src/app/products/service/product.service';
 import { Orcamento } from 'src/app/models/orcamento.model';
 import { OrcamentoService } from 'src/app/service/quotation/quotation.service';
 import { format } from 'date-fns';
 import { ProdutoPedidoService } from 'src/app/service/produto-pedido/produto-pedido.service';
-import { ProdutoExiste } from 'src/app/models/produto-existe.model';
+import { ProdutoExiste } from 'src/app/products/models/produto-existe.model';
 import { AddProdutoPedido } from 'src/app/models/add-produto-pedido.model';
 import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
 import { Router } from '@angular/router';

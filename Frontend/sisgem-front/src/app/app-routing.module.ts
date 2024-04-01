@@ -1,14 +1,16 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/views/home/home.component';
+import { HomeComponent } from './dashboard/user/home/home.component';
 import { OrcamentoPesquisaComponent } from './components/views/orcamento/orcamento-pesquisa/orcamento-pesquisa.component';
-import { ClientesPesquisaComponent } from './components/views/clientes/clientes-pesquisa/clientes-pesquisa.component';
-import { ClientesCadastroComponent } from './components/views/clientes/clientes-cadastro/clientes-cadastro.component';
+
+import { UserDetailComponent } from './user/views/user-detail/user-detail.component';
 import { OrcamentoCadastroComponent } from './components/views/orcamento/orcamento-cadastro/orcamento-cadastro.component';
-import { ProdutosPesquisaComponent } from './components/views/produtos/produtos-pesquisa/produtos-pesquisa.component';
-import { ProdutosCadastroComponent } from './components/views/produtos/produtos-cadastro/produtos-cadastro.component';
 import { AuthGuard } from './components/shared/guard/auth.guard';
-import { SignInComponent } from './components/views/login/sign-in/sign-in.component';
+import { SignInComponent } from './authentication/views/login-page/login-page.component';
+import { ProdutosPesquisaComponent } from './products/views/produtos-pesquisa/produtos-pesquisa.component';
+import { ProdutosCadastroComponent } from './products/views/produtos-cadastro/produtos-cadastro.component';
+import { UserSearchComponent } from './user/views/user-search/user-search.component';
+import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   {
@@ -19,20 +21,20 @@ const routes: Routes = [
 
   // L O G I N
   {
-    path: 'home',
-    component: HomeComponent,
+    path: 'admin',
+    component: AdminDashboardComponent,
     canActivate: [AuthGuard],
     children: [
       // C L I E N T E S
       {
         path: 'clientes',
-        component: ClientesPesquisaComponent,
+        component: UserSearchComponent,
         canActivate: [AuthGuard],        
       },
 
       {
         path: 'clientescadastro',
-        component: ClientesCadastroComponent,
+        component: UserDetailComponent,
         canActivate: [AuthGuard]
       },
 
@@ -63,13 +65,15 @@ const routes: Routes = [
       }
     ]
   },
-
   {
     path: 'login',
     component: SignInComponent
   },
-
-
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+  }
 ];
 
 @NgModule({

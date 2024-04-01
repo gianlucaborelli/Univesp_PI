@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Orcamento } from 'src/app/models/orcamento.model';
 import { OrcamentoService } from 'src/app/service/quotation/quotation.service';
 import { Location } from '@angular/common'
-import { ProdutoPedido } from 'src/app/models/produto-pedido.model';
+import { ProdutoPedido } from 'src/app/products/models/produto-pedido.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProdutoPedidoService } from 'src/app/service/produto-pedido/produto-pedido.service';
 import { AddNewProductDialogComponent } from './add-new-product-dialog/add-new-product-dialog/add-new-product-dialog.component';

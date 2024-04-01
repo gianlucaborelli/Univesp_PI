@@ -5,13 +5,13 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './components/template/header/header.component';
+import { HeaderComponent } from './dashboard/admin/header/header.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { HomeComponent } from './components/views/home/home.component';
+import { HomeComponent } from './dashboard/user/home/home.component';
 import { MatCardModule } from '@angular/material/card';
 import { OrcamentoPesquisaComponent } from './components/views/orcamento/orcamento-pesquisa/orcamento-pesquisa.component';
 import { MatTableModule } from '@angular/material/table';
@@ -19,43 +19,41 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
-
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
-import { ClientesPesquisaComponent } from './components/views/clientes/clientes-pesquisa/clientes-pesquisa.component';
-import { ClientesCadastroComponent } from './components/views/clientes/clientes-cadastro/clientes-cadastro.component';
+
+import { UserDetailComponent } from './user/views/user-detail/user-detail.component';
 import { OrcamentoCadastroComponent } from './components/views/orcamento/orcamento-cadastro/orcamento-cadastro.component';
-import { ProdutosPesquisaComponent } from './components/views/produtos/produtos-pesquisa/produtos-pesquisa.component';
-import { ProdutosCadastroComponent } from './components/views/produtos/produtos-cadastro/produtos-cadastro.component';
-import { EnderecoCadastroDialogComponent } from './components/views/clientes/clientes-cadastro/endereco-cadastro.dialog/endereco-cadastro.dialog.component';
+import { ProdutosPesquisaComponent } from './products/views/produtos-pesquisa/produtos-pesquisa.component';
+import { ProdutosCadastroComponent } from './products/views/produtos-cadastro/produtos-cadastro.component';
+import { EnderecoCadastroDialogComponent } from './user/components/endereco-cadastro.dialog/endereco-cadastro.dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { ClienteDetailDialogComponent } from './components/views/clientes/clientes-cadastro/cliente-detail.dialog/cliente-detail.dialog.component';
+import { ClienteDetailDialogComponent } from './user/components/cliente-detail.dialog/cliente-detail.dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DialogService } from './service/confirm-dialog/dialog.service';
-import { EnderecoCardComponent } from './components/views/clientes/clientes-cadastro/endereco-card/endereco-card.component';
+import { DialogService } from './decorator/confirm-dialog/service/dialog.service';
+import { EnderecoCardComponent } from './user/components/endereco-card/endereco-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { OrcamentoNovoCadastroComponent } from './components/views/orcamento/orcamento-novo-cadastro/orcamento-novo-cadastro.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ProdutosDetailComponent } from './components/views/produtos/produtos-detail/produtos-detail.component';
-import { SignInComponent } from './components/views/login/sign-in/sign-in.component';
-import { AuthService } from './service/auth/auth.service';
+import { ProdutosDetailComponent } from './products/views/produtos-detail/produtos-detail.component';
+import { SignInComponent } from './authentication/views/login-page/login-page.component';
+import { AuthService } from './authentication/service/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatRadioModule } from '@angular/material/radio';
 import { AddNewProductDialogComponent } from './components/views/orcamento/orcamento-cadastro/add-new-product-dialog/add-new-product-dialog/add-new-product-dialog.component';
-import { TokenInterceptor } from './interceptor/token.interceptor';
-import { SpinnerComponent } from './components/shared/spinner/spinner/spinner.component';
-import { LoadingInterceptor } from './interceptor/loading/loading.interceptor';
+import { TokenInterceptor } from './components/interceptor/token/token.interceptor';
+import { SpinnerComponent } from './components/shared/loader/spinner/spinner.component';
+import { LoadingInterceptor } from './components/interceptor/loading/loading.interceptor';
 import { SnackBarComponent } from './components/shared/snack-bar/snack-bar.component';
-
-
-
+import { UserSearchComponent } from './user/views/user-search/user-search.component';
+import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
 
 export function initializeDialogService() {
   return () => {
@@ -69,8 +67,8 @@ export function initializeDialogService() {
     HeaderComponent,
     HomeComponent,
     OrcamentoPesquisaComponent,
-    ClientesPesquisaComponent,
-    ClientesCadastroComponent,
+    UserSearchComponent,
+    UserDetailComponent,
     OrcamentoCadastroComponent,
     ProdutosPesquisaComponent,
     ProdutosCadastroComponent,
@@ -82,7 +80,8 @@ export function initializeDialogService() {
     SignInComponent,
     AddNewProductDialogComponent,
     SpinnerComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    AdminDashboardComponent
 
   ],
 
