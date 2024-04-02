@@ -17,7 +17,8 @@ import { OrcamentoPesquisaComponent } from './components/views/orcamento/orcamen
 import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatBadgeModule} from '@angular/material/badge';
 
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
@@ -54,6 +55,7 @@ import { LoadingInterceptor } from './components/interceptor/loading/loading.int
 import { SnackBarComponent } from './components/shared/snack-bar/snack-bar.component';
 import { UserSearchComponent } from './user/views/user-search/user-search.component';
 import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 export function initializeDialogService() {
   return () => {
@@ -115,6 +117,8 @@ export function initializeDialogService() {
     FontAwesomeModule,
     MatRadioModule,
     MatDialogModule,
+    MatBadgeModule,
+    FlexLayoutModule 
 
   ],
   providers: [

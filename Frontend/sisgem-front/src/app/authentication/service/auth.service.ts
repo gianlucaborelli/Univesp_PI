@@ -38,6 +38,7 @@ export class AuthService {
         this.userStore.storeFullName(decodedValue.name);
         this.userStore.storeEmail(decodedValue.sub);
         this.userStore.storeRole(decodedValue.role);
+        this.userStore.storeId(decodedValue.id);
       },
     })
     

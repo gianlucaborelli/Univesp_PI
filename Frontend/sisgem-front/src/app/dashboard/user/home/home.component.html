@@ -4,49 +4,95 @@
     <h1>SISGEM</h1>
   </div>
 
-  <div>
-    <button
-      mat-icon-button
-      *ngIf="sidenav.mode === 'over'"
-      (click)="sidenav.toggle()"      
-    >
-      <mat-icon *ngIf="!sidenav.opened"> shopping_cart_outlined </mat-icon>
-      <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
-    </button>
+  <div class="cart-info">
+    <div class="search-container">
+      <mat-form-field appearance="outline" class="input-search">
+        <mat-label>Pesquisar por produto</mat-label>
+        <input matInput name="filtrarPorNome" placeholder="Informe o nome" />
+      </mat-form-field>
+    </div>
+
+    <div class="interval-date-container">
+      <mat-form-field appearance="outline" class="input-interval-date">
+        <mat-label>Data do Evento</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input
+            matStartDate
+            formControlName="start"
+            placeholder="Data Inicial"
+          />
+          <input matEndDate formControlName="end" placeholder="Data Final" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="account-info">
+    <img
+      [matMenuTriggerFor]="menu"
+      class="avatar-icon"
+      src=""
+      onerror="this.src='assets/img/user_avatar.png'"
+    />
+
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item>Minha Conta</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>Meus Pedidos</button>
+    </mat-menu>
+
+    <div class="cart-container" matBadge="{{ getCartItemCount() }}" matBadgePosition="before" matBadgeColor="accent" >
+      <img
+        class="cart-icon"
+        src="assets/img/shopping-bags.svg"
+        *ngIf="sidenav.mode === 'over'"
+        (click)="sidenav.toggle()"
+      />
+    </div>
   </div>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z3" position="end">
-    <img
-      class="avatar mat-elevation-z3"
-      src=""
-      onerror="this.src='assets/img/user_avatar.png'"
-    />
-
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button">
-      <mat-icon>logout</mat-icon>
-      <span>Logout</span>
-    </button>
+    <div class="cart-list">
+      <div fxLayout="column" fxLayoutGap="16px">
+        <div fxFlex="25%" *ngFor="let item of cart.cartItens">
+          <mat-card class="mat-elevation-z4">
+            <div style="display: flex; justify-content: space-between;">
+              <div>
+                <img
+                  style="height: 90px; width: 90px; margin: 15%"
+                  mat-card-image
+                  src="assets/img/product-cart.svg"
+                />
+              </div>
+              <div>
+                <mat-card-title>Nome do produto {{ item }}</mat-card-title>
 
-    <mat-divider></mat-divider>
+                <mat-card-content>
+                  <p>Descrição.</p>
+                </mat-card-content>
+              </div>
 
-    <button mat-button class="menu-button">
-      <mat-icon>people</mat-icon>
-      <span>Clientes</span>
-    </button>
-
-    <button mat-button class="menu-button">
-      <mat-icon>shopping_bag</mat-icon>
-      <span>Produtos</span>
-    </button>
-
-    <button mat-button class="menu-button">
-      <mat-icon>shopping_cart_checkout</mat-icon>
-      <span>Orçamentos</span>
-    </button>
+              <div>
+                <mat-card-actions>
+                  <button class="actionButton" mat-icon-button color="warn">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+                </mat-card-actions>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
   </mat-sidenav>
 
   <mat-sidenav-content>

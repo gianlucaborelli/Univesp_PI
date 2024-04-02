@@ -34,4 +34,12 @@ export class UserStoreService {
   public storeRole(role:string){
     localStorage.setItem('role', role);
   }
+
+  public getId(){
+    return localStorage.getItem('id');
+  }
+
+  public storeId(role:string){
+    localStorage.setItem('id', role);
+  }
 }
