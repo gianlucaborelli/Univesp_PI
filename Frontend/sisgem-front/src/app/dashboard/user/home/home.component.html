@@ -4,6 +4,8 @@
     <h1>SISGEM</h1>
   </div>
 
+  <button (click)="addItem()">tes</button>
+
   <div class="cart-info">
     <div class="search-container">
       <mat-form-field appearance="outline" class="input-search">
@@ -18,16 +20,21 @@
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
           <input
             matStartDate
-            formControlName="start"
-            placeholder="Data Inicial"
+            formControlName="start"     
+            [value]="cartInitialDate$ | async" 
           />
-          <input matEndDate formControlName="end" placeholder="Data Final" />
+          <input matEndDate formControlName="end" [value]="cartFinalDate$ | async" />
         </mat-date-range-input>
         <mat-datepicker-toggle
           matIconSuffix
           [for]="picker"
         ></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-date-range-picker touchUi  #picker>
+          <mat-date-range-picker-actions>
+            <button mat-button matDateRangePickerCancel>Cancelar</button>
+            <button mat-raised-button color="primary" matDateRangePickerApply (click)="onDateRangeChange()">Aplicar</button>
+          </mat-date-range-picker-actions>
+        </mat-date-range-picker>
       </mat-form-field>
     </div>
   </div>
@@ -46,7 +53,7 @@
       <button mat-menu-item>Meus Pedidos</button>
     </mat-menu>
 
-    <div class="cart-container" matBadge="{{ getCartItemCount() }}" matBadgePosition="before" matBadgeColor="accent" >
+    <div class="cart-container" matBadge="{{ cartCount$ | async }}" matBadgePosition="before" matBadgeColor="accent" >
       <img
         class="cart-icon"
         src="assets/img/shopping-bags.svg"
@@ -63,7 +70,7 @@
 
     <div class="cart-list">
       <div fxLayout="column" fxLayoutGap="16px">
-        <div fxFlex="25%" *ngFor="let item of cart.cartItens">
+        <div fxFlex="25%" *ngFor="let item of (cartItens$ | async)">
           <mat-card class="mat-elevation-z4">
             <div style="display: flex; justify-content: space-between;">
               <div>

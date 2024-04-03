@@ -108,15 +108,23 @@ public class CartServiceImplementation implements CartService {
         return mapper.toCartDetail(cart);
     }
 
+    private void validateIntervalOfDate (Date initialDate, Date finalDate){
+        if(initialDate.equals(null) || finalDate.equals(null)){
+            throw new  InvalidDateRangeException();
+        }
+
+        if (initialDate.after(finalDate)) {
+            throw new InvalidDateRangeException(initialDate, finalDate);
+        }
+    }
+
     @Override
     public CartDetailDto setIntervalOfDate(
             Date initialDate,
             Date finalDate,
             @NonNull UUID cartId){
 
-        if (initialDate.after(finalDate)) {
-            throw new InvalidDateRangeException(initialDate, finalDate);
-        }
+        validateIntervalOfDate(initialDate, finalDate);        
 
         Cart cart = findById(cartId);
 
@@ -130,7 +138,9 @@ public class CartServiceImplementation implements CartService {
     @Override
     public CartDetailDto addOrUpdateItemToCart(@NonNull UUID cartId, AddCartItemDtoRequest itemToAdd) {
 
-        Cart cart = findById(cartId);
+        Cart cart = findById(cartId);        
+
+        validateIntervalOfDate(cart.getInitialDate(), cart.getFinalDate());
 
         CartItem cartItem = cart.getCartItens()
                 .stream()
@@ -138,7 +148,7 @@ public class CartServiceImplementation implements CartService {
                 .findFirst().orElse(null);                
 
         Product product = productService.findById(itemToAdd.productId());
-
+        
         productService.stockAvailable(cart.getInitialDate(), cart.getFinalDate(), itemToAdd.amount(),
                 product.getId());
 

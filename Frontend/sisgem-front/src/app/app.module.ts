@@ -19,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatBadgeModule} from '@angular/material/badge';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
@@ -116,6 +117,7 @@ export function initializeDialogService() {
     MatAutocompleteModule,
     FontAwesomeModule,
     MatRadioModule,
+    MatMomentDateModule,
     MatDialogModule,
     MatBadgeModule,
     FlexLayoutModule 
