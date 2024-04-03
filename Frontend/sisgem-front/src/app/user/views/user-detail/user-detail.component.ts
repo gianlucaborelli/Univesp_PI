@@ -11,7 +11,7 @@ import { ClienteDetailDialogComponent } from '../../components/cliente-detail.di
 @Component({
   selector: 'app-userdetail',
   templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.css']
+  styleUrls: ['./user-detail.component.scss']
 })
 
 export class UserDetailComponent implements OnInit {

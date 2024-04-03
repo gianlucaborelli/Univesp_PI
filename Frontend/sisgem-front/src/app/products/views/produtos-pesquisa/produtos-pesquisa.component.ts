@@ -12,7 +12,7 @@ import { Product } from '../../models/product.model';
 @Component({
   selector: 'app-produtos-pesquisa',
   templateUrl: './produtos-pesquisa.component.html',
-  styleUrls: ['./produtos-pesquisa.component.css']
+  styleUrls: ['./produtos-pesquisa.component.scss']
 })
 export class ProdutosPesquisaComponent {
   dataSource!: MatTableDataSource<Product>;

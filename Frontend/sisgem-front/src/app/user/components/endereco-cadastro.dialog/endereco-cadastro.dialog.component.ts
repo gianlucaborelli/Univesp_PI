@@ -7,7 +7,7 @@ import { UserService } from 'src/app/user/service/user.service';
 @Component({
   selector: 'app-endereco-cadastro.dialog',
   templateUrl: './endereco-cadastro.dialog.component.html',
-  styleUrls: ['./endereco-cadastro.dialog.component.css']
+  styleUrls: ['./endereco-cadastro.dialog.component.scss']
 })
 export class EnderecoCadastroDialogComponent implements OnInit {
 

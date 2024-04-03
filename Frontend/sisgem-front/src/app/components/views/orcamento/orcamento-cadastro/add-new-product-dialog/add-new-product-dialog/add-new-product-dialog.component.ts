@@ -14,7 +14,7 @@ import { ProductService } from 'src/app/products/service/product.service';
 @Component({
   selector: 'app-add-new-product-dialog',
   templateUrl: './add-new-product-dialog.component.html',
-  styleUrls: ['./add-new-product-dialog.component.css']
+  styleUrls: ['./add-new-product-dialog.component.scss']
 })
 export class AddNewProductDialogComponent implements OnInit {
   @ViewChild('quantidadeInput') quantidade: ElementRef | null =null;

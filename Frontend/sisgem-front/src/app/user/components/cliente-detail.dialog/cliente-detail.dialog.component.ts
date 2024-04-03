@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-cliente-detail.dialog',
   templateUrl: './cliente-detail.dialog.component.html',
-  styleUrls: ['./cliente-detail.dialog.component.css']
+  styleUrls: ['./cliente-detail.dialog.component.scss']
 })
 export class ClienteDetailDialogComponent implements OnInit {
 

@@ -1,18 +1,10 @@
+@use '@angular/material' as mat;
+
 mat-toolbar {
   background: rgb(122, 122, 133);
   height: 4rem;
   display: flex;
   justify-content: space-between;
-}
-
-@use '@angular/material' as mat;
-
-.dense-1 {
-  @include mat.all-component-densities(-1);
-}
-
-.dense-2 {
-  @include mat.all-component-densities(-2);
 }
 
 .logo {
@@ -29,7 +21,10 @@ mat-toolbar {
   margin-top: 15px;
 }
 
-.cart-info {
+::ng-deep .cart-info {
+  @include mat.form-field-density(-4);
+  @include mat.icon-button-density(-5);
+  @include mat.datepicker-density(-5);
   margin-top: 20px;
   justify-content: space-between;
   display: flex;
@@ -48,7 +43,7 @@ mat-toolbar {
   align-items: center;
 }
 
-.interval-date-container {
+.interval-date-container {  
   margin: 20px;
   width: 30%;
 }

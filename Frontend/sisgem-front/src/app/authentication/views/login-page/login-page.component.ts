@@ -8,7 +8,7 @@ import { SnackBarService } from 'src/app/components/shared/snack-bar/service/sna
 @Component({
   selector: 'app-sign-in',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.scss']
 })
 
 export class SignInComponent {

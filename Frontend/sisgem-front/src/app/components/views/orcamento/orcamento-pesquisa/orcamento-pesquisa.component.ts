@@ -22,7 +22,7 @@ import { OrcamentoBase } from 'src/app/models/orcamento-base.model';
 
 @Component({
   selector: 'app-orcamento',
-  styleUrls: ['./orcamento-pesquisa.component.css'],
+  styleUrls: ['./orcamento-pesquisa.component.scss'],
   templateUrl: './orcamento-pesquisa.component.html',  
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

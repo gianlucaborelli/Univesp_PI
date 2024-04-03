@@ -4,7 +4,7 @@ import { LoaderService } from 'src/app/components/shared/loader/loader.service';
 @Component({
   selector: 'app-spinner',
   templateUrl: './spinner.component.html',
-  styleUrls: ['./spinner.component.css'],
+  styleUrls: ['./spinner.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom
 
 })

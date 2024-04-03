@@ -9,7 +9,7 @@ import { ProdutosDetailComponent } from '../produtos-detail/produtos-detail.comp
 @Component({
   selector: 'app-produtos-cadastro',
   templateUrl: './produtos-cadastro.component.html',
-  styleUrls: ['./produtos-cadastro.component.css']
+  styleUrls: ['./produtos-cadastro.component.scss']
 })
 export class ProdutosCadastroComponent implements OnInit {
   produto: Product = {

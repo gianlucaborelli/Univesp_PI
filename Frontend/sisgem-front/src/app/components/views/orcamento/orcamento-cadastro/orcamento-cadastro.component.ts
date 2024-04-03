@@ -12,7 +12,7 @@ import { AddNewProductDialogComponent } from './add-new-product-dialog/add-new-p
 @Component({
   selector: 'app-orcamento-cadastro',
   templateUrl: './orcamento-cadastro.component.html',
-  styleUrls: ['./orcamento-cadastro.component.css'],
+  styleUrls: ['./orcamento-cadastro.component.scss'],
   providers: [
     {
         provide:  DEFAULT_CURRENCY_CODE,

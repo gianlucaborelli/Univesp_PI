@@ -9,7 +9,7 @@ import { ConfirmDialogData } from '../../../decorator/confirm-dialog/service/con
   standalone: true,
   imports: [MatIconModule, MatDialogModule, MatButtonModule],
   templateUrl: './confirm-dialog.component.html',
-  styleUrls: ['./confirm-dialog.component.css']
+  styleUrls: ['./confirm-dialog.component.scss']
 })
 export class ConfirmDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData) { }

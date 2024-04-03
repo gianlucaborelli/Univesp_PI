@@ -11,7 +11,7 @@ import { ClienteDetailDialogComponent } from '../../components/cliente-detail.di
 @Component({
   selector: 'app-clientes',
   templateUrl: './user-search.component.html',
-  styleUrls: ['./user-search.component.css']
+  styleUrls: ['./user-search.component.scss']
 })
 export class UserSearchComponent implements OnInit {
   dataSource!: MatTableDataSource<User>;

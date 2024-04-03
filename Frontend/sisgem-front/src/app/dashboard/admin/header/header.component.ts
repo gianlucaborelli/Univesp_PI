@@ -11,7 +11,7 @@ import { UserStoreService } from 'src/app/authentication/service/user-store.serv
 @Component({
   selector: 'app-admin-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
   @ViewChild(MatSidenav)

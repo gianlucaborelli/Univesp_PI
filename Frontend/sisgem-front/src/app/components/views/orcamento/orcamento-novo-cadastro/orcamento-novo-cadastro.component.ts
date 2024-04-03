@@ -29,7 +29,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-orcamento-novo-cadastro',
   templateUrl: './orcamento-novo-cadastro.component.html',
-  styleUrls: ['./orcamento-novo-cadastro.component.css'],
+  styleUrls: ['./orcamento-novo-cadastro.component.scss'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     {

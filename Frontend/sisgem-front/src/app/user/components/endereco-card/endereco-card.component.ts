@@ -11,7 +11,7 @@ import { EnderecoCadastroDialogComponent } from '../endereco-cadastro.dialog/end
 @Component({
   selector: 'app-endereco-card',
   templateUrl: './endereco-card.component.html',
-  styleUrls: ['./endereco-card.component.css']
+  styleUrls: ['./endereco-card.component.scss']
 })
 export class EnderecoCardComponent {
   @Input() endereco!: Address;

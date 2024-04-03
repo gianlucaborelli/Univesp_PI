@@ -1,17 +1,15 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { format } from 'date-fns';
 import { Observable } from 'rxjs';
 import { CartItem } from 'src/app/cart/model/cart-item.mode';
-import { Cart } from 'src/app/cart/model/cart.model';
 import { CartService } from 'src/app/cart/service/cart.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     {
