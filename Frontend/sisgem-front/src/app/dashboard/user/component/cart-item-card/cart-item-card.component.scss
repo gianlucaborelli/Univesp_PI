@@ -1,0 +1,49 @@
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "img header header header header header"
+    "img main main main main main"
+    "img main main main main main"    
+    "img footer footer footer footer btn ";
+}
+
+.cart-image {
+  height: 70px;
+  width: 70px;
+  margin: 10px;
+}
+
+.cart-image-container {
+  grid-area: img;
+  background-color: #c2cad6;
+  margin: 10%;
+  border-radius: 10px;
+}
+
+.header {
+  grid-area: header;
+}
+
+mat-card {
+  color: black;
+  border-radius: 20px;
+}
+
+.cart-item-amount-info {
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 20px;
+    justify-content: space-between;
+    display: flex;
+    grid-area: footer;
+}
+
+.cart-item-description {
+  grid-area: main;
+}
+
+.action-button{
+    grid-area: btn;
+    margin-right: -1rem;
+    margin-bottom: 0.5rem;
+}

@@ -76,6 +76,12 @@ export class CartService {
     );
   }
 
+  // getTotal(): Observable<string> {
+  //   return this.cart$.pipe(
+  //     map(cart => cart.total)
+  //   );
+  // }
+
   getCount(): Observable<number> {
     return this.cart$.pipe(
       map((cart) => {
@@ -104,6 +110,19 @@ export class CartService {
   setIntevalOfDate(intervalOfDate: IntervalOfDate) {  
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}/set-dates`;
     this.http.put<Cart>(url, intervalOfDate).subscribe({
+      next: (resposta) => {
+        this.setShoppingCart(resposta);
+        this.loadUserCart();
+      },
+      error: () => {
+        console.error('Shopping cart data could not be loaded.');
+      }
+    });
+  }
+
+  deleteItemFromCart(itemId: string) {  
+    const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}/item/${itemId}`;
+    this.http.delete<Cart>(url).subscribe({
       next: (resposta) => {
         this.setShoppingCart(resposta);
         this.loadUserCart();

@@ -18,19 +18,30 @@
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
           <input
             matStartDate
-            formControlName="start"     
-            [value]="cartInitialDate$ | async" 
+            formControlName="start"
+            [value]="cartInitialDate$ | async"
           />
-          <input matEndDate formControlName="end" [value]="cartFinalDate$ | async" />
+          <input
+            matEndDate
+            formControlName="end"
+            [value]="cartFinalDate$ | async"
+          />
         </mat-date-range-input>
         <mat-datepicker-toggle
           matIconSuffix
           [for]="picker"
         ></mat-datepicker-toggle>
-        <mat-date-range-picker touchUi  #picker>
+        <mat-date-range-picker touchUi #picker>
           <mat-date-range-picker-actions>
             <button mat-button matDateRangePickerCancel>Cancelar</button>
-            <button mat-raised-button color="primary" matDateRangePickerApply (click)="onDateRangeChange()">Aplicar</button>
+            <button
+              mat-raised-button
+              color="primary"
+              matDateRangePickerApply
+              (click)="onDateRangeChange()"
+            >
+              Aplicar
+            </button>
           </mat-date-range-picker-actions>
         </mat-date-range-picker>
       </mat-form-field>
@@ -51,7 +62,12 @@
       <button mat-menu-item>Meus Pedidos</button>
     </mat-menu>
 
-    <div class="cart-container" matBadge="{{ cartCount$ | async }}" matBadgePosition="before" matBadgeColor="accent" >
+    <div
+      class="cart-container"
+      matBadge="{{ cartCount$ | async }}"
+      matBadgePosition="before"
+      matBadgeColor="accent"
+    >
       <img
         class="cart-icon"
         src="assets/img/shopping-bags.svg"
@@ -64,39 +80,27 @@
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z3" position="end">
+    <div class="cart-header">
+      <h1>Meu Carrinho</h1>
+      <button mat-flat-button color="warn" class="finalizer-button">
+        Finalizar
+      </button>
+    </div>
+
     <mat-divider></mat-divider>
 
     <div class="cart-list">
       <div fxLayout="column" fxLayoutGap="16px">
-        <div fxFlex="25%" *ngFor="let item of (cartItens$ | async)">
-          <mat-card class="mat-elevation-z4">
-            <div style="display: flex; justify-content: space-between;">
-              <div>
-                <img
-                  style="height: 90px; width: 90px; margin: 15%"
-                  mat-card-image
-                  src="assets/img/product-cart.svg"
-                />
-              </div>
-              <div>
-                <mat-card-title>Nome do produto {{ item }}</mat-card-title>
-
-                <mat-card-content>
-                  <p>Descrição.</p>
-                </mat-card-content>
-              </div>
-
-              <div>
-                <mat-card-actions>
-                  <button class="actionButton" mat-icon-button color="warn">
-                    <mat-icon>delete_outline</mat-icon>
-                  </button>
-                </mat-card-actions>
-              </div>
-            </div>
-          </mat-card>
+        <div fxFlex="25%" *ngFor="let item of cartItens$ | async">
+          <app-cart-item-card [cartitem]="item"></app-cart-item-card>
         </div>
       </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="cart-footer">
+      <h1>Total:</h1>
     </div>
   </mat-sidenav>
 

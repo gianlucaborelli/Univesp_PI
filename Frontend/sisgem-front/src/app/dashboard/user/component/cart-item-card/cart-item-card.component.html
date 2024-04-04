@@ -1,0 +1,26 @@
+<mat-card class="mat-elevation-z4">
+  <div class="grid-container">
+    <div class="cart-image-container">
+      <img
+        class="cart-image"
+        mat-card-image
+        src="assets/img/product-cart.svg"
+      />
+    </div>
+
+    <mat-card-title class="header">{{ cartitem.product.name }}</mat-card-title>
+
+    <div class="cart-item-description">
+      <p>{{ cartitem.product.description }}.</p>
+    </div>
+
+    <div class="cart-item-amount-info">
+      <p>Qt: {{ cartitem.amount }}.</p>
+      <p>{{ cartitem.price | currency : 'BRL'}}</p>
+    </div>
+
+    <button class="action-button" mat-icon-button color="warn" (click)="deleteItemToCart()"> 
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+</mat-card>

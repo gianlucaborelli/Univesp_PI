@@ -57,6 +57,7 @@ import { SnackBarComponent } from './components/shared/snack-bar/snack-bar.compo
 import { UserSearchComponent } from './user/views/user-search/user-search.component';
 import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { CartItemCardComponent } from './dashboard/user/component/cart-item-card/cart-item-card.component';
 
 export function initializeDialogService() {
   return () => {
@@ -84,7 +85,8 @@ export function initializeDialogService() {
     AddNewProductDialogComponent,
     SpinnerComponent,
     SnackBarComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    CartItemCardComponent
 
   ],
 
