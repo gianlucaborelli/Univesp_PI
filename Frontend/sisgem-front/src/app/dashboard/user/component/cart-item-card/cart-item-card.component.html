@@ -14,9 +14,9 @@
       <p>{{ cartitem.product.description }}.</p>
     </div>
 
-    <div class="cart-item-amount-info">
+    <div class="cart-item-amount-info" fxLayout="row" fxLayoutAlign="space-around end">
       <p>Qt: {{ cartitem.amount }}.</p>
-      <p>{{ cartitem.price | currency : 'BRL'}}</p>
+      <p>{{ cartitem.price * cartitem.amount| currency : 'BRL'}}</p>
     </div>
 
     <button class="action-button" mat-icon-button color="warn" (click)="deleteItemToCart()"> 

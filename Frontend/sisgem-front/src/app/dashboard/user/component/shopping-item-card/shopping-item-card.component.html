@@ -1,0 +1,47 @@
+<mat-card class="item-card">
+  <mat-card-header>
+    <img
+      class="card-image"
+      mat-card-image
+      src="assets/img/product-cart.svg"
+      alt="Photo of a Shiba Inu"
+    />
+  </mat-card-header>
+
+  <mat-card-content class="item-description">
+    <mat-card-title style="line-height: 0.9">{{ product.name }}</mat-card-title>
+    <mat-card-subtitle style="margin-bottom: 9px; margin-top: 5px">{{
+      product.price | currency : "BRL"
+    }}</mat-card-subtitle>
+    <p>
+      {{ product.description }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions
+    class="amount-container"
+    fxLayout="row"
+    fxLayoutAlign="space-between end"
+  >
+    <div>
+      <p class="amount-title">Disponível:</p>
+      <div class="amount-content">
+        <div class="amount-text">{{ product.stock }}</div>
+      </div>
+    </div>
+
+    <mat-form-field
+      class="example-full-width"
+      class="amount-input"
+      appearance="outline"
+    >
+      <button matPrefix mat-icon-button color="primary" (click)="removeItem()">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <input type="text" matInput [formControl]="counter" />
+      <button matSuffix mat-icon-button color="warn" (click)="addItem()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-form-field>
+  </mat-card-actions>
+</mat-card>

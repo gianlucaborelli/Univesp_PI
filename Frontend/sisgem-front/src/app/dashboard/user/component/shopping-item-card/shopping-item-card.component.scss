@@ -1,0 +1,72 @@
+@use "@angular/material" as mat;
+
+.item-card {
+  max-width: 250px;
+  border-radius: 20px;
+  background-color: rgb(240, 240, 240);
+}
+
+.card-image {
+  width: 200px;
+  border-radius: 10px;
+}
+
+.item-description {
+  margin-top: 15px;
+}
+
+.amount-title {
+  font-size: smaller;
+}
+
+.amount-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.amount-content {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 35px;
+  width: 70px;
+  margin-top: -10px;
+  border-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.amount-text {
+  height: 40px;
+  font-size: large;
+  margin-top: 7px;
+  margin-bottom: -12px;
+}
+
+::ng-deep .amount-input {
+  @include mat.form-field-density(-4);
+  width: 120px;
+  margin-bottom: -25px;
+  border-radius: 20px;
+  
+}
+
+::ng-deep
+  .amount-input
+  .mat-mdc-form-field-flex
+  .mdc-notched-outline
+  .mdc-notched-outline__trailing {
+  border-radius: 0px 25px 25px 0;
+}
+
+::ng-deep
+  .amount-input
+  .mat-mdc-form-field-flex
+  .mdc-notched-outline
+  .mdc-notched-outline__leading {
+  border-radius: 25px 0 0 25px;
+  width: 25px !important;
+}
+
+@include mat.icon-button-density(-2);

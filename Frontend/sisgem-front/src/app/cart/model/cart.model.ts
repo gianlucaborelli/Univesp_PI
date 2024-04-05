@@ -8,5 +8,6 @@ export interface Cart{
     shippingDescription?: string,
     initialDate?: string,
     finalDate?: string,
+    totalPrice?: number,
     cartItens: CartItem[]
 }

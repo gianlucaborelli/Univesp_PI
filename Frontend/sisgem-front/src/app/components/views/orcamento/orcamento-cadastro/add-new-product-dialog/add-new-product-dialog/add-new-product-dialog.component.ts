@@ -22,7 +22,7 @@ export class AddNewProductDialogComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  quantidadeValue: String = "";
+  quantidadeValue: number = 0;
   desejadoValue: String = "";
 
   produtoAddPedido:AddProdutoPedido = {
@@ -72,7 +72,7 @@ export class AddNewProductDialogComponent implements OnInit {
     const produtoEmEstoque = this.listaDeProdutoEmEstoque.find(produtoPedido => produtoPedido.name === selectedName);
     
     if(produtoEmEstoque != null){      
-      this.quantidadeValue = produtoEmEstoque.estoque; 
+      this.quantidadeValue = produtoEmEstoque.stock; 
       this.produtoAddPedido.produtoId = produtoEmEstoque.id; 
     }    
   }

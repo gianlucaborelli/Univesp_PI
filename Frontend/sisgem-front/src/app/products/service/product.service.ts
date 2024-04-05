@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,16 +11,42 @@ import { format } from 'date-fns';
   providedIn: 'root'
 })
 export class ProductService {
+  private availableProductsList$: BehaviorSubject<ProdutoEmEstoque[]>;
   public produtoUpdate: Subject<boolean>;
 
-  constructor(private http: HttpClient, private _snack: MatSnackBar) { this.produtoUpdate =new Subject<boolean>();}
-
   baseUrl: String = environment.baseUrl;
+
+  constructor(private http: HttpClient, private _snack: MatSnackBar) {
+    this.availableProductsList$ = new BehaviorSubject<ProdutoEmEstoque[]>([]);
+    this.produtoUpdate = new Subject<boolean>();
+  }
+
+  loadAvailableProducts(initialDate: string | undefined, finalDate: string | undefined) {
+    const url = `${this.baseUrl}/products/available-products?initialDate=${initialDate}&finalDate=${finalDate}`;
+    this.http.get<ProdutoEmEstoque[]>(url).subscribe({
+      next: (products) => {
+        this.setAvailableProducts(products);
+      },
+      error: (error) => {
+        console.error('Shopping cart data could not be loaded.');
+      }
+    });
+  }
+
+  private setAvailableProducts(products: ProdutoEmEstoque[]) {
+    this.availableProductsList$.next(products);
+  }
+
+  getAvailableProducts(): Observable<ProdutoEmEstoque[]> {
+    return this.availableProductsList$.pipe(
+      map(cart => cart)
+    );
+  }
 
   findAll(): Observable<Product[]> {
     const url = `${this.baseUrl}/products`
     return this.http.get<Product[]>(url);
-  }  
+  }
 
   findProdutosDisponiveis(initialDate: String, finalDate: String): Observable<ProdutoEmEstoque[]> {
     const url = `${this.baseUrl}/products/available-products?initialDate=${initialDate}&finalDate=${finalDate}`;

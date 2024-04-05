@@ -11,6 +11,7 @@ import { ProdutosPesquisaComponent } from './products/views/produtos-pesquisa/pr
 import { ProdutosCadastroComponent } from './products/views/produtos-cadastro/produtos-cadastro.component';
 import { UserSearchComponent } from './user/views/user-search/user-search.component';
 import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
+import { ShoppingPageComponent } from './dashboard/user/view/shopping-page/shopping-page.component';
 
 const routes: Routes = [
   {
@@ -73,6 +74,13 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'shopping',
+        component: ShoppingPageComponent,
+        canActivate: [AuthGuard],        
+      },
+    ]
   }
 ];
 

@@ -1,5 +1,6 @@
 package com.sisgem.main.cart.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @Builder
@@ -33,6 +33,8 @@ public class CartDetailDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
     private Date initialDate;
+
+    private BigDecimal totalPrice;
 
     private List<CartItem> cartItens;
 }

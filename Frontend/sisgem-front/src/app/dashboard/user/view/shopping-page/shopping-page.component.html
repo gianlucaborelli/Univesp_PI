@@ -1,0 +1,13 @@
+<div class="content">
+  <div class="title">
+    <h1>Produtos Disponíveis</h1>
+  </div>
+
+  <div class="cart-list">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div *ngFor="let item of availableProducts$ | async">
+        <app-shopping-item-card [product]="item"></app-shopping-item-card>
+      </div>
+    </div>
+  </div>
+</div>

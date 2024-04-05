@@ -9,6 +9,8 @@ import { AddItemDto } from '../model/dto/add-item-dto.model';
 import { CartItem } from '../model/cart-item.mode';
 import { IntervalOfDate } from '../model/dto/interval-of-date.model';
 import * as moment from 'moment';
+import { ProductService } from 'src/app/products/service/product.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +21,13 @@ export class CartService {
 
   baseUrl: String = environment.baseUrl;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private snackBar: SnackBarService,
-    private userStore: UserStoreService) {
+    private userStore: UserStoreService,
+    private productService: ProductService) {
     this.cart$ = new BehaviorSubject<Cart>({
       userId: '',
       cartItens: []
@@ -33,17 +39,31 @@ export class CartService {
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart`;
     this.http.get<Cart>(url).subscribe({
       next: (shoppingCart) => {
-        this.setShoppingCart(shoppingCart);        
+        this.setShoppingCart(shoppingCart);       
+        this.onCartChange(); 
       },
       error: (error) => {
         console.error('Shopping cart data could not be loaded.');
       }
     });
-  }
+  }  
 
   private setShoppingCart(cart: Cart) {
     this.cart$.next(cart);
   }
+
+  private onCartChange(): void{
+    if(this.cart$.value.initialDate || this.cart$.value.finalDate )
+    {
+      this.productService.loadAvailableProducts(this.cart$.value.initialDate, this.cart$.value.finalDate);
+      this.router.navigate(['/home/shopping'], { relativeTo: this.activatedRoute.parent })
+      .then(nav => {
+        console.log(nav);
+      }, err => {
+        console.log(err)
+      });
+    }
+  }  
 
   getItems(): Observable<CartItem[]> {
     return this.cart$.pipe(
@@ -76,11 +96,11 @@ export class CartService {
     );
   }
 
-  // getTotal(): Observable<string> {
-  //   return this.cart$.pipe(
-  //     map(cart => cart.total)
-  //   );
-  // }
+  getTotalPrice(): Observable<number | undefined> {
+    return this.cart$.pipe(
+      map(cart => cart.totalPrice)
+    );
+  }
 
   getCount(): Observable<number> {
     return this.cart$.pipe(

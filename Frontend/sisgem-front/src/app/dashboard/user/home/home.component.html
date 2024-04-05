@@ -100,7 +100,7 @@
     <mat-divider></mat-divider>
 
     <div class="cart-footer">
-      <h1>Total:</h1>
+      <h1>Total: {{ (cartTotalPrice$ | async)  | currency : 'BRL'}}  </h1>
     </div>
   </mat-sidenav>
 

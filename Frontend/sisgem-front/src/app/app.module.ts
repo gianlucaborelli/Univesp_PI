@@ -58,6 +58,9 @@ import { UserSearchComponent } from './user/views/user-search/user-search.compon
 import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { CartItemCardComponent } from './dashboard/user/component/cart-item-card/cart-item-card.component';
+import { ShoppingPageComponent } from './dashboard/user/view/shopping-page/shopping-page.component';
+import { ShoppingItemCardComponent } from './dashboard/user/component/shopping-item-card/shopping-item-card.component';
+
 
 export function initializeDialogService() {
   return () => {
@@ -86,7 +89,9 @@ export function initializeDialogService() {
     SpinnerComponent,
     SnackBarComponent,
     AdminDashboardComponent,
-    CartItemCardComponent
+    CartItemCardComponent,
+    ShoppingPageComponent,
+    ShoppingItemCardComponent
 
   ],
 

@@ -10,14 +10,19 @@
 .cart-image {
   height: 70px;
   width: 70px;
-  margin: 10px;
+  border-radius: 5px;
 }
 
 .cart-image-container {
   grid-area: img;
+  height: 95px;
+  width: 95px;
   background-color: #c2cad6;
   margin: 10%;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header {
@@ -31,10 +36,6 @@ mat-card {
 
 .cart-item-amount-info {
     font-weight: bold;
-    margin-left: 20px;
-    margin-right: 20px;
-    justify-content: space-between;
-    display: flex;
     grid-area: footer;
 }
 

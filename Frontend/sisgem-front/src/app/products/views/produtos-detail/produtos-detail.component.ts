@@ -39,7 +39,7 @@ export class ProdutosDetailComponent implements OnInit {
     if (this.produto.id === undefined) {
       this.service.create(this.produto).subscribe((resposta) => {
         this.close();
-        this.router.navigate(['/home/produtoscadastro'], { queryParams: { parametro: resposta.id } })
+        this.router.navigate(['/admin/produtoscadastro'], { queryParams: { parametro: resposta.id } })
         this.service.mensagem('Produto cadastrado com sucesso!');
       }, err => {
         for (let i = 0; i < err.error.errors.length; i++) {
@@ -50,7 +50,7 @@ export class ProdutosDetailComponent implements OnInit {
       this.service.update(this.produto).subscribe((resposta) => {
         this.service.produtoUpdate.next(true)
         this.close();
-        this.router.navigate(['home/produtoscadastro'], { queryParams: { parametro: resposta.id } })
+        this.router.navigate(['admin/produtoscadastro'], { queryParams: { parametro: resposta.id } })
         this.service.mensagem('Produto atualizado com sucesso!');
       }, err => {
         for (let i = 0; i < err.error.errors.length; i++) {
