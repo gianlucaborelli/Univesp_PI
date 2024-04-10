@@ -128,7 +128,7 @@ public class CartServiceImplementation implements CartService {
 
         Cart cart = findById(cartId);
 
-        if (!cart.getInitialDate().equals(null) && !cart.getFinalDate().equals(null) ){
+        if (cart.getCartItens().isEmpty() ){
             for(CartItem item: cart.getCartItens()){                
                 cartItemRepository.delete(item);
             }
