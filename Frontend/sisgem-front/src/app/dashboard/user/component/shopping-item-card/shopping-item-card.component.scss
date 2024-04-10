@@ -9,6 +9,7 @@
 .card-image {
   width: 200px;
   border-radius: 10px;
+  background-color: #a8e4bcf3;
 }
 
 .item-description {
@@ -31,7 +32,7 @@
   border-radius: 35px;
   width: 70px;
   margin-top: -10px;
-  border-color: black;
+  border-color: rgb(165, 164, 164);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +50,6 @@
   width: 120px;
   margin-bottom: -25px;
   border-radius: 20px;
-  
 }
 
 ::ng-deep

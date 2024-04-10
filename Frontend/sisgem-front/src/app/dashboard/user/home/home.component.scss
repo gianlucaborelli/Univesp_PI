@@ -1,7 +1,7 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 mat-toolbar {
-  background: rgb(122, 122, 133);
+  background: #355070;
   height: 4rem;
   display: flex;
   justify-content: space-between;
@@ -12,13 +12,81 @@ mat-toolbar {
   border-radius: 50%;
 }
 
-.cart-icon {
-  height: 2rem;  
-  margin-right: 25px;  
+.logo-text {
+  color: #a98223;
+  font-family: helvetica;
+  margin-left: -15px;
 }
 
-.cart-container{
+.cart-icon {
+  height: 2.3rem;
+  margin-right: 25px;
+  filter: invert(75%) sepia(25%) saturate(338%) hue-rotate(9deg) brightness(93%)
+    contrast(88%);
+}
+
+.cart-container {
   margin-top: 15px;
+}
+
+::ng-deep .cart-info {  
+  /* Change the border color */
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline__trailing {
+    border-color: #c0b48c !important;
+  }
+
+  /* Change the border width */
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline
+    .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline
+    .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled)
+    .mdc-notched-outline
+    .mdc-notched-outline__trailing {
+    border-width: 1.5px !important;
+  }
+
+  /* Change the border focused color */
+  .mdc-text-field--outlined:not(
+      .mdc-text-field--disabled
+    ).mdc-text-field--focused
+    .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:not(
+      .mdc-text-field--disabled
+    ).mdc-text-field--focused
+    .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:not(
+      .mdc-text-field--disabled
+    ).mdc-text-field--focused
+    .mdc-notched-outline__trailing {
+    border-color: var(--color-primary) !important;
+  }
+
+  /* Change the border hover color */
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+      .mdc-text-field--focused
+    ):hover
+    .mdc-notched-outline
+    .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+      .mdc-text-field--focused
+    ):hover
+    .mdc-notched-outline
+    .mdc-notched-outline__notch,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+      .mdc-text-field--focused
+    ):hover
+    .mdc-notched-outline
+    .mdc-notched-outline__trailing {
+    border-color: var(--color-primary) !important;
+  }
 }
 
 ::ng-deep .cart-info {
@@ -33,9 +101,9 @@ mat-toolbar {
 
 .avatar-icon {
   margin-right: 35px;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
+  width: 3rem;
+  filter: invert(75%) sepia(25%) saturate(338%) hue-rotate(9deg) brightness(93%)
+    contrast(88%);
 }
 
 .account-info {
@@ -43,7 +111,7 @@ mat-toolbar {
   align-items: center;
 }
 
-.interval-date-container {  
+.interval-date-container {
   margin: 20px;
   width: 30%;
 }
@@ -54,19 +122,19 @@ mat-toolbar {
 }
 
 .input-interval-date {
-  width: 100%;  
-}
-
-.input-search {
   width: 100%;
 }
 
-.cart-footer{  
+.input-search {
+  width: 100%;  
+}
+
+.cart-footer {
   text-align: left;
   margin-top: -10px;
 }
 
-.finalizer-button{
+.finalizer-button {
   font-size: large;
   margin-right: 3%;
 }
@@ -75,7 +143,7 @@ mat-toolbar {
   width: 7px;
   border-radius: 6px;
   overflow-y: scroll;
-  background: rgb(204, 197, 197);  
+  background: rgb(204, 197, 197);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -96,25 +164,25 @@ mat-sidenav {
 
 .header {
   display: flex;
-  align-items: center;  
+  align-items: center;
 }
 
-.cart-header{
+.cart-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: -15px;
 }
 
-.cart-list{
+.cart-list {
   height: calc(100vh - 268px);
   padding-right: 10px;
-  overflow: auto;  
+  overflow: auto;
 }
 
 .content {
   height: calc(100vh - 140px);
   border-radius: 10px;
-  margin: 16px;  
+  margin: 16px;
   padding: 16px;
   overflow: auto;
 }
