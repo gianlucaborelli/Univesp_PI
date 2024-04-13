@@ -76,10 +76,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.cartTotalPrice$ = this.cartService.getTotalPrice();
   };
 
-  addItem() {
-    this.cartService.addItem({ productId: "41f8dc4b-89f2-4a13-a8bd-c1d797d3da3e", amount: 5 });
-  };
-
   @needConfirmation({
     message: "Ao alterar a data do carrinho, os produtos inseridos serão automaticamente escluidos.",
     title: "Deseja Continuar?"

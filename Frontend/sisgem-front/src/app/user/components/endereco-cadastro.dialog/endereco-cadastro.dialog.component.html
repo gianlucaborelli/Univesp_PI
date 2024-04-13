@@ -1,49 +1,69 @@
 <h2 mat-dialog-title>Cadastro de Endereço</h2>
 
-<mat-dialog-content >
-    <table class="content" cellspacing="0" style="width: 90%;">
-        <tr>
-            <mat-form-field appearance="outline">
-                <mat-label>C.E.P.</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.zipCode" (blur)="focusOutFunction()">
-            </mat-form-field>
-        </tr>
-        <tr style="display: flex">
-            <mat-form-field appearance="outline" style="width: 90%;">
-                <mat-label>Rua</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.street">
-            </mat-form-field>
-            <mat-form-field appearance="outline" style="flex-grow: 1;">
-                <mat-label>Número</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.number">
-            </mat-form-field>
-        </tr>
-        <tr style="display: flex">
-            <mat-form-field appearance="outline" style="width: 60%;">
-                <mat-label>Bairro</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.district">
-            </mat-form-field>
-            <mat-form-field appearance="outline" style="flex-grow: 1;">
-                <mat-label>Cidade</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.city">
-            </mat-form-field>
-        </tr>
-        <tr>
-            <mat-form-field appearance="outline">
-                <mat-label>Estado</mat-label>
-                <input matInput type="text" [(ngModel)]="endereco.state">
-            </mat-form-field>
-        </tr>
-        <tr>
-            <mat-form-field appearance="outline" style="width: 100%;">
-                <mat-label>Observação</mat-label>
-                <textarea matInput type="text" [(ngModel)]="endereco.description"></textarea>
-            </mat-form-field>
-        </tr>
-    </table>
+<mat-dialog-content [formGroup]="enderecoForm">
+  <mat-form-field appearance="outline" class="zipeCode-field">
+    <mat-label>C.E.P.</mat-label>
+    <input
+      matInput
+      type="text"
+      (blur)="focusOutFunction()"
+      formControlName="zipCode"
+    />    
+    <mat-error *ngIf="enderecoForm.get('zipCode')?.invalid">{{ zipCodeError }}</mat-error>    
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="street-field">
+    <mat-label>Rua</mat-label>
+    <input matInput type="text" formControlName="street"  />    
+    <mat-error *ngIf="enderecoForm.get('street')?.invalid">{{ streetError }}</mat-error>    
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="number-field">
+    <mat-label>Número</mat-label>
+    <input matInput type="text" formControlName="number" />    
+    <mat-error *ngIf="enderecoForm.get('number')?.invalid">{{ numberError }}</mat-error>    
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="district-field">
+    <mat-label>Bairro</mat-label>
+    <input matInput type="text" formControlName="district" />   
+    <mat-error *ngIf="enderecoForm.get('district')?.invalid">{{ districtError }}</mat-error>   
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="city-field">
+    <mat-label>Cidade</mat-label>
+    <input matInput type="text" formControlName="city" />    
+    <mat-error *ngIf="enderecoForm.get('city')?.invalid">{{ cityError }}</mat-error>    
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="state-field">
+    <mat-label>Estado</mat-label>
+    <input matInput type="text" formControlName="state" />    
+    <mat-error *ngIf="enderecoForm.get('state')?.invalid">{{ stateError }}</mat-error>    
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="description-field">
+    <mat-label>Observação</mat-label>
+    <textarea matInput type="text" formControlName="description"></textarea>    
+    <mat-error *ngIf="enderecoForm.get('description')?.invalid">{{ descriptionError }}</mat-error>    
+  </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions [align]="'end'">
-    <button mat-raised-button color="primary" class="mat-raised-button" (click)="salvar()">Salvar</button>
-    <button mat-raised-button color="warn" class="mat-raised-button" (click)="close()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="mat-raised-button"
+    (click)="saveOnClick()"
+  >
+    Salvar
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    class="mat-raised-button"
+    [mat-dialog-close]="false"
+  >
+    Cancelar
+  </button>
 </mat-dialog-actions>

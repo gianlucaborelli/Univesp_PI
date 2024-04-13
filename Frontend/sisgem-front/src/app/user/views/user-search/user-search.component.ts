@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../service/user.service';
 import { ActivatedRoute, Router } from "@angular/router";
@@ -13,26 +13,22 @@ import { ClienteDetailDialogComponent } from '../../components/cliente-detail.di
   templateUrl: './user-search.component.html',
   styleUrls: ['./user-search.component.scss']
 })
-export class UserSearchComponent implements OnInit {
+export class UserSearchComponent {
   dataSource!: MatTableDataSource<User>;
-  displayedColumns: string[] = ["id", "name", "obs", "acoes"];
-  posts: any;
+  displayedColumns: string[] = ["name", "obs", "role", "actions"];
 
-  constructor(private service: UserService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute) {
-    this.service.findAll().subscribe((resposta) => {
-      console.log(resposta);
-      this.posts = resposta;
-      this.dataSource = new MatTableDataSource(resposta);
+  constructor(
+    private service: UserService,
+    private dialog: MatDialog) {
+
+    this.service.findAll().subscribe((response) => {
+      this.dataSource = new MatTableDataSource(response);
     });
   }
 
-  ngOnInit(): void {
-  }
-
   refreshTable() {
-    this.service.findAll().subscribe((resposta) => {
-      this.posts = resposta;
-      this.dataSource = new MatTableDataSource(resposta);
+    this.service.findAll().subscribe((response) => {
+      this.dataSource = new MatTableDataSource(response);
     });
   }
 
@@ -41,26 +37,14 @@ export class UserSearchComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  navegarParaClientesCadastro(idCliente?: String) {
-    this.router.navigate(['/home/clientescadastro'], { queryParams: { parametro: idCliente } })
-      .then(nav => {
-        console.log(nav);
-      }, err => {
-        console.log(err)
-      });
-  }
-
   openAddNewCostumerDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
     this.dialog.open(ClienteDetailDialogComponent, dialogConfig);
   }
 
   @needConfirmation()
-  deletarCliente(idCliente: String) {
-    this.service.delete(idCliente).subscribe(() => {
+  deletarCliente(userId: String) {
+    this.service.delete(userId).subscribe(() => {
       this.refreshTable();
     });
   }

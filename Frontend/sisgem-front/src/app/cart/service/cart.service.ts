@@ -35,7 +35,7 @@ export class CartService {
     this.loadUserCart();    
   }
 
-  loadUserCart() {
+  loadUserCart()  {
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart`;
     this.http.get<Cart>(url).subscribe({
       next: (shoppingCart) => {

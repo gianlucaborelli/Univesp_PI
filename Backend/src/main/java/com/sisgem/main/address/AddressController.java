@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sisgem.main.address.converter.AddressMapper;
 import com.sisgem.main.address.dto.AddAddressRequestDto;
+import com.sisgem.main.address.dto.AddressAutoCompleteDto;
 import com.sisgem.main.address.dto.AddressDetailDto;
 import com.sisgem.main.address.dto.AutoCompleteAddressResponse;
 import com.sisgem.main.infra.exceptions.ResourceNotFound;
@@ -66,7 +67,7 @@ public class AddressController {
     }
 
     @GetMapping("/address/findByCep")
-    public ResponseEntity<AutoCompleteAddressResponse> consultAddressByZipCode(
+    public ResponseEntity<AddressAutoCompleteDto> consultAddressByZipCode(
             @RequestParam("cep") String cep)
                 throws ResourceNotFound {
 
@@ -82,7 +83,7 @@ public class AddressController {
             throw new ResourceNotFound("CEP não encontrado");
         }
 
-        return ResponseEntity.ok(endereco);
+        return ResponseEntity.ok(mapper.toAddressAutoComplete(endereco));
     }
 
     @PostMapping("/users/{userId}/address")

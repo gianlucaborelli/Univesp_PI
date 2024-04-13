@@ -1,13 +1,13 @@
 
 export interface Address {
-    id?: String;
-    userId: String;
-    zipCode: String;
-    street: String;
-    number: String;
-    district: String;
-    city: String;
-    state: String;
-    description: String;
+    id?: string;
+    userId: string;
+    zipCode: string;
+    street: string;
+    number: string;
+    district: string;
+    city: string;
+    state: string;
+    description: string;
 }
 

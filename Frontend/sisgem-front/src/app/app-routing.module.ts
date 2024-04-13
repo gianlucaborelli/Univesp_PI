@@ -28,20 +28,20 @@ const routes: Routes = [
     children: [
       // C L I E N T E S
       {
-        path: 'clientes',
+        path: 'users',
         component: UserSearchComponent,
         canActivate: [AuthGuard],        
       },
 
       {
-        path: 'clientescadastro',
+        path: 'users/:id',
         component: UserDetailComponent,
         canActivate: [AuthGuard]
       },
 
       // P R O D U T O S
       {
-        path: 'produtos',
+        path: 'products',
         component: ProdutosPesquisaComponent,
         canActivate: [AuthGuard]
       },
@@ -54,7 +54,7 @@ const routes: Routes = [
 
       // O R Ç A M E N T O S
       {
-        path: 'orcamentos',
+        path: 'quotation',
         component: OrcamentoPesquisaComponent,
         canActivate: [AuthGuard]
       },

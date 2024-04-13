@@ -17,11 +17,11 @@
         <mat-card-content class="dadosDoCliente" style="margin-top: 20px;">
           <mat-form-field appearance="outline" class="inputform">
             <mat-label>Nome do Cliente</mat-label>
-            <input matInput type="text" name="name" placeholder="Nome" [(ngModel)]="cliente.name">
+            <input matInput type="text" name="name" placeholder="Nome" [value]="(currentUser$ | async)?.name">
           </mat-form-field>
           <mat-form-field appearance="outline" class="inputform">
             <mat-label>Observações sobre o Cliente</mat-label>
-            <textarea matInput type="text" name="obs" placeholder="Observações" [(ngModel)]="cliente.obs"></textarea>
+            <textarea matInput type="text" name="obs" placeholder="Observações" [value]="(currentUser$ | async)?.obs"></textarea>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
@@ -38,7 +38,7 @@
       </mat-card-header>
 
       <mat-grid-list cols="1" rowHeight="130px" gutterSize="0px" class="card-endereco-list">
-        <mat-grid-tile *ngFor="let endereco of cliente.addresses" class="enderecos">
+        <mat-grid-tile *ngFor="let endereco of (currentUser$ | async)?.addresses" class="enderecos">
           <app-endereco-card [endereco]="endereco" class="card-endereco"></app-endereco-card>
         </mat-grid-tile>
       </mat-grid-list>

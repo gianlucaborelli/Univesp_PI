@@ -17,12 +17,7 @@
 
   <div class="mat-elevation-z1 content-table">
     <table class="table" mat-table [dataSource]="dataSource">
-
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-      </ng-container>
-
+      
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>NOME</th>
         <td mat-cell *matCellDef="let row">{{ row.name }}</td>
@@ -33,12 +28,17 @@
         <td mat-cell *matCellDef="let row">{{ row.obs }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let row">{{ row.role }}</td>
+      </ng-container>
+
       <!-- Symbol Column -->
-      <ng-container matColumnDef="acoes">
+      <ng-container matColumnDef="actions">
         <th class="mat-header" mat-header-cell *matHeaderCellDef>AÇÕES</th>
         <td mat-cell *matCellDef="let row" class="actionsButtonsContainer">
           <button class="actionButton" mat-icon-button color="primary"
-            (click)="navegarParaClientesCadastro(row.id )"><mat-icon>open_in_new</mat-icon></button>
+          routerLink="{{row.id}}"><mat-icon>open_in_new</mat-icon></button>
           <button class="actionButton" mat-icon-button color="warn"
             (click)="deletarCliente(row.id )"><mat-icon>delete_outline</mat-icon></button>
         </td>

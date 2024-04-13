@@ -26,12 +26,12 @@ export class EnderecoService {
   }
 
   findByCep(cep: String): Observable<EnderecoAutocomplete> {
-    const url = `${this.baseUrl}/address/findByCep/${cep}`
+    const url = `${this.baseUrl}/address/findByCep?cep=${cep}`
     return this.http.get<EnderecoAutocomplete>(url);
   }
 
-  create(body: Address): Observable<Address> {
-    const url = `${this.baseUrl}/enderecos`;
+  create(body: Address, userId: String): Observable<Address> {
+    const url = `${this.baseUrl}/users/${userId}/address`;
     return this.http.post<Address>(url, body);
   }
 

@@ -6,14 +6,14 @@
             <tr>
                 <mat-form-field appearance="outline" style="width: 95%;">
                     <mat-label>Nome</mat-label>
-                    <input [formControl]="name" [(ngModel)]="cliente.name" name="name" matInput type="text">
+                    <input [formControl]="name" [(ngModel)]="user.name" name="name" matInput type="text">
                     <mat-error *ngIf="name.invalid">{{getMessage()}} </mat-error>
                 </mat-form-field>
             </tr>
             <tr>
                 <mat-form-field appearance="outline" style="width: 95%;">
                     <mat-label>Observação</mat-label>
-                    <textarea [(ngModel)]="cliente.obs" name="obs" matInput type="text"></textarea>
+                    <textarea [(ngModel)]="user.obs" name="obs" matInput type="text"></textarea>
                 </mat-form-field>
             </tr>
         </table>
@@ -22,5 +22,5 @@
 
 <mat-dialog-actions [align]="'end'">
     <button mat-raised-button color="primary" class="mat-raised-button" (click)="salvar()">Salvar</button>
-    <button mat-raised-button color="warn" class="mat-raised-button" (click)="close()">Cancelar</button>
+    <button mat-raised-button color="warn" class="mat-raised-button" [mat-dialog-close]="false">Cancelar</button>
 </mat-dialog-actions>

@@ -1,7 +1,7 @@
 export interface EnderecoAutocomplete {
-    cep: String;
-    logradouro: String;
-    bairro: String;
-    localidade: String;
-    uf: String;
+    cep: string;
+    logradouro: string;
+    bairro: string;
+    localidade: string;
+    uf: string;
 }

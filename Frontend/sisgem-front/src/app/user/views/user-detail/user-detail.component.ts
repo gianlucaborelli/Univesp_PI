@@ -7,6 +7,8 @@ import { EnderecoCadastroDialogComponent } from '../../components/endereco-cadas
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { __await } from 'tslib';
 import { ClienteDetailDialogComponent } from '../../components/cliente-detail.dialog/cliente-detail.dialog.component';
+import { Observable, switchMap, take } from 'rxjs';
+
 
 @Component({
   selector: 'app-userdetail',
@@ -15,67 +17,48 @@ import { ClienteDetailDialogComponent } from '../../components/cliente-detail.di
 })
 
 export class UserDetailComponent implements OnInit {
-  cliente: User = {
-    name: ``,
-    obs: ``,
-    addresses: []
-  };
+  userId: string = '';
+  currentUser$: Observable<User> | undefined;
 
-  constructor(private service: UserService,
+  constructor(
+    private service: UserService,
     private router: ActivatedRoute,
-    private location: Location,
     private dialog: MatDialog) {
-
+    this.userId = String(this.router.snapshot.paramMap.get('id'));
+    this.service.loadCurrentUser(this.userId);
   }
 
   ngOnInit(): void {
-    this.initClienteAdd();
-    
-    this.router.queryParams.subscribe(params => {
-      const valor = params['parametro'];
-      if (valor) {
-        this.service.findById(valor).subscribe((cliente) => {
-          this.cliente = cliente;
-        })
-      }
-    });
-  }
-
-  public initClienteAdd() {
-    this.router.queryParams.subscribe(params => {
-      const valor = params['parametro'];
-      if (valor) {
-        this.service.enderecoAdd.subscribe((resposta) => {
-          console.log(resposta);
-          if (resposta) {
-            this.service.findById(valor).subscribe((cliente) => {
-              this.cliente = cliente;
-            })
-          }
-        });
-      }
-    });
-  }
-
-  back(): void {
-    this.location.back()
+    this.currentUser$ = this.service.getCurrentUser()
   }
 
   openAddAddressDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { idCliente: this.cliente.id };
-    dialogConfig.width = "40%";
-    this.dialog.open(EnderecoCadastroDialogComponent, dialogConfig);
+    this.currentUser$!.pipe(
+      take(1),
+      switchMap(user => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = { idCliente: user.id };
+        return this.dialog.open(EnderecoCadastroDialogComponent, dialogConfig).afterClosed();
+      })
+    ).subscribe(result => {
+      if (result) {
+        this.service.loadCurrentUser(this.userId);
+      }
+    });
   }
 
   openEditClienteDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { idCliente: this.cliente.id };
-    dialogConfig.width = "40%";
-    this.dialog.open(ClienteDetailDialogComponent, dialogConfig);
+    this.currentUser$!.pipe(
+      take(1),
+      switchMap(user => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = { idCliente: user.id };
+        return this.dialog.open(ClienteDetailDialogComponent, dialogConfig).afterClosed();
+      })
+    ).subscribe(result => {
+      if (result) {
+        this.service.loadCurrentUser(this.userId);
+      }
+    });
   }
 }

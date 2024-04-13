@@ -1,5 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SnackBarService } from 'src/app/components/shared/snack-bar/service/snack-bar.service';
 import { Address } from 'src/app/models/address.model';
 import { EnderecoService } from 'src/app/service/endereco.service';
 import { UserService } from 'src/app/user/service/user.service';
@@ -9,67 +11,103 @@ import { UserService } from 'src/app/user/service/user.service';
   templateUrl: './endereco-cadastro.dialog.component.html',
   styleUrls: ['./endereco-cadastro.dialog.component.scss']
 })
-export class EnderecoCadastroDialogComponent implements OnInit {
+export class EnderecoCadastroDialogComponent {
+  enderecoForm!: FormGroup;
+  userId = '';
+  addressId = '';
 
-  endereco: Address = {
-    zipCode: '',
-    userId: '',
-    street: '',
-    number: '',
-    district: '',
-    city: '',
-    state: '',
-    description: ''
-  }
+  zipCodeError = '';
+  userIdError = '';
+  streetError = '';
+  numberError = '';
+  districtError = '';
+  cityError = '';
+  stateError = '';
+  descriptionError = '';
 
-  constructor(private dialogRef: MatDialogRef<EnderecoCadastroDialogComponent>,
+  constructor(
     @Inject(MAT_DIALOG_DATA) data: any,
-    private service: EnderecoService,
-    private clienteservice: UserService) {
+    private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<EnderecoCadastroDialogComponent>,
+    private _snack: SnackBarService,
+    private service: EnderecoService) {
+
+    this.dialogRef.disableClose = true;
+    this.dialogRef.updateSize("40%");
+
+    this.enderecoForm = this.formBuilder.group({
+      zipCode: ['', Validators.required],
+      userId: ['', Validators.required],
+      street: ['', Validators.required],
+      number: ['', Validators.required],
+      district: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      description: ['', Validators.maxLength(200)]
+    });
 
     if (data != null) {
       if (data.idCliente != null) {
-        this.endereco.userId = data.idCliente;
+        this.userId = data.idCliente;
       } else if (data.enderecoId != null) {
-        this.service.findById(data.enderecoId).subscribe((resposta) => {
-          console.log(resposta);
-          this.endereco = resposta;
+        this.service.findById(data.enderecoId).subscribe((response) => {
+          this.addressId = response.id!;
+          this.userId = response.userId!;
+          this.enderecoForm.setValue(response);
         });
       }
     } else {
-      this.service.mensagem("Sem dados para iniciar a interaçao com endereço!")
+      _snack.open("Erro ao carregar.");
+      this.dialogRef.close(false);
     }
   }
 
-  ngOnInit() {
+  updateZipcodeErrorMessage() {
+    const zipCodeControl = this.enderecoForm.get('zipCode');
+    if (zipCodeControl && zipCodeControl.hasError('required')) {
+      this.zipCodeError = 'You must enter a value';
+    } else {
+      this.zipCodeError = '';
+    }
   }
 
   focusOutFunction() {
-    this.service.findByCep(this.endereco.zipCode!).subscribe((resposta) => {
-      this.endereco.street = resposta.logradouro;
-      this.endereco.district = resposta.bairro;
-      this.endereco.city = resposta.localidade;
-      this.endereco.state = resposta.uf;
+    const cepPattern = /^\d{8}$/;
+    const zipCode = this.enderecoForm.get('zipCode')!.value;
+    if (!cepPattern.test(zipCode)) {
+      return;
+    }
+
+    this.service.findByCep(zipCode).subscribe((resposta) => {
+      this.enderecoForm.patchValue(resposta);
     }, err => {
       for (let i = 0; i < err.error.errors.length; i++) {
-        this.service.mensagem(err.error.errors[i].message)
+        this._snack.open(err.error.errors[i].message);
       }
     });
   }
 
-  salvar() {
-    this.service.create(this.endereco).subscribe((resposta) => {
-      this.clienteservice.enderecoAdd.next(true)
-      this.close();
-      this.service.mensagem('Endereço cadastrado com sucesso!');
+  saveOnClick() {
+    const address: Address = {
+      id: this.addressId,
+      userId: this.userId,
+      zipCode: this.enderecoForm.get('zipCode')!.value,
+      street: this.enderecoForm.get('street')!.value,
+      number: this.enderecoForm.get('number')!.value,
+      district: this.enderecoForm.get('district')!.value,
+      city: this.enderecoForm.get('city')!.value,
+      state: this.enderecoForm.get('state')!.value,
+      description: this.enderecoForm.get('description')!.value
+    };
+    console.log(address);
+    this.service.create(address, this.userId).subscribe((resposta) => {
+      this._snack.open('Endereço cadastrado com sucesso!');
+      this.dialogRef.close(true);
     }, err => {
       for (let i = 0; i < err.error.errors.length; i++) {
-        this.service.mensagem(err.error.errors[i].message)
+        this._snack.open(err.error.errors[i].message);
       }
     });
-  }
-
-  close() {
-    this.dialogRef.close();
   }
 }
+

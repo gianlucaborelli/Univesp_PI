@@ -3,7 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from '../../../user/service/user.service';
 import { User } from '../../../user/models/user.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-detail.dialog',
@@ -14,17 +13,19 @@ export class ClienteDetailDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<ClienteDetailDialogComponent>,
     private service: UserService,
-    private router: Router,
     @Inject(MAT_DIALOG_DATA) data: any) {
+
+    this.dialogRef.disableClose = true;
+    this.dialogRef.updateSize("40%");
+
     if (data != null) {
       this.service.findById(data.idCliente).subscribe((resposta) => {
-        console.log(resposta);
-        this.cliente = resposta;
+        this.user = resposta;
       });
     }
   }
 
-  cliente: User = {
+  user: User = {
     name: '',
     obs: ''
   }
@@ -36,10 +37,9 @@ export class ClienteDetailDialogComponent implements OnInit {
   }
 
   salvar() {
-    if (this.cliente.id === undefined) {
-      this.service.create(this.cliente).subscribe((resposta) => {        
-        this.close();
-        this.router.navigate(['clientescadastro'], { queryParams: { parametro: resposta.id } })
+    if (this.user.id === undefined) {
+      this.service.create(this.user).subscribe((resposta) => {
+        this.dialogRef.close(true);
         this.service.mensagem('Cliente cadastrado com sucesso!');
       }, err => {
         for (let i = 0; i < err.error.errors.length; i++) {
@@ -47,10 +47,8 @@ export class ClienteDetailDialogComponent implements OnInit {
         }
       })
     } else {
-      this.service.update(this.cliente).subscribe((resposta) => {
-        this.service.enderecoAdd.next(true);
-        this.close();
-        this.router.navigate(['clientescadastro'], { queryParams: { parametro: resposta.id } })
+      this.service.update(this.user).subscribe((resposta) => {        
+        this.dialogRef.close(true);
         this.service.mensagem('Cliente atualizado com sucesso!');
       }, err => {
         for (let i = 0; i < err.error.errors.length; i++) {
@@ -66,10 +64,5 @@ export class ClienteDetailDialogComponent implements OnInit {
     }
 
     return false;
-  }
-
-
-  close() {
-    this.dialogRef.close();
   }
 }

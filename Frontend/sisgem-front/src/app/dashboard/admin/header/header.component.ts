@@ -48,16 +48,4 @@ export class HeaderComponent implements AfterViewInit {
         }
       });
   }
-
-  orcamento(){
-    this.router.navigate(['orcamentos'], {relativeTo:this.route});
-  }
-
-  cliente(){
-    this.router.navigate(['clientes'], {relativeTo:this.route});
-  }
-
-  produto(){
-    this.router.navigate(['produtos'], {relativeTo:this.route});
-  }
 }
