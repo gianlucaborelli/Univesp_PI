@@ -9,7 +9,7 @@ import { untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, delay, filter } from 'rxjs';
 import { CartItem } from 'src/app/cart/model/cart-item.mode';
 import { CartService } from 'src/app/cart/service/cart.service';
-import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
+import { needConfirmation } from 'src/app/components/decorator/confirm-dialog.decorator';
 
 @Component({
   selector: 'app-home',

@@ -2,7 +2,7 @@ import { registerLocaleData } from '@angular/common';
 import { Component, DEFAULT_CURRENCY_CODE, Input, LOCALE_ID } from '@angular/core';
 import { CartItem } from 'src/app/cart/model/cart-item.mode';
 import ptBr from '@angular/common/locales/pt';
-import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
+import { needConfirmation } from 'src/app/components/decorator/confirm-dialog.decorator';
 import { CartService } from 'src/app/cart/service/cart.service';
 
 

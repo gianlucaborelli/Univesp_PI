@@ -39,7 +39,7 @@
 
       <mat-grid-list cols="1" rowHeight="130px" gutterSize="0px" class="card-endereco-list">
         <mat-grid-tile *ngFor="let endereco of (currentUser$ | async)?.addresses" class="enderecos">
-          <app-endereco-card [endereco]="endereco" class="card-endereco"></app-endereco-card>
+          <app-address-card [address]="endereco" class="card-endereco"></app-address-card>
         </mat-grid-tile>
       </mat-grid-list>
 

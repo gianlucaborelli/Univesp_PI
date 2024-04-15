@@ -1,4 +1,4 @@
-import { Orcamento } from "../../models/orcamento.model";
+import { Quotation } from "../../quotation/models/quotation.model";
 import { Product } from "./product.model";
 
 export interface ProdutoPedido {
@@ -6,5 +6,5 @@ export interface ProdutoPedido {
     preco: String;
     quantidade: String;
     produto: Product;
-    orcamento: Orcamento;
+    orcamento: Quotation;
 }

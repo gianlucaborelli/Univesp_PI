@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { SnackBarService } from 'src/app/components/shared/snack-bar/service/snack-bar.service';
 import { Cart } from '../model/cart.model';
 import { environment } from 'src/environments/environment';
 import { UserStoreService } from 'src/app/authentication/service/user-store.service';
-import { AddItemDto } from '../model/dto/add-item-dto.model';
+import { AddItemToCartDto } from '../model/dto/add-item-to-cart-dto.model';
 import { CartItem } from '../model/cart-item.mode';
 import { IntervalOfDate } from '../model/dto/interval-of-date.model';
 import * as moment from 'moment';
@@ -113,7 +113,7 @@ export class CartService {
     );
   }
 
-  addItem(itemToAdd: AddItemDto) {    
+  addItem(itemToAdd: AddItemToCartDto) {    
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}`;
     this.http.put<Cart>(url, itemToAdd).subscribe({
       next: (resposta) => {

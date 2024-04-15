@@ -77,13 +77,5 @@ export class UserService implements OnInit {
   delete(id: String): Observable<User> {
     const url = `${this.baseUrl}/users/${id}`
     return this.http.delete<User>(url);
-  }
-
-  mensagem(str: String): void {
-    this._snack.open(`${str}`, 'OK', {
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-      duration: 3000
-    })
-  }
+  }  
 }

@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../service/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common'
-import { EnderecoCadastroDialogComponent } from '../../components/endereco-cadastro.dialog/endereco-cadastro.dialog.component';
+import { AddressDetailDialog } from '../../components/address-detail.dialog/address-detail.dialog.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { __await } from 'tslib';
-import { ClienteDetailDialogComponent } from '../../components/cliente-detail.dialog/cliente-detail.dialog.component';
+import { UserDetailDialog } from '../../components/user-detail.dialog/user-detail.dialog.component';
 import { Observable, switchMap, take } from 'rxjs';
-
 
 @Component({
   selector: 'app-userdetail',
@@ -38,7 +36,7 @@ export class UserDetailComponent implements OnInit {
       switchMap(user => {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = { idCliente: user.id };
-        return this.dialog.open(EnderecoCadastroDialogComponent, dialogConfig).afterClosed();
+        return this.dialog.open(AddressDetailDialog, dialogConfig).afterClosed();
       })
     ).subscribe(result => {
       if (result) {
@@ -53,7 +51,7 @@ export class UserDetailComponent implements OnInit {
       switchMap(user => {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = { idCliente: user.id };
-        return this.dialog.open(ClienteDetailDialogComponent, dialogConfig).afterClosed();
+        return this.dialog.open(UserDetailDialog, dialogConfig).afterClosed();
       })
     ).subscribe(result => {
       if (result) {

@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './dashboard/user/home/home.component';
-import { OrcamentoPesquisaComponent } from './components/views/orcamento/orcamento-pesquisa/orcamento-pesquisa.component';
-
 import { UserDetailComponent } from './user/views/user-detail/user-detail.component';
-import { OrcamentoCadastroComponent } from './components/views/orcamento/orcamento-cadastro/orcamento-cadastro.component';
 import { AuthGuard } from './components/shared/guard/auth.guard';
 import { SignInComponent } from './authentication/views/login-page/login-page.component';
-import { ProdutosPesquisaComponent } from './products/views/produtos-pesquisa/produtos-pesquisa.component';
-import { ProdutosCadastroComponent } from './products/views/produtos-cadastro/produtos-cadastro.component';
+import { ProductSearchComponent } from './products/views/product-search/product-search.component';
+import { ProductDetailComponent } from './products/views/product-detail/product-detail.component';
 import { UserSearchComponent } from './user/views/user-search/user-search.component';
 import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
 import { ShoppingPageComponent } from './dashboard/user/view/shopping-page/shopping-page.component';
+import { QuotationSearchComponent } from './quotation/views/quotation-search/quotation-search.component';
+import { QuotationDetailComponent } from './quotation/views/quotation-detail/quotation-detail.component';
 
 const routes: Routes = [
   {
@@ -42,26 +41,26 @@ const routes: Routes = [
       // P R O D U T O S
       {
         path: 'products',
-        component: ProdutosPesquisaComponent,
+        component: ProductSearchComponent,
         canActivate: [AuthGuard]
       },
 
       {
         path: 'produtoscadastro',
-        component: ProdutosCadastroComponent,
+        component: ProductDetailComponent,
         canActivate: [AuthGuard]
       },
 
       // O R Ç A M E N T O S
       {
         path: 'quotation',
-        component: OrcamentoPesquisaComponent,
+        component: QuotationSearchComponent,
         canActivate: [AuthGuard]
       },
 
       {
         path: 'cadastro-do-orcamento',
-        component: OrcamentoCadastroComponent,
+        component: QuotationDetailComponent,
         canActivate: [AuthGuard]
       }
     ]

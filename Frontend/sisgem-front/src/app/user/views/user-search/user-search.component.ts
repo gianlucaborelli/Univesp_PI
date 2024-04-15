@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../service/user.service';
-import { ActivatedRoute, Router } from "@angular/router";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-
-import { needConfirmation } from 'src/app/decorator/confirm-dialog.decorator';
-import { ClienteDetailDialogComponent } from '../../components/cliente-detail.dialog/cliente-detail.dialog.component';
+import { needConfirmation } from 'src/app/components/decorator/confirm-dialog.decorator';
+import { UserDetailDialog } from '../../components/user-detail.dialog/user-detail.dialog.component';
 
 @Component({
   selector: 'app-clientes',
@@ -39,7 +37,7 @@ export class UserSearchComponent {
 
   openAddNewCostumerDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.dialog.open(ClienteDetailDialogComponent, dialogConfig);
+    this.dialog.open(UserDetailDialog, dialogConfig);
   }
 
   @needConfirmation()
