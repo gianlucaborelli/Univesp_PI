@@ -3,35 +3,37 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenApiModel } from 'src/app/authentication/models/token-api.model';
 import { environment } from 'src/environments/environment';
-import {JwtHelperService} from '@auth0/angular-jwt'
+import { JwtHelperService } from '@auth0/angular-jwt'
 import { LoginModel } from 'src/app/authentication/models/login.model';
 import { RegisterModel } from 'src/app/authentication/models/register.model';
 import { UserStoreService } from './user-store.service';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
+  
   baseUrl: String = environment.baseUrl;
   private userPayload: any;
-  constructor(private http: HttpClient, private router: Router,private userStore: UserStoreService) {
+  constructor(private http: HttpClient, private router: Router, private userStore: UserStoreService) {
     this.userPayload = this.decodedToken();
   }
 
   register(userObj: RegisterModel) {
     const url = `${this.baseUrl}/auth/register`;
-    return this.http.post<any>( url, userObj);
+    return this.http.post<any>(url, userObj);
   }
 
-  async login(loginObj: LoginModel)  {    
-    const url = `${this.baseUrl}/auth/login`   
+  async login(loginObj: LoginModel) {
+    localStorage.clear();
+    const url = `${this.baseUrl}/auth/login`;
 
     var any = this.http.post<any>(url, loginObj);
-    
+
     any.subscribe({
-      next: (res) => {                     
-        
+      next: (res) => {
         this.storeToken(res.accessToken!);
         this.storeRefreshToken(res.refreshToken!);
         let decodedValue = this.decodedToken();
@@ -41,8 +43,8 @@ export class AuthService {
         this.userStore.storeId(decodedValue.id);
       },
     })
-    
-    return any;
+
+    return any
   }
 
   logout() {
@@ -72,7 +74,7 @@ export class AuthService {
 
   decodedToken() {
     const jwtHelper = new JwtHelperService();
-    const token = this.getToken()!;    
+    const token = this.getToken()!;
     return jwtHelper.decodeToken(token);
   }
 

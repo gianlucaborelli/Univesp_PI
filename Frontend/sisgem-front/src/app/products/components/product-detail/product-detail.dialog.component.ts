@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, DEFAULT_CURRENCY_CODE, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/products/models/product.model';
@@ -7,7 +7,11 @@ import { ProductService } from 'src/app/products/service/product.service';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.dialog.component.html',
-  styleUrls: ['./product-detail.dialog.component.scss']
+  styleUrls: ['./product-detail.dialog.component.scss'],
+  providers:    [    
+    { provide: LOCALE_ID, useValue: 'pt-br' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' }, 
+  ],
 })
 export class ProductDetailDialog implements OnInit {
   produto: Product = {
@@ -20,7 +24,10 @@ export class ProductDetailDialog implements OnInit {
   constructor(private dialogRef: MatDialogRef<ProductDetailDialog>,
     private service: ProductService,
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) data: any) {
+    @Inject(MAT_DIALOG_DATA) data: any) {      
+    this.dialogRef.disableClose = true;    
+    this.dialogRef.updateSize("40%") ;
+
     if (data != null) {
       this.service.findById(data.idProduto).subscribe((resposta) => {
         console.log(resposta);

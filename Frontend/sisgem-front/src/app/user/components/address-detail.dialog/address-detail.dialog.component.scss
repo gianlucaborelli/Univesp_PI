@@ -1,12 +1,42 @@
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "zip    header    header    header    header    header"
+    "street street    street    street    street    street"
+    "number dist      dist      dist      dist      dist"
+    "city   city      city      state     state     state"
+    "desc   desc      desc      desc      desc      desc";
+}
+
+.zipeCode-field {
+  grid-area: zip;
+}
+
+.street-field {
+  grid-area: street;
+}
+
+.number-field {
+  grid-area: number;  
+}
+
+.district-field {
+  grid-area: dist;
+}
+
+.city-field {
+  grid-area: city;
+}
+
+.state-field {
+  grid-area: state;
+}
+
+.description-field {
+  grid-area: desc;
+}
+
 mat-form-field {
-    padding: 5px;
-}
-
-.content {
-    width: 100%;
-}
-
-mat-dialog-actions {
-    margin-bottom: 20px;
-    margin-left: 20px;
+  padding: 5px;
+  margin-top: -15px;
 }

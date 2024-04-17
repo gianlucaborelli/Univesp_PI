@@ -8,7 +8,7 @@ import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.mod
 import { OrcamentoService } from 'src/app/quotation/service/quotation.service';
 import { ProdutoPedidoService } from 'src/app/quotation/service/produto-pedido.service';
 import { ProductService } from 'src/app/products/service/product.service';
-import { SnackBarService } from 'src/app/components/shared/snack-bar/service/snack-bar.service';
+import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
 
 @Component({
   selector: 'app-add-new-product-dialog',

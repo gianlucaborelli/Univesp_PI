@@ -18,16 +18,16 @@ export class AddressCardComponent {
 
   constructor(private service: AddressService, private dialog: MatDialog) { }
 
-  editarEndereco(enderecoId: String) {
+  editarEndereco() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { enderecoId: enderecoId };
-    this.dialog.open(AddressDetailDialog, dialogConfig);
+    const dialogRef = this.dialog.open(AddressDetailDialog, dialogConfig);
+    dialogRef.componentInstance.userId = this.address.userId;
+    dialogRef.componentInstance.addressId = this.address.id;
+    return dialogRef.afterClosed();
   }
 
   @needConfirmation()
-  excluirEndereco(enderecoId: String) {
-    this.service.delete(enderecoId).subscribe();
+  excluirEndereco() {
+    this.service.delete(this.address.userId!, this.address.id!).subscribe();
   }
 }

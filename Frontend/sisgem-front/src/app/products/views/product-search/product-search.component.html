@@ -18,10 +18,7 @@
   <div class="mat-elevation-z1 content-table">
     <table class="table" mat-table [dataSource]="dataSource">
 
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-      </ng-container>
+      
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>NOME</th>
@@ -33,8 +30,13 @@
         <td mat-cell *matCellDef="let row">{{ row.description }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>PREÇO</th>
+        <td mat-cell *matCellDef="let row">{{ row.price | currency: 'BRL' }}</td>
+      </ng-container>
+
       <!-- Symbol Column -->
-      <ng-container matColumnDef="acoes">
+      <ng-container matColumnDef="actions">
         <th class="mat-header" mat-header-cell *matHeaderCellDef>AÇÕES</th>
         <td mat-cell *matCellDef="let row" class="actionsButtonsContainer">
           <button class="actionButton" mat-icon-button color="primary"

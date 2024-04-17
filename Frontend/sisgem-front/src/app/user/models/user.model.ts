@@ -1,8 +1,8 @@
 import { Address } from "./address.model";
 
 export interface User {
-    id?: String;
-    name: String;
-    obs: String;
+    id?: string;
+    name: string;
+    obs: string;
     addresses?: Address[];
 }

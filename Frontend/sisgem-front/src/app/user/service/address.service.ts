@@ -14,8 +14,8 @@ export class AddressService {
 
   baseUrl: String = environment.baseUrl;
 
-  findById(id: String): Observable<Address> {
-    const url = `${this.baseUrl}/enderecos/${id}`
+  findById(userId: string, addressId:string): Observable<Address> {
+    const url = `${this.baseUrl}/users/${userId}/address/${addressId}`
     return this.http.get<Address>(url);
   }
 
@@ -34,8 +34,8 @@ export class AddressService {
     return this.http.post<Address>(url, body);
   }
 
-  delete(id: String): Observable<Address> {
-    const url = `${this.baseUrl}/enderecos/${id}`
+  delete(userId: string, addressId: string): Observable<Address> {
+    const url = `${this.baseUrl}/users/${userId}/address/${addressId}`
     return this.http.delete<Address>(url);
   }  
 }

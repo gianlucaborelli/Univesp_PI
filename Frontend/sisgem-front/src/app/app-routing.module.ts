@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './dashboard/user/home/home.component';
 import { UserDetailComponent } from './user/views/user-detail/user-detail.component';
-import { AuthGuard } from './components/shared/guard/auth.guard';
+import { AuthGuard } from './authentication/guard/auth.guard';
 import { SignInComponent } from './authentication/views/login-page/login-page.component';
 import { ProductSearchComponent } from './products/views/product-search/product-search.component';
 import { ProductDetailComponent } from './products/views/product-detail/product-detail.component';

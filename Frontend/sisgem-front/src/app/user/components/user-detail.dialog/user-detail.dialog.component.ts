@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from '../../service/user.service';
 import { User } from '../../models/user.model';
-import { SnackBarService } from 'src/app/components/shared/snack-bar/service/snack-bar.service';
+import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
 
 @Component({
   selector: 'app-user-detail.dialog',

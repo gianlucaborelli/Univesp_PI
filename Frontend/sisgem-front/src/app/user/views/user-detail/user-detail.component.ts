@@ -35,8 +35,9 @@ export class UserDetailComponent implements OnInit {
       take(1),
       switchMap(user => {
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.data = { idCliente: user.id };
-        return this.dialog.open(AddressDetailDialog, dialogConfig).afterClosed();
+        const dialogRef = this.dialog.open(AddressDetailDialog, dialogConfig);                
+        dialogRef.componentInstance.userId = user.id;
+        return dialogRef.afterClosed();
       })
     ).subscribe(result => {
       if (result) {

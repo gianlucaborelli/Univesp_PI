@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/authentication/service/auth.service';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { UserStoreService } from 'src/app/authentication/service/user-store.service';
-import { SnackBarService } from 'src/app/components/shared/snack-bar/service/snack-bar.service';
+import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -34,16 +34,18 @@ export class SignInComponent {
   async Login(userName: string, pass: string) {
     (await this.authService.login({ password: pass, email: userName })).subscribe({
       next: () => {
+        console.log(this.userStore.getRole())
         var role = this.userStore.getRole();
+        console.log(this.userStore.getRole())
         if(role == '[ROLE_USER]'){
           this.router.navigate(['home']);
         }else{
           this.router.navigate(['admin']);
         }        
       },
-      error: (err: any) => {
+      error: (err) => {
         console.error(err);        
-        this.snackbarService.open("Erro durante o login. Verifique suas credenciais.");
+        this.snackbarService.open(err.error.detail);
       }
     });  
   }
@@ -57,7 +59,7 @@ export class SignInComponent {
       },
       error: (err) => {
         console.error(err);        
-        this.snackbarService.open("Erro durante o registro. Verifique suas credenciais.");
+        this.snackbarService.open(err.error.detail);
       }
     });
   }

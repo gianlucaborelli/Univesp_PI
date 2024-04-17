@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { SnackBarService } from 'src/app/components/shared/snack-bar/service/snack-bar.service';
+import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
 import { Cart } from '../model/cart.model';
 import { environment } from 'src/environments/environment';
 import { UserStoreService } from 'src/app/authentication/service/user-store.service';

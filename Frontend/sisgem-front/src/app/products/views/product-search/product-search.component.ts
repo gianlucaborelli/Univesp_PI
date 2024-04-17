@@ -1,7 +1,5 @@
-import { Component } from "@angular/core";
-
+import { Component, DEFAULT_CURRENCY_CODE, LOCALE_ID } from "@angular/core";
 import { Router } from "@angular/router";
-
 import { needConfirmation } from "src/app/components/decorator/confirm-dialog.decorator";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
@@ -13,11 +11,15 @@ import { Product } from "../../models/product.model";
   selector: "app-product-search",
   templateUrl: "./product-search.component.html",
   styleUrls: ["./product-search.component.scss"],
+  providers:    [    
+    { provide: LOCALE_ID, useValue: 'pt-br' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' }, 
+  ],
 })
 export class ProductSearchComponent {
   dataSource!: MatTableDataSource<Product>;
   posts: any;
-  displayedColumns: string[] = ["id", "name", "description", "acoes"];
+  displayedColumns: string[] = ["name", "description", "price", "actions"];
 
   constructor(
     private service: ProductService,
@@ -62,9 +64,6 @@ export class ProductSearchComponent {
 
   openAddNewProductDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
     this.dialog.open(ProductDetailDialog, dialogConfig);
   }
 
