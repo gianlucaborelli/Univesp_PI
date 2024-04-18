@@ -9,7 +9,7 @@ import { AddItemToCartDto } from '../model/dto/add-item-to-cart-dto.model';
 import { CartItem } from '../model/cart-item.mode';
 import { IntervalOfDate } from '../model/dto/interval-of-date.model';
 import * as moment from 'moment';
-import { ProductService } from 'src/app/products/service/product.service';
+import { AvailableProductService } from 'src/app/products/service/availableProduct.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class CartService {
     private activatedRoute: ActivatedRoute,
     private snackBar: SnackBarService,
     private userStore: UserStoreService,
-    private productService: ProductService) {
+    private productService: AvailableProductService) {
     this.cart$ = new BehaviorSubject<Cart>({
       userId: '',
       cartItens: []

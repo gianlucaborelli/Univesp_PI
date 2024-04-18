@@ -16,7 +16,7 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { ProductService } from 'src/app/products/service/product.service';
+import { AvailableProductService } from 'src/app/products/service/availableProduct.service';
 import { Quotation } from 'src/app/quotation/models/quotation.model';
 import { OrcamentoService } from 'src/app/quotation/service/quotation.service';
 import { format } from 'date-fns';
@@ -65,7 +65,7 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private clienteService: UserService,
     private enderecoService: AddressService,
-    private produtoService: ProductService,
+    private produtoService: AvailableProductService,
     private orcamentoService: OrcamentoService,
     private produtoPedidoService: ProdutoPedidoService) {
     this.enderecoDataSource = new MatTableDataSource<Address>();

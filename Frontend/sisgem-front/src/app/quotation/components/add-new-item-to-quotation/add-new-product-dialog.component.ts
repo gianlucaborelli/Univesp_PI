@@ -7,7 +7,7 @@ import { AddItemToQuotation } from 'src/app/products/models/add-item-to-quotatio
 import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.model';
 import { OrcamentoService } from 'src/app/quotation/service/quotation.service';
 import { ProdutoPedidoService } from 'src/app/quotation/service/produto-pedido.service';
-import { ProductService } from 'src/app/products/service/product.service';
+import { AvailableProductService } from 'src/app/products/service/availableProduct.service';
 import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class AddNewProductDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private produtoPedidoService: ProdutoPedidoService,
     private orcamentoService: OrcamentoService,
-    private produtoService: ProductService,
+    private produtoService: AvailableProductService,
     private _snack: SnackBarService) {
       
       this.formGroup = this.formBuilder.group({

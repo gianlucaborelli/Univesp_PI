@@ -1,37 +1,35 @@
 <h2 mat-dialog-title>Cadastro de Produto</h2>
 
 <mat-dialog-content>
-  <form>
-    <table class="content" style="width: 90%;">
-      <tr>
+  <form [formGroup]="productForm">
+    
+    
         <mat-form-field appearance="outline" style="width: 100%;">
           <mat-label>Nome do Produto</mat-label>
-          <input matInput type="text" name="name" placeholder="Nome" [(ngModel)]="produto.name">
+          <input matInput type="text" placeholder="Nome" formControlName="name">
         </mat-form-field>
-      </tr>
-      <tr>
+
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>Preço do Produto</mat-label>
-          <input matInput type="number" name="precos" placeholder="Preço" [(ngModel)]="produto.price">
+          <input matInput type="number" placeholder="Preço" formControlName="price">
           <span matTextPrefix>R$&nbsp;</span>
         </mat-form-field>
+
         <mat-form-field appearance="outline">
           <mat-label>Quantidade em Estoque</mat-label>
-          <input matInput type="number" name="estoque" placeholder="Estoque" [(ngModel)]="produto.stock">
+          <input matInput type="number" name="estoque" placeholder="Estoque" formControlName="stock">
         </mat-form-field>
-      </tr>
-      <tr>
+
         <mat-form-field appearance="outline" style="width: 100%;">
           <mat-label>Observações sobre o Produto</mat-label>
           <textarea matInput type="text" name="obs" placeholder="Observações"
-            [(ngModel)]="produto.description"></textarea>
+          formControlName="obs"></textarea>
         </mat-form-field>
-      </tr>
-    </table>
+
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions [align]="'end'">
-  <button mat-raised-button color="primary" class="mat-raised-button" (click)="salvar()">Salvar</button>
-  <button mat-raised-button color="warn" class="mat-raised-button" (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" class="mat-raised-button" (click)="save()">Salvar</button>
+  <button mat-raised-button color="warn" class="mat-raised-button" [mat-dialog-close]="false">Cancelar</button>
 </mat-dialog-actions>

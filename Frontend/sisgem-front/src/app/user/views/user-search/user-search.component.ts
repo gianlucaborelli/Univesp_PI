@@ -40,8 +40,10 @@ export class UserSearchComponent {
   openAddNewCostumerDialog() {
     const dialogConfig = new MatDialogConfig();
     const dialogRef = this.dialog.open(UserDetailDialog, dialogConfig);
-    return dialogRef.afterClosed().subscribe((response) => {      
-      this.router.navigate(['/admin/users/' + response] )
+    return dialogRef.afterClosed().subscribe((response) => { 
+      if(response){
+        this.router.navigate(['/admin/users/' + response] )
+      }           
     });
   }
 

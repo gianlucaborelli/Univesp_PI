@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.model';
-import { ProductService } from 'src/app/products/service/product.service';
+import { AvailableProductService } from 'src/app/products/service/availableProduct.service';
 
 @Component({
   selector: 'app-shopping-page',
@@ -13,7 +13,7 @@ export class ShoppingPageComponent {
 
 
   constructor(
-    private productService: ProductService
+    private productService: AvailableProductService
   ){
     this.availableProducts$ = this.productService.getAvailableProducts()
   }

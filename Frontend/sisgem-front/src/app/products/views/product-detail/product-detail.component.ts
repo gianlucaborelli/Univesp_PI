@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/products/models/product.model';
-import { ProductService } from 'src/app/products/service/product.service';
 import { Location } from '@angular/common'
 import { ProductDetailDialog } from '../../components/product-detail/product-detail.dialog.component';
+import { Observable, switchMap, take } from 'rxjs';
+import { ProductService } from '../../service/product.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -12,63 +13,33 @@ import { ProductDetailDialog } from '../../components/product-detail/product-det
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
-  produto: Product = {
-    name: ``,
-    description: ``,
-    stock: ``,
-    price: ``
-  };
+  productId: string = '';
+  currentProduct$: Observable<Product> | undefined;
 
   constructor(private service: ProductService,
     private router: ActivatedRoute,
-    private location: Location,
     private dialog: MatDialog) {
+    this.productId = String(this.router.snapshot.paramMap.get('id'));
+    this.service.loadCurrentProducts(this.productId);
   }
-
-
 
   ngOnInit(): void {
-    this.initProduto();
-
-    this.router.queryParams.subscribe(params => {
-      const valor = params['parametro'];
-      if (valor) {
-        this.service.findById(valor).subscribe((resposta) => {
-          console.log(resposta);
-          this.produto = resposta;
-        });
-      }
-    });
-  }
-
-  public initProduto(){
-    this.router.queryParams.subscribe(params => {
-      const valor = params['parametro'];
-      if (valor) {
-        this.service.produtoUpdate.subscribe((resposta) => {
-          console.log(resposta);
-          if (resposta) {
-            this.service.findById(valor).subscribe((produto) =>{
-              this.produto= produto;
-            })
-          }
-        });
-      }
-    }); 
-  }
-
-
-  back(): void {
-    this.location.back()
+    this.currentProduct$ = this.service.getCurrentProduct()
   }
 
   openEditClienteDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { idProduto: this.produto.id };
-    dialogConfig.width = "40%";
-    this.dialog.open(ProductDetailDialog, dialogConfig);
+    this.currentProduct$!.pipe(
+      take(1),
+      switchMap(product => {
+        const dialogConfig = new MatDialogConfig();
+        const dialogRef = this.dialog.open(ProductDetailDialog, dialogConfig);
+        dialogRef.componentInstance.productId = product.id;
+        return dialogRef.afterClosed();
+      })
+    ).subscribe(result => {
+      if (result) {
+        this.service.loadCurrentProducts(this.productId);
+      }
+    });
   }
-
 }

@@ -1,11 +1,11 @@
 import { Component, DEFAULT_CURRENCY_CODE, LOCALE_ID } from "@angular/core";
-import { Router } from "@angular/router";
 import { needConfirmation } from "src/app/components/decorator/confirm-dialog.decorator";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { ProductDetailDialog } from "../../components/product-detail/product-detail.dialog.component";
-import { ProductService } from "src/app/products/service/product.service";
 import { Product } from "../../models/product.model";
+import { ProductService } from "../../service/product.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-product-search",
@@ -19,57 +19,44 @@ import { Product } from "../../models/product.model";
 export class ProductSearchComponent {
   dataSource!: MatTableDataSource<Product>;
   posts: any;
-  displayedColumns: string[] = ["name", "description", "price", "actions"];
+  displayedColumns: string[] = ["name", "description", "price", "stock", "actions"];
 
-  constructor(
-    private service: ProductService,
+  constructor(    
     private router: Router,
+    private service: ProductService,
     private dialog: MatDialog
   ) {
     this.service.findAll().subscribe((resposta) => {
-      console.log(resposta);
       this.posts = resposta;
       this.dataSource = new MatTableDataSource(resposta);
     });
   }
 
-  ngOnInit(): void {}
-
   refreshTable() {
-    this.service.findAll().subscribe((resposta) => {
-      this.posts = resposta;
-      this.dataSource = new MatTableDataSource(resposta);
+    this.service.findAll().subscribe((response) => {
+      this.posts = response;
+      this.dataSource = new MatTableDataSource(response);
     });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  navegarParaProdutosCadastro(productId?: String) {
-    this.router
-      .navigate(["/admin/produtoscadastro"], {
-        queryParams: { parametro: productId },
-      })
-      .then(
-        (nav) => {
-          console.log(nav);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-  }
+  }  
 
   openAddNewProductDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.dialog.open(ProductDetailDialog, dialogConfig);
+    const dialogRef = this.dialog.open(ProductDetailDialog, dialogConfig);
+    return dialogRef.afterClosed().subscribe((response) => { 
+      if(response){
+        this.router.navigate(['/admin/products/' + response] )
+      }           
+    });
   }
 
   @needConfirmation()
-  deletarProduto(idCliente: String) {
-    this.service.delete(idCliente).subscribe(() => {
+  deletarProduto(productId: String) {
+    this.service.delete(productId).subscribe(() => {
       this.refreshTable();
     });
   }

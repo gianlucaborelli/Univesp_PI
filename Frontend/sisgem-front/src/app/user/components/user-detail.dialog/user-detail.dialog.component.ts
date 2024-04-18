@@ -54,6 +54,7 @@ export class UserDetailDialog implements OnInit {
       })
     } else {
       this.service.update({
+        id: this.userId,
         name: this.userForm.get('name')!.value,
         obs: this.userForm.get('obs')!.value
       }).subscribe({
