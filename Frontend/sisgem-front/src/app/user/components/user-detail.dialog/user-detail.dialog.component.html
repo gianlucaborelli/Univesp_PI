@@ -1,27 +1,21 @@
 <h2 mat-dialog-title>Cadastro de Cliente</h2>
 
 <mat-dialog-content>
-  <form>
+  <form [formGroup]="userForm">
     <table class="content">
       <tr>
         <mat-form-field appearance="outline" style="width: 95%">
           <mat-label>Nome</mat-label>
-          <input
-            [formControl]="name"
-            [(ngModel)]="user.name"
-            name="name"
-            matInput
-            type="text"
+          <input type="text" formControlName="name"             
+            matInput            
           />
-          <mat-error *ngIf="name.invalid">{{ getMessage() }} </mat-error>
+          <mat-error *ngIf="userForm.get('name')?.invalid"></mat-error>
         </mat-form-field>
       </tr>
       <tr>
         <mat-form-field appearance="outline" style="width: 95%">
           <mat-label>Observação</mat-label>
-          <textarea
-            [(ngModel)]="user.obs"
-            name="obs"
+          <textarea formControlName="obs"             
             matInput
             type="text"
           ></textarea>

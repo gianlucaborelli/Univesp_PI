@@ -25,6 +25,7 @@ export class UserService implements OnInit {
     this.currentUser$ = new BehaviorSubject<User>({
       name: '',
       obs: '',
+      role: '',
       addresses: []
     });
   }

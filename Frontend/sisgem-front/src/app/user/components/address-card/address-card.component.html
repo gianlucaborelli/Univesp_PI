@@ -1,35 +1,37 @@
 <mat-card class="cardEndereco">
 
-    <table>
-        <button mat-icon-button [matMenuTriggerFor]="menu" style="float: right; margin: 5px;"
-            aria-label="Ações do cadastro de endereço">
-            <mat-icon>more_vert</mat-icon>
-        </button>
+  <mat-card-header class="cards-header">
 
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="editarEndereco()">
-                <mat-icon>edit</mat-icon>
-                <span>Editar</span>
-            </button>
-            <button mat-menu-item (click)="excluirEndereco()">
-                <mat-icon>delete</mat-icon>
-                <span>Excluir</span>
-            </button>
-        </mat-menu>
+    <mat-card-title
+      >{{ address.street }} - Nº: {{ address.number }}</mat-card-title
+    >
 
-        <mat-card-content style="padding-top:10px; ">
-            <p> <b>{{ address.street }} - Nº: {{ address.number }}</b></p>
-            <p>
-                <b>Bairro: </b> {{ address.district }}
-                <b>- Cidade: </b> {{address.city}}
-                <b>- UF: </b>{{address.state}}
-            </p>
-            <p>
-                <b>Observações: </b> {{address.description}}
-            </p>
-        </mat-card-content>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Ações do cadastro de endereço"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
 
+  </mat-card-header>
 
-    </table>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="editAddress()">
+      <mat-icon>edit</mat-icon>
+      <span>Editar</span>
+    </button>
+    <button mat-menu-item (click)="deleteAddress()">
+      <mat-icon>delete</mat-icon>
+      <span>Excluir</span>
+    </button>
+  </mat-menu>
 
+  <mat-card-content>    
+    <p>
+      <b>Bairro: </b> {{ address.district }} <b>- Cidade: </b>
+      {{ address.city }} <b>- UF: </b>{{ address.state }}
+    </p>
+    <p><b>Observações: </b> {{ address.description }}</p>
+  </mat-card-content>
 </mat-card>

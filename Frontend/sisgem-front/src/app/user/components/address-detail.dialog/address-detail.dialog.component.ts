@@ -44,15 +44,15 @@ export class AddressDetailDialog implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       description: ['', Validators.maxLength(200)]
-    });    
+    });
   }
 
   ngOnInit(): void {
     if (this.addressId) {
-      this.service.findById(this.userId!, this.addressId!).subscribe((response) => {        
+      this.service.findById(this.userId!, this.addressId!).subscribe((response) => {
         this.enderecoForm.setValue(response);
       });
-    }    
+    }
   }
 
   updateZipcodeErrorMessage() {
@@ -71,10 +71,10 @@ export class AddressDetailDialog implements OnInit {
       return;
     }
 
-    this.service.findByCep(zipCode).subscribe((resposta) => {      
+    this.service.findByCep(zipCode).subscribe((resposta) => {
       this.enderecoForm.patchValue(resposta);
-    }, err => {      
-      this._snack.open(err.error.detail);      
+    }, err => {
+      this._snack.open(err.error.detail);
     });
   }
 
@@ -90,12 +90,14 @@ export class AddressDetailDialog implements OnInit {
       state: this.enderecoForm.get('state')!.value,
       description: this.enderecoForm.get('description')!.value
     };
-    this.service.create(address, this.userId!).subscribe((resposta) => {
-      this._snack.open('Endereço cadastrado com sucesso!');
-      this.dialogRef.close(true);
-    }, err => {
-      this._snack.open(err.error.detail);    
+    this.service.create(address, this.userId!).subscribe({
+      next: () => {
+        this._snack.open('Endereço cadastrado com sucesso!');
+        this.dialogRef.close(true);
+      },
+      error: (err) => {
+        this._snack.open(err.error.detail)
+      }
     });
   }
 }
-

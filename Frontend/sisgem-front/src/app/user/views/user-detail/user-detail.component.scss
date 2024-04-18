@@ -1,32 +1,48 @@
+@use "@angular/material" as mat;
+
+@include mat.fab-density(-5);
+@include mat.icon-density(-5);
+
 .inputform {
-    width: 100%;
+  width: 100%;
 }
 
 .content-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-
+  display: grid;
+  grid-template-areas:
+    "detail   contact  address"
+    "security contact  address";
+  gap: 2rem;
 }
 
-.card-cliente {
-    background-color: rgb(240, 240, 240);
-
+mat-card {
+  background-color: rgb(240, 240, 240);
 }
 
-.card-endereco {
-    background-color: rgb(240, 240, 240);
+.user-card {
+  grid-area: detail;
+}
+
+.address-card {
+  grid-area: address;
+}
+
+.security-card {
+  grid-area: security;
+}
+
+.contact-card{
+    grid-area: contact;
 }
 
 .cards-header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-.card-endereco {
-    width: 90%;
-}
-
-.card-endereco-list {
-    width: 100%;
+.address-list {
+  padding-bottom: 10px;
+  overflow: auto;
+  margin-left: 10px;
+  margin-right: 10px;
 }

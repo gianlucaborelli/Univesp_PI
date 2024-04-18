@@ -5,8 +5,7 @@ import { needConfirmation } from 'src/app/components/decorator/confirm-dialog.de
 import { Address } from 'src/app/user/models/address.model';
 import { AddressService } from 'src/app/user/service/address.service';
 import { AddressDetailDialog } from '../address-detail.dialog/address-detail.dialog.component';
-
-
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-address-card',
@@ -16,18 +15,21 @@ import { AddressDetailDialog } from '../address-detail.dialog/address-detail.dia
 export class AddressCardComponent {
   @Input() address!: Address;
 
-  constructor(private service: AddressService, private dialog: MatDialog) { }
+  constructor(
+    private service: AddressService,
+    private dialog: MatDialog,
+    private userservice: UserService) { }
 
-  editarEndereco() {
+  editAddress() {
     const dialogConfig = new MatDialogConfig();
     const dialogRef = this.dialog.open(AddressDetailDialog, dialogConfig);
     dialogRef.componentInstance.userId = this.address.userId;
     dialogRef.componentInstance.addressId = this.address.id;
-    return dialogRef.afterClosed();
+    return dialogRef.afterClosed().subscribe({ next: () => { this.userservice.loadCurrentUser(this.address.userId!) } });
   }
 
   @needConfirmation()
-  excluirEndereco() {
-    this.service.delete(this.address.userId!, this.address.id!).subscribe();
+  deleteAddress() {
+    this.service.delete(this.address.userId!, this.address.id!).subscribe({ next: () => { this.userservice.loadCurrentUser(this.address.userId!) } });
   }
 }

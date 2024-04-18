@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { needConfirmation } from 'src/app/components/decorator/confirm-dialog.decorator';
 import { UserDetailDialog } from '../../components/user-detail.dialog/user-detail.dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',
@@ -16,6 +17,7 @@ export class UserSearchComponent {
   displayedColumns: string[] = ["name", "obs", "role", "actions"];
 
   constructor(
+    private router: Router,
     private service: UserService,
     private dialog: MatDialog) {
 
@@ -37,7 +39,10 @@ export class UserSearchComponent {
 
   openAddNewCostumerDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.dialog.open(UserDetailDialog, dialogConfig);
+    const dialogRef = this.dialog.open(UserDetailDialog, dialogConfig);
+    return dialogRef.afterClosed().subscribe((response) => {      
+      this.router.navigate(['/admin/users/' + response] )
+    });
   }
 
   @needConfirmation()

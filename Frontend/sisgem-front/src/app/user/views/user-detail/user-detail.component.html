@@ -1,48 +1,120 @@
 <div class="content">
   <div class="title">
-    <h1>Cadastro de Clientes</h1>
+    <h1>Cadastro do Usuário</h1>
   </div>
 
   <div class="content-cards">
-    <div style="width: 50%; ">
-      <mat-card class="card-cliente">
-        <mat-card-header class="cards-header">
-          <mat-card-title>Dados do Cliente</mat-card-title>
-          <mat-card-actions>
-            <button mat-fab color="primary" matTooltip="Editar dados do cliente." [matTooltipShowDelay]="500"
-              aria-label="Este botão abre um card para editar dados do cliente"
-              (click)="openEditClienteDialog()"><mat-icon>edit</mat-icon></button>
-          </mat-card-actions>
-        </mat-card-header>
-        <mat-card-content class="dadosDoCliente" style="margin-top: 20px;">
-          <mat-form-field appearance="outline" class="inputform">
-            <mat-label>Nome do Cliente</mat-label>
-            <input matInput type="text" name="name" placeholder="Nome" [value]="(currentUser$ | async)?.name">
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="inputform">
-            <mat-label>Observações sobre o Cliente</mat-label>
-            <textarea matInput type="text" name="obs" placeholder="Observações" [value]="(currentUser$ | async)?.obs"></textarea>
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
-    </div>
+    <mat-card class="user-card" >
+      <mat-card-header class="cards-header">
+        <mat-card-title>Dados do Usuário</mat-card-title>
+        <mat-card-actions>
+          <button
+            mat-fab
+            color="primary"
+            matTooltip="Editar dados do usuário."
+            [matTooltipShowDelay]="500"
+            aria-label="Este botão abre um card para editar dados do usuário"
+            (click)="openEditClienteDialog()"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card-header>
+      <mat-card-content class="dadosDoCliente" style="margin-top: 20px">
+        <mat-form-field appearance="outline" class="inputform">
+          <mat-label>Nome do Usuário</mat-label>
+          <input
+            matInput
+            type="text"
+            name="name"
+            placeholder="Nome"
+            [value]="(currentUser$ | async)?.name"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="inputform">
+          <mat-label>Observações sobre o Usuário</mat-label>
+          <textarea
+            matInput
+            type="text"
+            name="obs"
+            placeholder="Observações"
+            [value]="(currentUser$ | async)?.obs"
+          ></textarea>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
 
-    <mat-card class="card-endereco" style="width: 45%;">
+    <mat-card class="address-card">
       <mat-card-header class="cards-header">
         <mat-card-title>Endereços</mat-card-title>
         <mat-card-actions>
-          <button mat-fab color="accent" (click)="openAddAddressDialog()" matTooltip="Adicionar novo endereço."
+          <button
+            mat-fab
+            color="accent"
+            (click)="openAddAddressDialog()"
+            matTooltip="Adicionar novo endereço."
             [matTooltipShowDelay]="500"
-            aria-label="Este botão abre um card para adicionar novo endereço ao cliente"><mat-icon>add</mat-icon></button>
+            aria-label="Este botão abre um card para adicionar novo endereço ao usuário"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
         </mat-card-actions>
       </mat-card-header>
+     
+      <div fxLayout="column" fxLayoutGap="10px" class="address-list" style="margin-top: 20px;">
+        <div  *ngFor="let address of (currentUser$ | async)?.addresses">
+          <app-address-card [address]="address"></app-address-card>
+        </div>
+      </div>        
+    </mat-card >
 
-      <mat-grid-list cols="1" rowHeight="130px" gutterSize="0px" class="card-endereco-list">
-        <mat-grid-tile *ngFor="let endereco of (currentUser$ | async)?.addresses" class="enderecos">
-          <app-address-card [address]="endereco" class="card-endereco"></app-address-card>
-        </mat-grid-tile>
-      </mat-grid-list>
+    <mat-card class="security-card" >
+      <mat-card-header class="cards-header">
+        <mat-card-title>Nível de acesso</mat-card-title>
+        <mat-card-actions>
+          <button
+            mat-fab
+            color="primary"
+            matTooltip="Adicionar novo endereço."
+            [matTooltipShowDelay]="500"
+            aria-label="Este botão abre um card para alterar o nivel de acesso do usuário"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card-header>
+      <mat-card-content class="dadosDoCliente" style="margin-top: 20px">
+        <mat-form-field appearance="outline" class="inputform">
+          <mat-label>Nível de acesso</mat-label>
+          <input
+            matInput
+            type="text"
+            name="role"
+            placeholder="Nível de acesso"
+            [value]="(currentUser$ | async)?.role"
+          />
+        </mat-form-field>
+      </mat-card-content>      
+    </mat-card>
 
+    <mat-card class="contact-card" >
+      <mat-card-header class="cards-header">
+        <mat-card-title>Contatos</mat-card-title>
+        <mat-card-actions>
+          <button
+            mat-fab
+            color="primary"
+            matTooltip="Adicionar novo contato."
+            [matTooltipShowDelay]="500"
+            aria-label="Este botão abre um card para adicionar novo contato ao usuário"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card-header>
+      <mat-card-content class="dadosDoCliente" style="margin-top: 20px">
+        
+      </mat-card-content>      
     </mat-card>
   </div>
 </div>
