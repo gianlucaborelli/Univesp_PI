@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sisgem.main.address.dto.AddressDetailDto;
-import com.sisgem.main.quotedProduct.QuotedProduct;
 import com.sisgem.main.user.dto.UserDetailDto;
 
 import jakarta.persistence.Temporal;
@@ -38,5 +37,5 @@ public class QuotationDetailDto {
 
     private AddressDetailDto address;
 
-    private List<QuotedProduct> quotedProducts;
+    private List<QuotedProductDetailDto> quotedProducts;
 }

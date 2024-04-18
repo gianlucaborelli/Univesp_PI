@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sisgem.main.address.Address;
+import com.sisgem.main.quotation.util.ShippingAddress;
 import com.sisgem.main.quotedProduct.QuotedProduct;
 import com.sisgem.main.user.User;
 
@@ -55,7 +55,7 @@ public class Quotation {
     private User user;
 
     @ManyToOne
-    private Address address; // Mudar para ShippingAddress
+    private ShippingAddress address;
 
     @OneToMany(mappedBy = "quotation")
     private List<QuotedProduct> quotedProducts;

@@ -1,4 +1,4 @@
-package com.sisgem.main.cart.util;
+package com.sisgem.main.quotation.util;
 
 import java.util.UUID;
 
