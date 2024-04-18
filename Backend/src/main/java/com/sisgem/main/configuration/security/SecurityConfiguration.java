@@ -43,7 +43,8 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(WHITE_LIST_URL).permitAll()                        
+                        .requestMatchers(WHITE_LIST_URL).permitAll()  
+                        .requestMatchers("/users/*/set-rule").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(customAuthenticationEntryPoint))                
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

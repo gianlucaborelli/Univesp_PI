@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sisgem.main.user.converter.UserMapper;
+import com.sisgem.main.user.dto.SetUserRoleDto;
 import com.sisgem.main.user.dto.UserDetailDto;
 import com.sisgem.main.user.dto.UserUpdateRequestDto;
+import com.sisgem.main.user.enums.Role;
 
 import jakarta.validation.Valid;
 
@@ -61,6 +63,7 @@ public class UserController {
         if (user == null) {
             return ResponseEntity.badRequest().build();
         }
+        user.setRole(Role.ROLE_USER);
 
         user = repository.save(user);
         return ResponseEntity.ok().body(mapper.toUserDetail(user));
@@ -86,6 +89,14 @@ public class UserController {
 
         userToSave = repository.save(userToSave);
         return ResponseEntity.ok().body(mapper.toUserDetail(userToSave));
+    }
+
+    @PutMapping("/{id}/set-rule")
+    public ResponseEntity<UserDetailDto> setRule(@PathVariable UUID id, @RequestBody SetUserRoleDto role){
+        var userOnDatabase = repository.findById(id).get();
+        userOnDatabase.setRole(Role.fromInt(role.getRole()));
+        repository.save(userOnDatabase);
+        return ResponseEntity.ok().body(mapper.toUserDetail(userOnDatabase));
     }
 
     @DeleteMapping("/{id}")
