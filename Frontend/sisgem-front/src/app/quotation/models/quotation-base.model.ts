@@ -1,6 +1,6 @@
 import { User } from "../../user/models/user.model";
 import { Address } from "../../user/models/address.model";
-import { ProdutoPedido } from "../../products/models/produto-pedido.model";
+import { QuotedProduct } from "../../products/models/quoted-product.model";
 
 export interface QuotationBase {
     id: String;
@@ -8,5 +8,5 @@ export interface QuotationBase {
     dataInicio: String;
     cliente: User;
     endereco: Address;
-    produtosPedidos: ProdutoPedido[];
+    produtosPedidos: QuotedProduct[];
 }

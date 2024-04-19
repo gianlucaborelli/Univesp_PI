@@ -3,9 +3,9 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, map, startWith } from 'rxjs';
-import { AddItemToQuotation } from 'src/app/products/models/add-item-to-quotation.model';
+import { AddItemToQuotation } from 'src/app/quotation/models/add-item-to-quotation.model';
 import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.model';
-import { OrcamentoService } from 'src/app/quotation/service/quotation.service';
+import { QuotationService } from 'src/app/quotation/service/quotation.service';
 import { ProdutoPedidoService } from 'src/app/quotation/service/produto-pedido.service';
 import { AvailableProductService } from 'src/app/products/service/availableProduct.service';
 import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
@@ -38,7 +38,7 @@ export class AddNewProductDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data: any,
     private formBuilder: FormBuilder,
     private produtoPedidoService: ProdutoPedidoService,
-    private orcamentoService: OrcamentoService,
+    private orcamentoService: QuotationService,
     private produtoService: AvailableProductService,
     private _snack: SnackBarService) {
       
@@ -86,7 +86,6 @@ export class AddNewProductDialogComponent implements OnInit {
       
       if (resposta.id == null){
         this.produtoPedidoService.addProduto(this.produtoAddPedido).subscribe((respostaAdd) => {
-          this.orcamentoService.orcamentoUpdate.next(true);
           this.close()
           this._snack.open("Produto adicionado com sucesso");
         });        

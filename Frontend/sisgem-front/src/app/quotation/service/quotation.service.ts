@@ -11,18 +11,17 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class OrcamentoService {
-  public orcamentoUpdate: Subject<boolean>;
+export class QuotationService {
+  baseUrl: String = environment.baseUrl;  
   
-  constructor(private http: HttpClient, private _snack: MatSnackBar) { 
-    this.orcamentoUpdate =new Subject<boolean>();
-  }
+  constructor(
+    private http: HttpClient, 
+    private _snack: MatSnackBar) { 
+  }  
 
-  baseUrl: String = environment.baseUrl;
-
-  findAll(): Observable<QuotationBase[]> {
+  findAll(): Observable<Quotation[]> {
     const url = `${this.baseUrl}/quotation`
-    return this.http.get<QuotationBase[]>(url);
+    return this.http.get<Quotation[]>(url);
   }  
 
   findById(id: String): Observable<Quotation> {
@@ -48,13 +47,5 @@ export class OrcamentoService {
   delete(id: String): Observable<Quotation> {
     const url = `${this.baseUrl}/quotation/${id}`
     return this.http.delete<Quotation>(url)
-  }
-
-  mensagem(str: String): void {
-    this._snack.open(`${str}`, 'OK', {
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-      duration: 3000
-    })
   }
 }

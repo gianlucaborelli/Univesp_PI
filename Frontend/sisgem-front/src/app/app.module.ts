@@ -23,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import {MatSelectModule} from '@angular/material/select';
 
 import { UserDetailComponent } from './user/views/user-detail/user-detail.component';
 import { QuotationDetailComponent } from './quotation/views/quotation-detail/quotation-detail.component';
@@ -57,6 +58,7 @@ import { CartItemCardComponent } from './dashboard/user/component/cart-item-card
 import { ShoppingPageComponent } from './dashboard/user/view/shopping-page/shopping-page.component';
 import { ShoppingItemCardComponent } from './dashboard/user/component/shopping-item-card/shopping-item-card.component';
 import { QuotationSearchComponent } from './quotation/views/quotation-search/quotation-search.component';
+import { SetUserRoleDialogComponent } from './user/components/set-user-role-dialog/set-user-role-dialog.component';
 
 export function initializeDialogService() {
   return () => {
@@ -87,7 +89,8 @@ export function initializeDialogService() {
     AdminDashboardComponent,
     CartItemCardComponent,
     ShoppingPageComponent,
-    ShoppingItemCardComponent
+    ShoppingItemCardComponent,
+    SetUserRoleDialogComponent
 
   ],
 
@@ -97,6 +100,7 @@ export function initializeDialogService() {
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatSelectModule,
     MatListModule,
     MatIconModule,
     MatCardModule,

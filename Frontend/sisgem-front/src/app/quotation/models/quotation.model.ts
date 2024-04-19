@@ -1,13 +1,13 @@
 import { User } from "../../user/models/user.model";
 import { Address } from "../../user/models/address.model";
-import { ProdutoPedido } from "../../products/models/produto-pedido.model";
+import { QuotedProduct } from "../../products/models/quoted-product.model";
 
 export interface Quotation {
-    id?: String;
-    finalDate?: String;
-    initialDate?: String;
-    totalPrice: String;
+    id?: string;
+    finalDate?: string;
+    initialDate?: string;
+    totalPrice: string;
     user?: User | null;
     address?: Address | null;
-    quotedProducts: ProdutoPedido[] | null;
+    quotedProducts: QuotedProduct[] | null;
 }

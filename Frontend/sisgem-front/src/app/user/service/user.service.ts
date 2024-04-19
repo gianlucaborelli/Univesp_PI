@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 import { User } from '../models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
+import { SetUserRuleDto } from '../models/dto/set-user-rule.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,11 @@ export class UserService {
   create(body: User): Observable<User> {
     const url = `${this.baseUrl}/users`;
     return this.http.post<User>(url, body);
+  }
+
+  setRule(userId: string, rule: SetUserRuleDto): Observable<User> {
+    const url = `${this.baseUrl}/users/${userId}/set-rule`
+    return this.http.put<User>(url, rule);
   }
 
   update(body: User): Observable<User> {

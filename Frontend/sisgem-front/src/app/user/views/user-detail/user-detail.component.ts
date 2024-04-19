@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { __await } from 'tslib';
 import { UserDetailDialog } from '../../components/user-detail.dialog/user-detail.dialog.component';
 import { Observable, switchMap, take } from 'rxjs';
+import { SetUserRoleDialogComponent } from '../../components/set-user-role-dialog/set-user-role-dialog.component';
 
 @Component({
   selector: 'app-userdetail',
@@ -53,6 +54,22 @@ export class UserDetailComponent implements OnInit {
         const dialogConfig = new MatDialogConfig();
         const dialogRef = this.dialog.open(UserDetailDialog, dialogConfig);                
         dialogRef.componentInstance.userId = user.id;
+        return dialogRef.afterClosed();
+      })
+    ).subscribe(result => {
+      if (result) {
+        this.service.loadCurrentUser(this.userId);
+      }
+    });
+  }
+
+  openSetRuleDialog() {
+    this.currentUser$!.pipe(
+      take(1),
+      switchMap(user => {
+        const dialogConfig = new MatDialogConfig();
+        const dialogRef = this.dialog.open(SetUserRoleDialogComponent, dialogConfig);
+        dialogRef.componentInstance.userId = user.id;        
         return dialogRef.afterClosed();
       })
     ).subscribe(result => {

@@ -31,7 +31,7 @@ public class QuotationDetailDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "Brazil/East")
     private Date initialDate;
 
-    private BigDecimal valorTotal;
+    private BigDecimal totalPrice;
 
     private UserDetailDto user;
 

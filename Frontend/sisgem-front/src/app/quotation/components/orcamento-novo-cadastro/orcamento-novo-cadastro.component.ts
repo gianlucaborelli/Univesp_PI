@@ -18,13 +18,14 @@ import {
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { AvailableProductService } from 'src/app/products/service/availableProduct.service';
 import { Quotation } from 'src/app/quotation/models/quotation.model';
-import { OrcamentoService } from 'src/app/quotation/service/quotation.service';
+import { QuotationService } from 'src/app/quotation/service/quotation.service';
 import { format } from 'date-fns';
 import { ProdutoPedidoService } from 'src/app/quotation/service/produto-pedido.service';
 import { ProdutoExiste } from 'src/app/products/models/produto-existe.model';
-import { AddItemToQuotation } from 'src/app/products/models/add-item-to-quotation.model';
+import { AddItemToQuotation } from 'src/app/quotation/models/add-item-to-quotation.model';
 import { needConfirmation } from 'src/app/components/decorator/confirm-dialog.decorator';
 import { Router } from '@angular/router';
+import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
 
 @Component({
   selector: 'app-orcamento-novo-cadastro',
@@ -62,11 +63,12 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<OrcamentoNovoCadastroComponent>,
     private router: Router,
+    private _snack: SnackBarService,
     private _formBuilder: FormBuilder,
     private clienteService: UserService,
     private enderecoService: AddressService,
     private produtoService: AvailableProductService,
-    private orcamentoService: OrcamentoService,
+    private orcamentoService: QuotationService,
     private produtoPedidoService: ProdutoPedidoService) {
     this.enderecoDataSource = new MatTableDataSource<Address>();
     this.produtosEmEstoqueDataSource = new MatTableDataSource<ProdutoEmEstoque>();
@@ -291,10 +293,9 @@ export class OrcamentoNovoCadastroComponent implements OnInit {
     }
   }
 
-  salvar() { 
-    this.orcamentoService.orcamentoUpdate.next(true);    
+  salvar() {      
     this.router.navigate(['cadastro-do-orcamento'], { queryParams: { parametro: this.orcamento.id! } })
-    this.orcamentoService.mensagem('Orçamento criado com sucesso!');
+    this._snack.open('Orçamento criado com sucesso!');
     this.dialogRef.close();
   }
 

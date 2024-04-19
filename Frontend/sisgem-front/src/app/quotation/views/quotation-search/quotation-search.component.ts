@@ -9,7 +9,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import 'moment/locale/pt';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OrcamentoNovoCadastroComponent } from '../../components/orcamento-novo-cadastro/orcamento-novo-cadastro.component';
-import { OrcamentoService } from 'src/app/quotation/service/quotation.service';
+import { QuotationService } from 'src/app/quotation/service/quotation.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Quotation } from 'src/app/quotation/models/quotation.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -45,14 +45,14 @@ export class QuotationSearchComponent {
   columnsForProdutosPedidos: string[] = ['name', 'preco', 'quantidade']; 
   expandedElement: Quotation | null | undefined;
 
-  dataSource!: MatTableDataSource<QuotationBase>;
+  dataSource!: MatTableDataSource<Quotation>;
   posts: any;
 
   constructor(
     private _adapter: DateAdapter<any>,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
     private dialog: MatDialog,
-    private service: OrcamentoService,
+    private service: QuotationService,
     private router: Router
   ) {
     this.service.findAll().subscribe((resposta) => {

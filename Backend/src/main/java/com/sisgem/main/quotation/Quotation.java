@@ -49,7 +49,7 @@ public class Quotation {
     private Date initialDate;
 
     @Transient
-    private BigDecimal valorTotal;
+    private BigDecimal totalPrice;
 
     @ManyToOne
     private User user;

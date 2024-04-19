@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Alterar Nível de Acesso</h2>
+
+<mat-dialog-content class="grid-container">
+    <mat-form-field>
+        <mat-select placeholder="Nïvel de acesso" [(value)]="selected">
+            <mat-option *ngFor="let option of rulesKeys" [value]="option">
+                {{rules[option]}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions [align]="'end'">
+    <button
+    (click)="save()"
+      mat-raised-button
+      color="primary"
+      class="mat-raised-button"
+    >
+      Salvar
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      class="mat-raised-button"
+      [mat-dialog-close]="false"
+    >
+      Cancelar
+    </button>
+  </mat-dialog-actions>
+
