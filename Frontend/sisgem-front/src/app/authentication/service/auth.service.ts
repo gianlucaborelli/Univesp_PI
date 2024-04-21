@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenApiModel } from 'src/app/authentication/models/token-api.model';
@@ -8,6 +8,12 @@ import { LoginModel } from 'src/app/authentication/models/login.model';
 import { RegisterModel } from 'src/app/authentication/models/register.model';
 import { UserStoreService } from './user-store.service';
 import { of } from 'rxjs';
+import { RefreshTokenModel } from '../models/refresh-token.model';
+
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -26,25 +32,25 @@ export class AuthService {
     return this.http.post<any>(url, userObj);
   }
 
-  async login(loginObj: LoginModel) {
+  login(loginObj: LoginModel) {
     localStorage.clear();
     const url = `${this.baseUrl}/auth/login`;
+    return this.http.post<any>(url, loginObj);
+  }
 
-    var any = this.http.post<any>(url, loginObj);
+  renewToken(tokenApi: RefreshTokenModel) {    
+    var http = this.http.post<any>(`${this.baseUrl}/auth/refresh-token`, tokenApi, httpOptions)    
+    return http;
+  }
 
-    any.subscribe({
-      next: (res) => {
-        this.storeToken(res.accessToken!);
-        this.storeRefreshToken(res.refreshToken!);
+  registryOnLocalStorage(log: any){
+    this.storeToken(log.accessToken!);
+        this.storeRefreshToken(log.refreshToken!);
         let decodedValue = this.decodedToken();
         this.userStore.storeFullName(decodedValue.name);
         this.userStore.storeEmail(decodedValue.sub);
         this.userStore.storeRole(decodedValue.role);
         this.userStore.storeId(decodedValue.id);
-      },
-    })
-
-    return any
   }
 
   logout() {
@@ -87,9 +93,4 @@ export class AuthService {
     if (this.userPayload)
       return this.userPayload.role;
   }
-
-  renewToken(tokenApi: TokenApiModel) {
-    return this.http.post<any>(`${this.baseUrl}refresh`, tokenApi)
-  }
-
 }

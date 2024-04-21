@@ -32,11 +32,11 @@ export class SignInComponent {
   }
 
   async Login(userName: string, pass: string) {
-    (await this.authService.login({ password: pass, email: userName })).subscribe({
-      next: () => {
-        console.log(this.userStore.getRole())
+    this.authService.login({ password: pass, email: userName }).subscribe({
+      next: (resp) => {
+        this.authService.registryOnLocalStorage(resp);        
         var role = this.userStore.getRole();
-        console.log(this.userStore.getRole())
+        
         if(role == '[ROLE_USER]'){
           this.router.navigate(['home']);
         }else{
