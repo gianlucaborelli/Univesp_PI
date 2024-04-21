@@ -12,10 +12,11 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.sisgem.main.user.User;
 
 @Service
-public class TokenService {
-    
+public class TokenService {    
     @Value("${api.security.token.secret}")
     private String secret;
+
+    private static long tokenExpire = 30;
 
     public String gerarToken(User usuario) {
         return JWT.create()
@@ -24,7 +25,7 @@ public class TokenService {
                 .withClaim("id", usuario.getId().toString())
                 .withClaim("role", usuario.getAuthorities().toString())
                 .withClaim("name", usuario.getName())                
-                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(30)))
+                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(tokenExpire)))
                 .sign(Algorithm.HMAC256(secret));
     }
 

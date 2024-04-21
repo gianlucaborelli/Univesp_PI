@@ -1,14 +1,11 @@
 package com.sisgem.main.authentication.dto;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Builder
-@Getter
-@Setter
-public class LoginResultDto {
-
+@Data
+public class RefreshTokenResultDto {
     private String accessToken;
     private String refreshToken;
 }

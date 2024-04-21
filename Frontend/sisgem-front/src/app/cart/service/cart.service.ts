@@ -63,7 +63,13 @@ export class CartService {
         console.log(err)
       });
     }
-  }  
+  }
+
+  getCart(): Observable<Cart> {
+    return this.cart$.pipe(
+      map(cart => cart)
+    );
+  }
 
   getItems(): Observable<CartItem[]> {
     return this.cart$.pipe(

@@ -11,13 +11,9 @@ import { AvailableProductService } from 'src/app/products/service/availableProdu
 export class ShoppingPageComponent {
   availableProducts$: Observable<ProdutoEmEstoque[]> | undefined;
 
-
   constructor(
     private productService: AvailableProductService
   ){
     this.availableProducts$ = this.productService.getAvailableProducts()
   }
-
-
-
 }

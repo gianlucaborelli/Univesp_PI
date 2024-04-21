@@ -11,6 +11,7 @@ import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin
 import { ShoppingPageComponent } from './dashboard/user/view/shopping-page/shopping-page.component';
 import { QuotationSearchComponent } from './quotation/views/quotation-search/quotation-search.component';
 import { QuotationDetailComponent } from './quotation/views/quotation-detail/quotation-detail.component';
+import { FinalizerShoppingCartComponent } from './dashboard/user/view/finalizer-shopping-cart/finalizer-shopping-cart.component';
 
 const routes: Routes = [
   {
@@ -77,6 +78,11 @@ const routes: Routes = [
       {
         path: 'shopping',
         component: ShoppingPageComponent,
+        canActivate: [AuthGuard],        
+      },
+      {
+        path: 'cart',
+        component: FinalizerShoppingCartComponent,
         canActivate: [AuthGuard],        
       },
     ]

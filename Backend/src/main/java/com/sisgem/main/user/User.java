@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sisgem.main.address.Address;
+import com.sisgem.main.authentication.RefreshToken;
 import com.sisgem.main.user.enums.Role;
 
 import jakarta.persistence.Column;
@@ -19,6 +20,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -53,6 +55,9 @@ public class User implements UserDetails {
     private String email; // Email
 
     private Role role;
+
+    @OneToOne(mappedBy = "user")
+    private RefreshToken refreshToken;
 
     @Column(nullable = true)
     private String obs;

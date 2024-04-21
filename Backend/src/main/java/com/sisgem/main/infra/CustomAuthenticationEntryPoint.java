@@ -46,4 +46,5 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                 "Internal Server Error : " + exception.getMessage());
     }
+    
 }

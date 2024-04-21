@@ -75,4 +75,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setProperty("TimeStamp", Instant.now());
         return problemDetail;
     }
+
+    @ExceptionHandler(RefreshTokenNotFoundException.class)
+    public ProblemDetail handleRefreshTokenNotFoundException(RefreshTokenNotFoundException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.getLocalizedMessage());
+        problemDetail.setTitle("Token Invalido.");
+        problemDetail.setDetail(e.getMessage());
+        problemDetail.setProperty("Categoria", "Authentication");
+        problemDetail.setProperty("TimeStamp", Instant.now());
+        return problemDetail;
+    }
+
+    @ExceptionHandler(RefreshTokenExpiredException.class)
+    public ProblemDetail handleRefreshTokenExpiredException(RefreshTokenExpiredException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.getLocalizedMessage());
+        problemDetail.setTitle("Token Invalido.");
+        problemDetail.setDetail(e.getMessage());
+        problemDetail.setProperty("Categoria", "Authentication");
+        problemDetail.setProperty("TimeStamp", Instant.now());
+        return problemDetail;
+    }
 }

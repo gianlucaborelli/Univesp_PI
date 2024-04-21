@@ -59,6 +59,7 @@ import { ShoppingPageComponent } from './dashboard/user/view/shopping-page/shopp
 import { ShoppingItemCardComponent } from './dashboard/user/component/shopping-item-card/shopping-item-card.component';
 import { QuotationSearchComponent } from './quotation/views/quotation-search/quotation-search.component';
 import { SetUserRoleDialogComponent } from './user/components/set-user-role-dialog/set-user-role-dialog.component';
+import { FinalizerShoppingCartComponent } from './dashboard/user/view/finalizer-shopping-cart/finalizer-shopping-cart.component';
 
 export function initializeDialogService() {
   return () => {
@@ -90,7 +91,8 @@ export function initializeDialogService() {
     CartItemCardComponent,
     ShoppingPageComponent,
     ShoppingItemCardComponent,
-    SetUserRoleDialogComponent
+    SetUserRoleDialogComponent,
+    FinalizerShoppingCartComponent,
 
   ],
 
