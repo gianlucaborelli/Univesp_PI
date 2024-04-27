@@ -11,7 +11,7 @@ initConfigurations() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Get.lazyPut<AuthService>(() => AuthService());
-  Get.lazyPut<ThemeController>(() => ThemeController());
+  //Get.lazyPut<ThemeController>(() => ThemeController());
   Get.lazyPut<UserSettingsService>(() => UserSettingsService());
   Get.lazyPut<UserService>(() => UserService());
   Get.lazyPut<UsersController>(() => UsersController());

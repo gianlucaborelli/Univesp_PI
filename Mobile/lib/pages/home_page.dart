@@ -7,7 +7,7 @@ import 'package:sisgem_app/widgets/navbar.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final bool isAdmin = AuthService.to.user?.role == 'ROLE_ADMIN';
+  final bool isAdmin = AuthService.to.user?.role == '[ROLE_ADMIN]';
 
   @override
   Widget build(BuildContext context) {

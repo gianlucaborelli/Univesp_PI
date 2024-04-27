@@ -64,6 +64,8 @@ class AuthService extends GetxController {
       'password': password
     };
 
+    TokenSecureStore().deleteTokens();
+
     try {
       var response = await _dio.post(WebServiceUrl.login, data: loginData);
 

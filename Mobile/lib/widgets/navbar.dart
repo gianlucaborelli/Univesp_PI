@@ -16,7 +16,7 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   final controller = Get.put(AuthenticationController());
 
-  final ThemeController themeController = ThemeController.to;
+  //final ThemeController themeController = ThemeController.to;
 
   @override
   Widget build(BuildContext context) {
@@ -96,35 +96,35 @@ class _NavBarState extends State<NavBar> {
                 padding: const EdgeInsets.fromLTRB(15, 0, 50, 0),
                 child: const Text('Tema'),
               ),
-              SegmentedButton(
-                showSelectedIcon: false,
-                segments: const <ButtonSegment<ThemeModes>>[
-                  ButtonSegment(
-                    value: ThemeModes.light,
-                    icon: Icon(Icons.light_mode_outlined),
-                  ),
-                  ButtonSegment(
-                    value: ThemeModes.dark,
-                    icon: Icon(Icons.dark_mode_outlined),
-                  ),
-                  ButtonSegment(
-                    value: ThemeModes.system,
-                    icon: Icon(Icons.terminal_outlined),
-                  ),
-                ],
-                selected: {ThemeController.to.themeSelected},
-                onSelectionChanged: (Set<ThemeModes> newSelection) {
-                  setState(
-                    () {
-                      themeController.changeTheme(newSelection.first);
-                    },
-                  );
-                },
-                style: const ButtonStyle(
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-                ),
-              ),
+              // SegmentedButton(
+              //   showSelectedIcon: false,
+              //   segments: const <ButtonSegment<ThemeModes>>[
+              //     ButtonSegment(
+              //       value: ThemeModes.light,
+              //       icon: Icon(Icons.light_mode_outlined),
+              //     ),
+              //     ButtonSegment(
+              //       value: ThemeModes.dark,
+              //       icon: Icon(Icons.dark_mode_outlined),
+              //     ),
+              //     ButtonSegment(
+              //       value: ThemeModes.system,
+              //       icon: Icon(Icons.terminal_outlined),
+              //     ),
+              //   ],
+              //   selected: {ThemeController.to.themeSelected},
+              //   onSelectionChanged: (Set<ThemeModes> newSelection) {
+              //     setState(
+              //       () {
+              //         //themeController.changeTheme(newSelection.first);
+              //       },
+              //     );
+              //   },
+              //   style: const ButtonStyle(
+              //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //     visualDensity: VisualDensity(horizontal: -4, vertical: -4),
+              //   ),
+              // ),
             ],
           ),
         ],
