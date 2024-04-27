@@ -1,32 +1,30 @@
 package com.sisgem.main;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.sisgem.main.address.AddressService;
 import com.sisgem.main.address.dto.AutoCompleteAddressResponse;
-import com.sisgem.main.authentication.dto.RegisterUserRequestDto;
 
-@SpringBootTest
-class MainApplicationTests {
+public class AddressServiceTest {
 
-	@Test
-	void contextLoads() {
+    @Test
+	public void contextLoads() {
 	}
 
     /**
 	 Testando aplicação para validação de CEP
      foram usados três CEP válidos:
-     1) Secretaria de Saúde de Ribeirão Preto
-     2) Polo Univesp Ribeirão Preto
-     3) Polo Univesp Sertãozinho
+     1) Secretaria de Saúde de Ribeirão Preto (CEP 14015-100)
+     2) Polo Univesp Ribeirão Preto (CEP 14010-080)
+     3) Polo Univesp Sertãozinho (CEP 14010-080)
 	 */
 	@Test
-    void testFindByCep() {
+    @DisplayName("Testando a função FindByCep que verifica se o CEP digitado é válido.")
+    public void testFindByCep() {
         // Criar uma instância de AddressService
         AddressService addressService = new AddressService();
 
@@ -58,20 +56,6 @@ class MainApplicationTests {
         assertEquals("14010-080", univespsertaozinho.getCep());
 
     }
-
-	/**
-	 Testando registro de um novo usuário, foi usuado um e-mail válido,
-     o e-mail institucional Univesp, e uma senha fictícia.
-	 */
-	@Test
-    void testRegisterUser() {
-        // Criar um objeto RegisterUserRequestDto para simular um novo usuário
-        RegisterUserRequestDto newUser = new RegisterUserRequestDto();
-        newUser.setEmail("2107644@aluno.univesp.br");
-        newUser.setPassword("minha_senha_secreta");
-
-    }
-
 
 
 }
