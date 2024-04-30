@@ -18,16 +18,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@Table(name = "CART_ITEM")
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "CART_ITEM")
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,4 +47,10 @@ public class CartItem {
     @JoinColumn(name = "cart_id")
     @JsonBackReference    
     private Cart cart;   
+
+    public BigDecimal getPrice(){
+        BigDecimal totalTemp = BigDecimal.ZERO;
+        totalTemp = product.getPrice().multiply(BigDecimal.valueOf(amount));
+        return totalTemp;
+    }
 }
