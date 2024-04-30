@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Endereços para Entrega</h2>
+
+
+<mat-dialog-content>
+    <div class="mat-elevation-z1 itens-card">
+        <table class="table" mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="street">
+            <th mat-header-cell *matHeaderCellDef>RUA</th>
+            <td mat-cell *matCellDef="let row">{{ row.street }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="number">
+            <th mat-header-cell *matHeaderCellDef>NÚMERO</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.number }}
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="district">
+            <th mat-header-cell *matHeaderCellDef>BAIRRO</th>
+            <td mat-cell *matCellDef="let row">{{ row.district }}</td>
+          </ng-container>
+  
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef>CIDADE</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.city }}
+            </td>
+          </ng-container>  
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectedAddress(row.id)"></tr>
+        </table>
+      </div>
+</mat-dialog-content>
+
+
+
+<mat-dialog-actions [align]="'end'">  
+  <button
+    mat-raised-button
+    color="warn"
+    class="mat-raised-button"
+    [mat-dialog-close]="false"
+  >
+    Cancelar
+  </button>
+</mat-dialog-actions>

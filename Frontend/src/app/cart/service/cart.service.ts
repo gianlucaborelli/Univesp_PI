@@ -146,6 +146,19 @@ export class CartService {
     });
   }
 
+  setAddressToShipping(addressId: string) {  
+    const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}/address/${addressId}`;
+    this.http.put<Cart>(url, {}).subscribe({
+      next: (resposta) => {
+        this.setShoppingCart(resposta);
+        this.loadUserCart();
+      },
+      error: () => {
+        console.error('Shopping cart data could not be loaded.');
+      }
+    });
+  }
+
   deleteItemFromCart(itemId: string) {  
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}/item/${itemId}`;
     this.http.delete<Cart>(url).subscribe({

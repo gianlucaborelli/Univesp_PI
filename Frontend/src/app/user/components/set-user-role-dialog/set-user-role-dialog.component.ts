@@ -23,13 +23,10 @@ export class SetUserRoleDialogComponent {
 
     this.dialogRef.disableClose = true;
     this.dialogRef.updateSize("20%");
-    console.log(this.rulesKeys);
   }
 
 
   save() {
-    console.log(this.selected);
-    console.log(this.userId)
     this.service.setRule(this.userId!, { rule: this.selected! }).subscribe({
       next: () => {
         this._snack.open('Nivel de Acesso atualizado com sucesso!');

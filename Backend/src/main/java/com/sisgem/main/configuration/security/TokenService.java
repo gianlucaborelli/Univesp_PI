@@ -16,7 +16,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    private static long tokenExpire = 30;
+    private static long tokenExpireInMinutes = 60;
 
     public String gerarToken(User usuario) {
         return JWT.create()
@@ -25,7 +25,7 @@ public class TokenService {
                 .withClaim("id", usuario.getId().toString())
                 .withClaim("role", usuario.getAuthorities().toString())
                 .withClaim("name", usuario.getName())                
-                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(tokenExpire)))
+                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(tokenExpireInMinutes)))
                 .sign(Algorithm.HMAC256(secret));
     }
 

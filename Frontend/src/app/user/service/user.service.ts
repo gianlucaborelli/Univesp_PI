@@ -5,6 +5,7 @@ import { User } from '../models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 import { SetUserRuleDto } from '../models/dto/set-user-rule.model';
+import { Address } from '../models/address.model';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,11 @@ export class UserService {
   findById(id: String): Observable<User> {
     const url = `${this.baseUrl}/users/${id}`
     return this.http.get<User>(url);
+  }
+
+  getAllAddress(id: String): Observable<Address[]> {
+    const url = `${this.baseUrl}/users/${id}/address`
+    return this.http.get<Address[]>(url);
   }
 
   create(body: User): Observable<User> {

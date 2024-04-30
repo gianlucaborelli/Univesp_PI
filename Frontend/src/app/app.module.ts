@@ -60,6 +60,8 @@ import { ShoppingItemCardComponent } from './dashboard/user/component/shopping-i
 import { QuotationSearchComponent } from './quotation/views/quotation-search/quotation-search.component';
 import { SetUserRoleDialogComponent } from './user/components/set-user-role-dialog/set-user-role-dialog.component';
 import { FinalizerShoppingCartComponent } from './dashboard/user/view/finalizer-shopping-cart/finalizer-shopping-cart.component';
+import { SelectShippingAddressComponent } from './dashboard/user/component/select-shipping-address/select-shipping-address.component';
+
 
 export function initializeDialogService() {
   return () => {
@@ -93,6 +95,7 @@ export function initializeDialogService() {
     ShoppingItemCardComponent,
     SetUserRoleDialogComponent,
     FinalizerShoppingCartComponent,
+    SelectShippingAddressComponent
 
   ],
 

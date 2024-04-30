@@ -1,0 +1,44 @@
+@use "@angular/material" as mat;
+
+@include mat.fab-density(-5);
+@include mat.icon-density(-5);
+
+.finalizer-content {
+  display: grid;
+  gap: 20px;
+  grid-template-areas:
+    "itens address"
+    "itens price";
+}
+
+.address-container{
+  margin: 20px;
+}
+
+.price-content{
+  margin: 30px;
+  font-size: xx-large;
+}
+
+.address-not-selected-error{
+    display: flex;
+    margin: 20px;      
+    justify-content: center;  
+}
+
+mat-card-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+.itens-card {
+  grid-area: itens;
+}
+
+.address-card {
+  grid-area: address;
+}
+
+.total-price-card {
+  grid-area: price;
+}
