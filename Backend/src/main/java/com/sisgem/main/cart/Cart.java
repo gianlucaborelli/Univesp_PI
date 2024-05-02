@@ -8,7 +8,6 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sisgem.main.address.Address;
 import com.sisgem.main.cart.exceptions.InvalidDateRangeException;
-import com.sisgem.main.cartItem.CartItem;
 import com.sisgem.main.user.User;
 
 import jakarta.persistence.CascadeType;

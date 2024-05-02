@@ -1,10 +1,9 @@
-package com.sisgem.main.cartItem;
+package com.sisgem.main.cart;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.sisgem.main.cart.Cart;
 import com.sisgem.main.product.Product;
 
 import jakarta.persistence.Column;

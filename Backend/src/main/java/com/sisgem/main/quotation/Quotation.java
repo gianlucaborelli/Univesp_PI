@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sisgem.main.quotation.enums.QuotationStatusEnum;
+import com.sisgem.main.quotation.util.QuotedProduct;
 import com.sisgem.main.quotation.util.ShippingAddress;
 import com.sisgem.main.user.User;
 

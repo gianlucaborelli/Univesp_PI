@@ -1,4 +1,4 @@
-package com.sisgem.main.cartItem.dto;
+package com.sisgem.main.cart.dto;
 
 import java.util.UUID;
 

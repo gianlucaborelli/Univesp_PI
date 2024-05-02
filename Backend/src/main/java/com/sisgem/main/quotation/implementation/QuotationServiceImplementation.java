@@ -12,11 +12,11 @@ import com.sisgem.main.authentication.AuthenticationService;
 import com.sisgem.main.cart.Cart;
 import com.sisgem.main.infra.exceptions.ResourceNotFound;
 import com.sisgem.main.quotation.Quotation;
-import com.sisgem.main.quotation.QuotationRepository;
 import com.sisgem.main.quotation.QuotationService;
 import com.sisgem.main.quotation.converter.QuotationMapper;
 import com.sisgem.main.quotation.dto.QuotationDetailDto;
 import com.sisgem.main.quotation.enums.QuotationStatusEnum;
+import com.sisgem.main.quotation.repository.QuotationRepository;
 
 @Service
 @Scope("prototype")

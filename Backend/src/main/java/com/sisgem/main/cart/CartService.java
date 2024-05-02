@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.springframework.lang.NonNull;
 
-import com.sisgem.main.cartItem.dto.AddCartItemDtoRequest;
+import com.sisgem.main.cart.dto.AddCartItemDtoRequest;
 import com.sisgem.main.cart.dto.CartDetailDto;
 import com.sisgem.main.infra.exceptions.ResourceNotFound;
 import com.sisgem.main.user.User;

@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 
 import com.sisgem.main.address.Address;
 import com.sisgem.main.cart.Cart;
-import com.sisgem.main.cartItem.CartItem;
+import com.sisgem.main.cart.CartItem;
 import com.sisgem.main.quotation.Quotation;
-import com.sisgem.main.quotation.QuotedProduct;
 import com.sisgem.main.quotation.dto.QuotationDetailDto;
 import com.sisgem.main.quotation.enums.QuotationStatusEnum;
+import com.sisgem.main.quotation.util.QuotedProduct;
 import com.sisgem.main.quotation.util.ShippingAddress;
 
 import lombok.RequiredArgsConstructor;

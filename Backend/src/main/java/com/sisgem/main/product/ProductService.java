@@ -13,8 +13,8 @@ import com.sisgem.main.product.dto.ProductStockDto;
 import com.sisgem.main.product.exceptions.InsufficientStockException;
 import com.sisgem.main.product.exceptions.ProductNotFoundException;
 import com.sisgem.main.quotation.Quotation;
-import com.sisgem.main.quotation.QuotationRepository;
-import com.sisgem.main.quotation.QuotedProduct;
+import com.sisgem.main.quotation.repository.QuotationRepository;
+import com.sisgem.main.quotation.util.QuotedProduct;
 
 @Service
 public class ProductService {

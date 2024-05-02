@@ -1,7 +1,9 @@
-package com.sisgem.main.quotation;
+package com.sisgem.main.quotation.util;
 
 import java.math.BigDecimal;
 import java.util.UUID;
+
+import com.sisgem.main.quotation.Quotation;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
