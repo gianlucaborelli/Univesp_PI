@@ -3,8 +3,6 @@ package com.sisgem.main.cartItem;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sisgem.main.cart.Cart;
 import com.sisgem.main.product.Product;

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.sisgem.main.cart.exceptions.InvalidDateRangeException;
 import com.sisgem.main.infra.exceptions.*;
 import com.sisgem.main.product.exceptions.InsufficientStockException;
 import com.sisgem.main.product.exceptions.ProductNotFoundException;
@@ -44,17 +43,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setProperty("Categoria", "Usuário");
         problemDetail.setProperty("TimeStamp", Instant.now());
         return problemDetail;
-    }
-
-    @ExceptionHandler(InvalidDateRangeException.class)
-    public ProblemDetail handleInvalidDateRangeException(InvalidDateRangeException e) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getLocalizedMessage());
-        problemDetail.setTitle("Intervalo de datas inválido.");
-        problemDetail.setDetail(e.getMessage());
-        problemDetail.setProperty("Categoria", "Carrinho de Orçamento");
-        problemDetail.setProperty("TimeStamp", Instant.now());
-        return problemDetail;
-    }
+    }    
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ProblemDetail handleProductNotFoundException(ProductNotFoundException e) {

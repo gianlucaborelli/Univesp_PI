@@ -40,6 +40,16 @@ public class AuthenticationService implements UserDetailsService{
         return ((User) principal).getRole();
     }
 
+    public boolean currentUserIsAdmin(){
+        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();        
+        return ((User) principal).getRole() == Role.ROLE_ADMIN;
+    }
+
+    public boolean currentUserIsNotAdmin(){
+               
+        return !currentUserIsAdmin();
+    }
+
     public User registerUser(RegisterUserRequestDto newUser) throws UserAlreadyExistException {
         var isPresent = userRepository.findByEmail(newUser.getEmail()).isPresent();
 

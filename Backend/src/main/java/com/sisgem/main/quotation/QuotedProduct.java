@@ -1,11 +1,7 @@
-package com.sisgem.main.quotedProduct;
+package com.sisgem.main.quotation;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.sisgem.main.product.Product;
-import com.sisgem.main.quotation.Quotation;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,11 +10,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class QuotedProduct {
     @Id
@@ -29,14 +31,18 @@ public class QuotedProduct {
     private Integer amount;
 
     @Column(nullable = false)
-    private BigDecimal price;
+    private UUID productId;
 
-    @ManyToOne 
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;    
+    @Column(nullable = false)
+    private BigDecimal unitPrice;
+
+    @Column(nullable = false)
+    private String productName;
+
+    @Column(nullable = false)
+    private BigDecimal totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "quotation_id")
-    @JsonBackReference    
-    private Quotation quotation;    
+    @JoinColumn(name = "quotation_id", referencedColumnName = "id")
+    private Quotation quotation;
 }

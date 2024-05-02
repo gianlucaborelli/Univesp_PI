@@ -1,16 +1,25 @@
 package com.sisgem.main.quotation;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.sisgem.main.cart.Cart;
+import com.sisgem.main.infra.exceptions.ResourceNotFound;
+import com.sisgem.main.quotation.dto.QuotationDetailDto;
 
-@Service
-public class QuotationService {
-    @Autowired
-    private QuotationRepository repository;
+public interface QuotationService {
+    List<QuotationDetailDto> findAll();
 
-    public List<Quotation> findAll(){
-        return repository.findAll();
-    }
+    QuotationDetailDto findById(UUID quotationId);
+
+    List<QuotationDetailDto> findAllByUserId(UUID userId);
+
+    List<QuotationDetailDto> findByIntervalOfDate(Date initialDate, Date finalDate);
+
+    QuotationDetailDto CreateQuotationByCart(Cart cart ) throws ResourceNotFound;
+
+    QuotationDetailDto ChangeQuotationStatusById(UUID quotationId, int status) throws ResourceNotFound;
+
+    void deleteQuotationById(UUID id);
 }

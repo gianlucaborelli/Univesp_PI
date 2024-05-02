@@ -9,6 +9,7 @@ import org.springframework.lang.NonNull;
 import com.sisgem.main.cartItem.dto.AddCartItemDtoRequest;
 import com.sisgem.main.cart.dto.CartDetailDto;
 import com.sisgem.main.infra.exceptions.ResourceNotFound;
+import com.sisgem.main.user.User;
 
 public interface CartService {
 
@@ -16,21 +17,25 @@ public interface CartService {
 
     public CartDetailDto findByUserId(UUID userId) throws ResourceNotFound;
 
-    public Cart findById(@NonNull UUID quotationCartId) throws ResourceNotFound;
+    public Cart findById(@NonNull UUID cartId) throws ResourceNotFound;
 
     public CartDetailDto loadCartByUser(@NonNull UUID userId) throws ResourceNotFound;
 
-    public void deleteCart(@NonNull UUID quotationCartId) throws ResourceNotFound;
+    public void deleteCart(@NonNull UUID cartId) throws ResourceNotFound;
 
-    public CartDetailDto setShippingAddress(@NonNull UUID quotationId, @NonNull UUID addressId)
+    public void deleteCartByUser(User user);
+
+    public CartDetailDto setShippingAddress(@NonNull UUID cartId, @NonNull UUID addressId)
             throws ResourceNotFound;
 
     public CartDetailDto setIntervalOfDate(Date initialDate, Date finalDate,
             @NonNull UUID quotationCartId);
 
     public CartDetailDto addOrUpdateItemToCart(
-            @NonNull UUID cartId, 
+            @NonNull UUID cartId,
             AddCartItemDtoRequest request);
+
+    public boolean finalizerCart(UUID cartId) throws ResourceNotFound;
 
     public CartDetailDto deleteItemToCart(@NonNull UUID cartItemId, @NonNull UUID cartId);
 }

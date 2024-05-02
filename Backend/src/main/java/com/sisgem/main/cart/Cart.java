@@ -7,9 +7,11 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sisgem.main.address.Address;
+import com.sisgem.main.cart.exceptions.InvalidDateRangeException;
 import com.sisgem.main.cartItem.CartItem;
 import com.sisgem.main.user.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -62,24 +64,57 @@ public class Cart {
     @Transient
     private BigDecimal totalPrice;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItens;
 
-    public void setQuotedProductsCart(CartItem item){
+    public void addItemOnCart(CartItem item) {
         cartItens.add(item);
     }
-    
+
     public BigDecimal getTotalPrice() {
         BigDecimal totalTemp = BigDecimal.ZERO;
 
-        for(CartItem item: cartItens){
+        if(cartItens.isEmpty()){
+            return totalTemp;
+        }
+
+        for (CartItem item : cartItens) {
             totalTemp = totalTemp.add(item.getPrice());
         }
 
         return totalTemp;
     }
 
-    public void deleteAllCartItem(){
+    public void deleteAllCartItem() {
         cartItens.removeAll(cartItens);
+    }
+
+    public boolean isValid() {
+        if (user == null || shippingAddress == null || cartItens.isEmpty() || !intervalOfDateIsValid()) {
+            return false;
+        }
+        return true;
+    }
+
+    public void setIntervalOfDate(Date initialDate, Date finalDate) {
+        validateIntervalOfDate(initialDate, finalDate);
+        this.initialDate = initialDate;
+        this.finalDate = finalDate;
+
+    }
+
+    public boolean intervalOfDateIsValid(){
+        validateIntervalOfDate(initialDate, finalDate);
+        return true;
+    }
+
+    private void validateIntervalOfDate(Date initialDate, Date finalDate) {
+        if (initialDate.equals(null) || finalDate.equals(null)) {
+            throw new InvalidDateRangeException();
+        }
+
+        if (initialDate.after(finalDate)) {
+            throw new InvalidDateRangeException(initialDate, finalDate);
+        }
     }
 }

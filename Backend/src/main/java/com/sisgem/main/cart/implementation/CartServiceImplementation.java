@@ -15,17 +15,18 @@ import com.sisgem.main.cartItem.CartItemRepository;
 import com.sisgem.main.cartItem.dto.AddCartItemDtoRequest;
 import com.sisgem.main.address.Address;
 import com.sisgem.main.address.AddressService;
+import com.sisgem.main.authentication.AuthenticationService;
 import com.sisgem.main.cart.Cart;
 import com.sisgem.main.cart.CartRepository;
 import com.sisgem.main.cart.CartService;
 import com.sisgem.main.cart.converter.CartMapper;
 import com.sisgem.main.cart.dto.CartDetailDto;
 import com.sisgem.main.cart.exceptions.CartNotFoundException;
-import com.sisgem.main.cart.exceptions.InvalidDateRangeException;
 import com.sisgem.main.cart.exceptions.UserCartNotFoundException;
 import com.sisgem.main.infra.exceptions.ResourceNotFound;
 import com.sisgem.main.product.Product;
 import com.sisgem.main.product.ProductService;
+import com.sisgem.main.quotation.QuotationService;
 import com.sisgem.main.user.User;
 import com.sisgem.main.user.UserRepository;
 
@@ -36,6 +37,8 @@ public class CartServiceImplementation implements CartService {
     @Autowired
     private CartRepository cartRepository;
     @Autowired
+    private AuthenticationService authService;
+    @Autowired
     private AddressService addressService;
     @Autowired
     private UserRepository userRepository;
@@ -43,6 +46,8 @@ public class CartServiceImplementation implements CartService {
     private CartMapper mapper;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private QuotationService quotationService;
     @Autowired
     private CartItemRepository cartItemRepository;
 
@@ -106,25 +111,13 @@ public class CartServiceImplementation implements CartService {
         cart.setShippingAddress(address);
         cart = cartRepository.save(cart);
         return mapper.toCartDetail(cart);
-    }
-
-    private void validateIntervalOfDate (Date initialDate, Date finalDate){
-        if(initialDate.equals(null) || finalDate.equals(null)){
-            throw new  InvalidDateRangeException();
-        }
-
-        if (initialDate.after(finalDate)) {
-            throw new InvalidDateRangeException(initialDate, finalDate);
-        }
-    }
+    }    
 
     @Override
     public CartDetailDto setIntervalOfDate(
             Date initialDate,
             Date finalDate,
-            @NonNull UUID cartId){
-
-        validateIntervalOfDate(initialDate, finalDate);        
+            @NonNull UUID cartId){           
 
         Cart cart = findById(cartId);
 
@@ -134,9 +127,8 @@ public class CartServiceImplementation implements CartService {
             }
             cart.deleteAllCartItem();
         }
+        cart.setIntervalOfDate(initialDate, finalDate);
 
-        cart.setInitialDate(initialDate);
-        cart.setFinalDate(finalDate);
         cart = cartRepository.save(cart);
 
         return mapper.toCartDetail(cart);
@@ -147,8 +139,8 @@ public class CartServiceImplementation implements CartService {
 
         Cart cart = findById(cartId);        
 
-        validateIntervalOfDate(cart.getInitialDate(), cart.getFinalDate());
-
+        cart.intervalOfDateIsValid();
+        
         CartItem cartItem = cart.getCartItens()
                 .stream()
                 .filter(cartItens -> cartItens.getProduct().getId().equals(itemToAdd.productId()))
@@ -171,7 +163,7 @@ public class CartServiceImplementation implements CartService {
         }else{
 
             if(itemToAdd.amount() == 0){
-                deleteItemToCart(cartItem.getId(), cartId);                
+                deleteItemToCart(cartItem);                
             }else{
                 cartItem.setAmount(itemToAdd.amount());
                 cartItemRepository.save(cartItem);
@@ -182,8 +174,36 @@ public class CartServiceImplementation implements CartService {
     }
 
     @Override
+    public boolean finalizerCart(UUID cartId) throws ResourceNotFound{
+        var userId = authService.getCurrentUserId();
+        Cart cartToFinalizer = cartRepository.findByUserId(userId)
+                .orElseThrow(() -> new UserCartNotFoundException(userId));
+
+        if (!cartToFinalizer.isValid()){
+            return false;
+        }
+
+        quotationService.CreateQuotationByCart(cartToFinalizer);
+
+        deleteCart(cartId);
+
+        loadCartByUser(cartToFinalizer.getUser().getId());
+
+        return true;
+    }
+    
+    private void deleteItemToCart(CartItem cartItem) {
+        cartItemRepository.delete(cartItem);        
+    }
+
+    @Override
     public CartDetailDto deleteItemToCart(@NonNull UUID cartItemId, @NonNull UUID cartId) {
         cartItemRepository.deleteById(cartItemId);
         return mapper.toCartDetail(cartRepository.findById(cartId).get());
+    }
+
+    @Override
+    public void deleteCartByUser(User user) {
+        cartRepository.deleteByUser(user);        
     }
 }

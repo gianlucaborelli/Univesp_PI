@@ -3,8 +3,6 @@ package com.sisgem.main.quotation.dto;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import com.sisgem.main.product.Product;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,9 +13,13 @@ public class QuotedProductDetailDto {
 
     private Integer amount;
 
-    private BigDecimal price;
+    private UUID productId;
 
-    private Product product;   
+    private BigDecimal unitPrice;
+
+    private String productName;
+
+    private BigDecimal totalPrice; 
 
     private UUID quotationId;  
 }

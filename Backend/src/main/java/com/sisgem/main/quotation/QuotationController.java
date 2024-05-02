@@ -1,88 +1,59 @@
 package com.sisgem.main.quotation;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sisgem.main.quotation.converter.QuotationMapper;
+import com.sisgem.main.infra.exceptions.ResourceNotFound;
 import com.sisgem.main.quotation.dto.QuotationDetailDto;
+import com.sisgem.main.quotation.dto.SetStatusRequest;
 
 @RestController
-@RequestMapping("/quotation")
+@RequestMapping
 public class QuotationController {
-
     @Autowired
-    private QuotationRepository quotationRepository;
+    private QuotationService quotationService;
 
-    @Autowired
-    private QuotationMapper mapper;
-
-    @GetMapping
-    public List<QuotationDetailDto> listAll() {
-
-        return mapper.toQuotationDetailList(quotationRepository.findAll());
+    @GetMapping("/quotations")
+    public ResponseEntity<List<QuotationDetailDto>> listAll() {
+        return ResponseEntity.ok(quotationService.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<QuotationDetailDto> list(
+    @GetMapping("/quotations/{id}")
+    public ResponseEntity<QuotationDetailDto> findById(
             @NonNull @PathVariable UUID id) {
 
-        return ResponseEntity.ok(mapper.toQuotationDetail(quotationRepository.findById(id).get()));
-    }
+        return ResponseEntity.ok(quotationService.findById(id));
+    }    
 
-    @GetMapping("/intervaloDeDatas")
-    public List<Quotation> buscarPorIntervaloDeDatas(
-            @RequestParam("initialDate") Date initialDate,
-            @RequestParam("finalDate") Date finalDate) {
-
-        return quotationRepository.findByIntervalOfDates(initialDate, finalDate);
-    }
-
-    @GetMapping("/cliente/{id}")
-    public List<Quotation> listarPorCliente(
+    @GetMapping("/users/{userId}/quotations/{id}")
+    public ResponseEntity<List<QuotationDetailDto>> findByUserId(
             @PathVariable UUID id) {
+        return ResponseEntity.ok(quotationService.findAllByUserId(id));
+    }    
 
-        return quotationRepository.findAllByUserId(id);
+    @PutMapping("quotations/{id}/status")
+    public ResponseEntity<QuotationDetailDto> setQuotationStatus(
+            @PathVariable UUID id, 
+            @RequestBody @NonNull SetStatusRequest request) throws ResourceNotFound{                                
+
+        return ResponseEntity.ok(quotationService.ChangeQuotationStatusById(id, request.getStatusCode()));
     }
 
-    @PostMapping
-    public ResponseEntity<Quotation> salvar(
-            @NonNull @RequestBody Quotation orcamento) {
-
-        Quotation orcamentoSalvo = quotationRepository.save(orcamento);
-        return new ResponseEntity<>(orcamentoSalvo, HttpStatus.CREATED);
-    }
-
-    @PutMapping
-    public ResponseEntity<Quotation> alterar(
-            @RequestBody Quotation orcamento) {
-
-        Quotation orcamentoSalvo = new Quotation();
-        if (orcamento.getId() != null) {
-            orcamentoSalvo = quotationRepository.save(orcamento);
-        }
-
-        return new ResponseEntity<>(orcamentoSalvo, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public void excluir(
+    @DeleteMapping("/quotations/{id}")
+    public void deleteQuotation(
             @NonNull @PathVariable UUID id) {
 
-        quotationRepository.deleteById(id);
+        quotationService.deleteQuotationById(id);
     }
 }

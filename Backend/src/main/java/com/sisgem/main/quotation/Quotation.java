@@ -1,15 +1,17 @@
 package com.sisgem.main.quotation;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sisgem.main.quotation.enums.QuotationStatusEnum;
 import com.sisgem.main.quotation.util.ShippingAddress;
-import com.sisgem.main.quotedProduct.QuotedProduct;
 import com.sisgem.main.user.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,16 +24,16 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@Table(name = "QUOTATION")
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
+@Builder
 @Entity
+@Table(name = "QUOTATION")
 public class Quotation {
 
     @Id
@@ -51,12 +53,22 @@ public class Quotation {
     @Transient
     private BigDecimal totalPrice;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
-    @ManyToOne
-    private ShippingAddress address;
+    private QuotationStatusEnum status;
 
-    @OneToMany(mappedBy = "quotation")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private ShippingAddress shippingAddress;
+
+    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL)
     private List<QuotedProduct> quotedProducts;
+
+    public void addQuotedProductList(List<QuotedProduct> quotedProductList) {   
+        quotedProducts = new ArrayList<>();     
+        quotedProductList.forEach(quotedProduct -> {
+            quotedProduct.setQuotation(this);
+            this.quotedProducts.add(quotedProduct);
+        });
+    }
 }

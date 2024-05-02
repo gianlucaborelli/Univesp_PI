@@ -52,6 +52,14 @@ public class CartController {
         return cartService.addOrUpdateItemToCart(cartId, request);
     } 
 
+    @PutMapping("/users/{userId}/cart/{cartId}/finalizer")
+    public boolean finalizerCart(
+            @PathVariable UUID userId, 
+            @PathVariable UUID cartId) throws ResourceNotFound{                                
+
+        return cartService.finalizerCart(cartId);
+    }
+
     @DeleteMapping("/users/{userId}/cart/{cartId}/item/{itemId}")
     public CartDetailDto deleteItemToCart(
             @NonNull @PathVariable UUID userId,

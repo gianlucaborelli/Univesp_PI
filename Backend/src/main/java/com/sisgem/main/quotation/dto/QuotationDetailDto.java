@@ -35,7 +35,7 @@ public class QuotationDetailDto {
 
     private UserDetailDto user;
 
-    private AddressDetailDto address;
+    private AddressDetailDto shippingAddress;
 
     private List<QuotedProductDetailDto> quotedProducts;
 }

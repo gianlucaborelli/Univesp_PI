@@ -1,4 +1,4 @@
-package com.sisgem.main.quotedProduct;
+package com.sisgem.main.quotation;
 
 import java.util.List;
 import java.util.Optional;

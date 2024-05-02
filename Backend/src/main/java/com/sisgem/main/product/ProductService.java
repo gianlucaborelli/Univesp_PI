@@ -14,7 +14,7 @@ import com.sisgem.main.product.exceptions.InsufficientStockException;
 import com.sisgem.main.product.exceptions.ProductNotFoundException;
 import com.sisgem.main.quotation.Quotation;
 import com.sisgem.main.quotation.QuotationRepository;
-import com.sisgem.main.quotedProduct.QuotedProduct;
+import com.sisgem.main.quotation.QuotedProduct;
 
 @Service
 public class ProductService {
@@ -40,7 +40,7 @@ public class ProductService {
             List<QuotedProduct> quotedProducts = quotation.getQuotedProducts();
 
             for(QuotedProduct quotedProduct : quotedProducts){
-                Product produtoPedido = quotedProduct.getProduct();
+                Product produtoPedido = productRepository.findById(quotedProduct.getProductId()).get();
 
                 for(Product product: products){
 
