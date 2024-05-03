@@ -6,7 +6,7 @@
       >{{ address.street }} - Nº: {{ address.number }}</mat-card-title
     >
 
-    <button
+    <button class="actions-button"*ngIf="editable"
       mat-icon-button
       [matMenuTriggerFor]="menu"
       aria-label="Ações do cadastro de endereço"

@@ -1,3 +1,17 @@
+@use "@angular/material" as mat;
+
+@include mat.icon-button-density(-3);
+@include mat.icon-density(-3);
+
+mat-card{
+    background-color: rgb(238, 231, 231);
+}
+
+mat-card-actions{
+    margin-top: -15px;
+    margin-right: -15px;
+}
+
 .inputform {
     width: 100%;
 }
@@ -6,17 +20,11 @@
     display: grid;
     width: 100%;
     height: 100%;
-    grid-template-columns: 40% 60%;
-    column-gap: 20px;
-    row-gap: 20px;
+    grid-template-columns: 40% 60%;    
+    gap: 20px;
 }
 
-.card-cliente {
-    background-color: rgb(238, 231, 231);
-}
-
-.card-produtos{
-    background-color: rgb(238, 231, 231);  
+.card-produtos{    
     grid-column: 2/3;
     grid-row: 1/3;
 }
@@ -25,8 +33,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-.card-endereco {    
-    background-color: rgb(238, 231, 231);    
-}
-

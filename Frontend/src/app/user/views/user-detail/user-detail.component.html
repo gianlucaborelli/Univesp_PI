@@ -63,7 +63,7 @@
      
       <div fxLayout="column" fxLayoutGap="10px" class="address-list" style="margin-top: 20px;">
         <div  *ngFor="let address of (currentUser$ | async)?.addresses">
-          <app-address-card [address]="address"></app-address-card>
+          <app-address-card [address]="address" [editable]="true"></app-address-card>
         </div>
       </div>        
     </mat-card >

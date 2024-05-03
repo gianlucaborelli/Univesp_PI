@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sisgem.main.address.dto.AddressDetailDto;
+import com.sisgem.main.quotation.enums.QuotationStatusEnum;
 import com.sisgem.main.user.dto.UserDetailDto;
 
 import jakarta.persistence.Temporal;
@@ -34,6 +35,8 @@ public class QuotationDetailDto {
     private BigDecimal totalPrice;
 
     private UserDetailDto user;
+
+    private QuotationStatusEnum status;
 
     private AddressDetailDto shippingAddress;
 

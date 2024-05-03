@@ -1,13 +1,13 @@
 import { Component, DEFAULT_CURRENCY_CODE, LOCALE_ID, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Quotation } from 'src/app/quotation/models/quotation.model';
 import { QuotationService } from 'src/app/quotation/service/quotation.service';
 import { Location } from '@angular/common'
-import { QuotedProduct } from 'src/app/products/models/quoted-product.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProdutoPedidoService } from 'src/app/quotation/service/produto-pedido.service';
-import { AddNewProductDialogComponent } from 'src/app/quotation/components/add-new-item-to-quotation/add-new-product-dialog.component';
+import { QuotedProduct } from '../../models/quoted-product.model';
+import { Observable, map } from 'rxjs';
+
 
 
 @Component({
@@ -16,88 +16,36 @@ import { AddNewProductDialogComponent } from 'src/app/quotation/components/add-n
   styleUrls: ['./quotation-detail.component.scss'],
   providers: [
     {
-        provide:  DEFAULT_CURRENCY_CODE,
-        useValue: 'BRL'
+      provide: DEFAULT_CURRENCY_CODE,
+      useValue: 'BRL'
     },]
 })
 
 export class QuotationDetailComponent implements OnInit {
   displayedColumns: string[] = ['name', 'precoUn', 'quantidade', 'precoTotal', 'acoes'];
+  quotationId: string = '';
+  currentQuotation$: Observable<Quotation> | undefined;
   dataSource: MatTableDataSource<QuotedProduct>;
 
-  orcamento: Quotation = {
-    finalDate:'',
-    initialDate:'',
-    id: '',
-    totalPrice:'',
-    address: null,
-    user: null,
-    quotedProducts: null
-  };  
-  
-  constructor(private service: QuotationService,
-    private produtoPedidoService: ProdutoPedidoService,
+  constructor(
+    private service: QuotationService,
     private router: ActivatedRoute,
-    private location: Location,
     private dialog: MatDialog) {
-      this.dataSource = new MatTableDataSource();
+    this.quotationId = String(this.router.snapshot.paramMap.get('id'));
+    this.service.loadCurrentQuotation(this.quotationId);
+    this.dataSource = new MatTableDataSource();
   }
 
-  ngOnInit(): void {    
-    
-    this.initClienteAdd();
+  ngOnInit(): void {
+    this.currentQuotation$ = this.service.getCurrentQuotation();
 
-    this.router.queryParams.subscribe(params => {
-      const valor = params['parametro'];
-      if (valor) {
-        this.service.findById(valor).subscribe((resposta) => {
-          this.orcamento = resposta;    
-          this.loadingProdutoPedidoList();     
-        })
+    this.currentQuotation$.subscribe({
+      next: (result) => {
+        this.dataSource.data = result.quotedProducts;
       }
-    });
-  }
-
-  loadingProdutoPedidoList(){
-    this.produtoPedidoService.getAllByOrcamentoId(this.orcamento.id!).subscribe((resposta) => {             
-      console.log(resposta);
-      this.dataSource.data = resposta;
-      console.log(this.dataSource);
     })
   }
 
-  public initClienteAdd() {
-    this.router.queryParams.subscribe(params => {
-      const valor = params['parametro'];
-      if (valor) {
-        // this.service.orcamentoUpdate.subscribe((resposta) => {
-        //   console.log(resposta);
-        //   if (resposta) {
-        //     this.service.findById(valor).subscribe((orcamento) => {
-        //       this.orcamento = orcamento;
-        //       this.loadingProdutoPedidoList();
-        //     })
-        //   }
-        // });
-      }
-    });
-  }
-
-  back(): void {
-    this.location.back()
-  }
-
-  openAddNewProductDialog(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { orcamentoId: this.orcamento.id };
-    dialogConfig.width = "40%";
-    this.dialog.open(AddNewProductDialogComponent, dialogConfig);
-  }
-
-  openAddAddressDialog(){}
-
-  onOptionClick(){}
+  setStatus(){}
 
 }

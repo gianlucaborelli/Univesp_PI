@@ -54,13 +54,13 @@ const routes: Routes = [
 
       // O R Ç A M E N T O S
       {
-        path: 'quotation',
+        path: 'quotations',
         component: QuotationSearchComponent,
         canActivate: [AuthGuard]
       },
 
       {
-        path: 'cadastro-do-orcamento',
+        path: 'quotations/:id',
         component: QuotationDetailComponent,
         canActivate: [AuthGuard]
       }

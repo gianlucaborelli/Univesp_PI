@@ -46,7 +46,6 @@ import { SignInComponent } from './authentication/views/login-page/login-page.co
 import { AuthService } from './authentication/service/auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatRadioModule } from '@angular/material/radio';
-import { AddNewProductDialogComponent } from './quotation/components/add-new-item-to-quotation/add-new-product-dialog.component';
 import { TokenInterceptor } from './components/interceptor/token/token.interceptor';
 import { SpinnerComponent } from './components/loader/spinner/spinner.component';
 import { LoadingInterceptor } from './components/interceptor/loading/loading.interceptor';
@@ -86,7 +85,6 @@ export function initializeDialogService() {
     OrcamentoNovoCadastroComponent,
     ProductDetailDialog,
     SignInComponent,
-    AddNewProductDialogComponent,
     SpinnerComponent,
     SnackBarComponent,
     AdminDashboardComponent,

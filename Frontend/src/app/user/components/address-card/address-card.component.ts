@@ -6,6 +6,7 @@ import { Address } from 'src/app/user/models/address.model';
 import { AddressService } from 'src/app/user/service/address.service';
 import { AddressDetailDialog } from '../address-detail.dialog/address-detail.dialog.component';
 import { UserService } from '../../service/user.service';
+import { ShippingAddress } from 'src/app/cart/model/shipping-address.model';
 
 @Component({
   selector: 'app-address-card',
@@ -13,7 +14,8 @@ import { UserService } from '../../service/user.service';
   styleUrls: ['./address-card.component.scss']
 })
 export class AddressCardComponent {
-  @Input() address!: Address;
+  @Input() address!: Address | ShippingAddress;
+  @Input() editable!: boolean;
 
   constructor(
     private service: AddressService,
