@@ -6,6 +6,7 @@ import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.mod
 import { environment } from 'src/environments/environment';
 import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
 import { BehaviorSubject, map } from 'rxjs';
+import { SetQuotationStatus } from '../models/dto/set-quotation-status.model';
 
 @Injectable({
   providedIn: 'root'
@@ -59,16 +60,16 @@ export class QuotationService {
   findById(id: String): Observable<Quotation> {
     const url = `${this.baseUrl}/quotation/${id}`
     return this.http.get<Quotation>(url)
-  }
-
-  findProdutosEmEstoque(): Observable<ProdutoEmEstoque[]> {
-    const url = `${this.baseUrl}/quotation`
-    return this.http.get<ProdutoEmEstoque[]>(url);
-  }
+  }  
 
   create(body: Quotation): Observable<Quotation> {
     const url = `${this.baseUrl}/quotation`
     return this.http.post<Quotation>(url, body);
+  }
+
+  setStatus(id: string, status: SetQuotationStatus ): Observable<Quotation> {
+    const url = `${this.baseUrl}/quotations/${id}/status`
+    return this.http.put<Quotation>(url, status);
   }
 
   update(body: Quotation): Observable<Quotation> {

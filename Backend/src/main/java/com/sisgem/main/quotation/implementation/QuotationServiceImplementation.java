@@ -72,8 +72,6 @@ public class QuotationServiceImplementation implements QuotationService{
 
         quotationRepository.save(quotation);
 
-        //userService.loadCartByUser(quotation.getUser().getId());
-
         return mapper.toQuotationDetail(quotation);
     }
 
