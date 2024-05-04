@@ -72,4 +72,18 @@ public class Quotation {
             this.quotedProducts.add(quotedProduct);
         });
     }
+
+    public BigDecimal getTotalPrice(){
+       BigDecimal totalTemp = BigDecimal.ZERO;
+
+        if(quotedProducts.isEmpty()){
+            return totalTemp;
+        }
+
+        for (QuotedProduct item : quotedProducts) {
+            totalTemp = totalTemp.add(item.getTotalPrice());
+        }
+
+        return totalTemp;
+    }
 }

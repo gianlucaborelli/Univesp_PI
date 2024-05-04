@@ -16,6 +16,8 @@ import com.sisgem.main.quotation.Quotation;
 import com.sisgem.main.quotation.repository.QuotationRepository;
 import com.sisgem.main.quotation.util.QuotedProduct;
 
+import jakarta.persistence.EntityManager;
+
 @Service
 public class ProductService {
     
@@ -23,6 +25,8 @@ public class ProductService {
     private ProductRepository productRepository;
     @Autowired
     private QuotationRepository quotationRepository;
+    @Autowired
+    private EntityManager entityManager;
     @Autowired
     private ProductMapper mapper;
 
@@ -50,7 +54,7 @@ public class ProductService {
                 }
             }
         }
-        
+        entityManager.clear();
         return mapper.toAvailableProductStockList(products);    
     }
     
@@ -63,10 +67,11 @@ public class ProductService {
                 if (availableProduct.getStock() < amount ){
                     throw new InsufficientStockException(amount, availableProduct.getName());
                 }
+                entityManager.clear();
                 return true;
             }
         }
-
+        entityManager.clear();
         throw new ProductNotFoundException(productId);
     }
 }

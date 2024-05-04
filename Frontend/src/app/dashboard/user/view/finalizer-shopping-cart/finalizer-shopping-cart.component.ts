@@ -64,6 +64,7 @@ export class FinalizerShoppingCartComponent {
     });
   }
 
-  finalizerCart(){}
-
+  finalizerCart(){
+    this.service.finalizarCart();
+  }
 }

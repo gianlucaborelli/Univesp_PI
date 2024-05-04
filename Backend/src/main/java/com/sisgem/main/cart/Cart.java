@@ -73,7 +73,7 @@ public class Cart {
     public BigDecimal getTotalPrice() {
         BigDecimal totalTemp = BigDecimal.ZERO;
 
-        if(cartItens.isEmpty()){
+        if(cartItens == null || cartItens.isEmpty()){
             return totalTemp;
         }
 

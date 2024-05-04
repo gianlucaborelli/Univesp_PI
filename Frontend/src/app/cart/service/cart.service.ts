@@ -16,8 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   providedIn: 'root'
 })
 export class CartService {
-
-  private cart$: BehaviorSubject<Cart>;  
+  private cart$: BehaviorSubject<Cart>;
 
   baseUrl: String = environment.baseUrl;
 
@@ -32,36 +31,29 @@ export class CartService {
       userId: '',
       cartItens: []
     });
-    this.loadUserCart();    
+    this.loadUserCart();
   }
 
-  loadUserCart()  {
+  loadUserCart() {
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart`;
     this.http.get<Cart>(url).subscribe({
       next: (shoppingCart) => {
-        this.setShoppingCart(shoppingCart);       
-        this.onCartChange(); 
+        this.setShoppingCart(shoppingCart);
+        this.onCartChange();
       },
       error: (error) => {
         console.error('Shopping cart data could not be loaded.');
       }
     });
-  }  
+  }
 
   private setShoppingCart(cart: Cart) {
     this.cart$.next(cart);
   }
 
-  private onCartChange(): void{
-    if(this.cart$.value.initialDate || this.cart$.value.finalDate )
-    {
+  private onCartChange(): void {
+    if (this.cart$.value.initialDate || this.cart$.value.finalDate) {
       this.productService.loadAvailableProducts(this.cart$.value.initialDate, this.cart$.value.finalDate);
-      this.router.navigate(['/home/shopping'], { relativeTo: this.activatedRoute.parent })
-      .then(nav => {
-        console.log(nav);
-      }, err => {
-        console.log(err)
-      });
     }
   }
 
@@ -81,7 +73,6 @@ export class CartService {
     return this.cart$.pipe(
       map(s => {
         if (s && s.initialDate) {
-          // Convertendo a string para o tipo Date
           return moment(s.initialDate, 'DD/MM/YYYY').toDate();
         } else {
           return undefined;
@@ -113,13 +104,13 @@ export class CartService {
       map((cart) => {
         const count = cart.cartItens
           .map((item) => item.amount)
-          .reduce((p, c) => p + c, 0);        
+          .reduce((p, c) => p + c, 0);
         return count;
       })
     );
   }
 
-  addItem(itemToAdd: AddItemToCartDto) {    
+  addItem(itemToAdd: AddItemToCartDto) {
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}`;
     this.http.put<Cart>(url, itemToAdd).subscribe({
       next: (resposta) => {
@@ -133,11 +124,29 @@ export class CartService {
     });
   }
 
-  setIntevalOfDate(intervalOfDate: IntervalOfDate) {  
+  setIntevalOfDate(intervalOfDate: IntervalOfDate) {
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}/set-dates`;
     this.http.put<Cart>(url, intervalOfDate).subscribe({
       next: (resposta) => {
         this.setShoppingCart(resposta);
+        this.loadUserCart();
+        this.router.navigate(['/home/shopping'], { relativeTo: this.activatedRoute.parent })
+          .then(nav => {
+            console.log(nav);
+          }, err => {
+            console.log(err)
+          });
+      },
+      error: () => {
+        console.error('Shopping cart data could not be loaded.');
+      }
+    });
+  }
+
+  finalizarCart() {
+    const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}/finalizer`;
+    this.http.put<boolean>(url, {}).subscribe({
+      next: (resposta) => {
         this.loadUserCart();
       },
       error: () => {
@@ -146,7 +155,7 @@ export class CartService {
     });
   }
 
-  setAddressToShipping(addressId: string) {  
+  setAddressToShipping(addressId: string) {
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}/address/${addressId}`;
     this.http.put<Cart>(url, {}).subscribe({
       next: (resposta) => {
@@ -159,7 +168,7 @@ export class CartService {
     });
   }
 
-  deleteItemFromCart(itemId: string) {  
+  deleteItemFromCart(itemId: string) {
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}/item/${itemId}`;
     this.http.delete<Cart>(url).subscribe({
       next: (resposta) => {
