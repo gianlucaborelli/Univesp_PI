@@ -28,8 +28,7 @@ import { needConfirmation } from 'src/app/components/decorator/confirm-dialog.de
   ]
 })
 export class QuotationSearchComponent {
-  displayedColumns: string[] = ['user', 'initialDate', 'finalDate', 'address', 'total', 'status', 'actions'];
-  
+  displayedColumns: string[] = ['user', 'initialDate', 'finalDate', 'address', 'total', 'status', 'actions'];  
   dataSource!: MatTableDataSource<Quotation>;
 
   constructor(

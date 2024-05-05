@@ -15,6 +15,8 @@ public interface QuotationService {
 
     List<QuotationDetailDto> findAllByUserId(UUID userId);
 
+    QuotationDetailDto findQuotationByUserId(UUID userId, UUID quotationId);
+
     List<QuotationDetailDto> findByIntervalOfDate(Date initialDate, Date finalDate);
 
     QuotationDetailDto CreateQuotationByCart(Cart cart ) throws ResourceNotFound;

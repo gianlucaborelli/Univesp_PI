@@ -39,6 +39,11 @@ public class QuotationServiceImplementation implements QuotationService{
     }
 
     @Override
+    public QuotationDetailDto findQuotationByUserId(UUID userId, UUID quotationId) {
+        return mapper.toQuotationDetail(quotationRepository.findQuotationByUserId(quotationId, userId));
+    }  
+
+    @Override
     public List<QuotationDetailDto> findAllByUserId(UUID userId) {
         return mapper.toQuotationDetailList(quotationRepository.findAllByUserId(userId));
     }
@@ -81,5 +86,7 @@ public class QuotationServiceImplementation implements QuotationService{
             return;
         }
         quotationRepository.deleteById(id);        
-    }    
+    }
+
+      
 }

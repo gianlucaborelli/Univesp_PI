@@ -36,10 +36,17 @@ public class QuotationController {
         return ResponseEntity.ok(quotationService.findById(id));
     }    
 
-    @GetMapping("/users/{userId}/quotations/{id}")
-    public ResponseEntity<List<QuotationDetailDto>> findByUserId(
-            @PathVariable UUID id) {
-        return ResponseEntity.ok(quotationService.findAllByUserId(id));
+    @GetMapping("/users/{userId}/quotations")
+    public ResponseEntity<List<QuotationDetailDto>> findAllByUserId(
+            @PathVariable UUID userId) {
+        return ResponseEntity.ok(quotationService.findAllByUserId(userId));
+    } 
+
+    @GetMapping("/users/{userId}/quotations/{quotationId}")
+    public ResponseEntity<QuotationDetailDto> findByUserId(
+            @PathVariable UUID userId,
+            @PathVariable UUID quotationId) {
+        return ResponseEntity.ok(quotationService.findQuotationByUserId(userId, quotationId));
     }    
 
     @PutMapping("quotations/{id}/status")

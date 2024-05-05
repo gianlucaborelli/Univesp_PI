@@ -12,6 +12,7 @@ import { ShoppingPageComponent } from './dashboard/user/view/shopping-page/shopp
 import { QuotationSearchComponent } from './quotation/views/quotation-search/quotation-search.component';
 import { QuotationDetailComponent } from './quotation/views/quotation-detail/quotation-detail.component';
 import { FinalizerShoppingCartComponent } from './dashboard/user/view/finalizer-shopping-cart/finalizer-shopping-cart.component';
+import { HistoryPageComponent } from './dashboard/user/view/history-page/history-page.component';
 
 const routes: Routes = [
   {
@@ -83,6 +84,11 @@ const routes: Routes = [
       {
         path: 'cart',
         component: FinalizerShoppingCartComponent,
+        canActivate: [AuthGuard],        
+      },
+      {
+        path: 'history',
+        component: HistoryPageComponent,
         canActivate: [AuthGuard],        
       },
     ]

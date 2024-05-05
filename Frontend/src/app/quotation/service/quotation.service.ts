@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
 import { BehaviorSubject, map } from 'rxjs';
 import { SetQuotationStatus } from '../models/dto/set-quotation-status.model';
+import { AuthService } from 'src/app/authentication/service/auth.service';
+import { UserStoreService } from 'src/app/authentication/service/user-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class QuotationService {
 
   constructor(
     private http: HttpClient,
+    private userStore: UserStoreService,
     private _snack: SnackBarService) {
 
     this.currentQuotation$ = new BehaviorSubject<Quotation>({
@@ -53,6 +56,16 @@ export class QuotationService {
 
   findAll(): Observable<Quotation[]> {
     const url = `${this.baseUrl}/quotations`
+    return this.http.get<Quotation[]>(url);
+  }
+
+  findQuotationByUserId(userId: string): Observable<Quotation> {
+    const url = `${this.baseUrl}/users/${this.userStore.getId()}/quotations/${userId}`
+    return this.http.get<Quotation>(url);
+  }
+
+  findAllByUser(): Observable<Quotation[]> {
+    const url = `${this.baseUrl}/users/${this.userStore.getId()}/quotations`
     return this.http.get<Quotation[]>(url);
   }
 

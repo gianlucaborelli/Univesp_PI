@@ -60,6 +60,7 @@ import { SetUserRoleDialogComponent } from './user/components/set-user-role-dial
 import { FinalizerShoppingCartComponent } from './dashboard/user/view/finalizer-shopping-cart/finalizer-shopping-cart.component';
 import { SelectShippingAddressComponent } from './dashboard/user/component/select-shipping-address/select-shipping-address.component';
 import { SetStatusQuotationDialogComponent } from './quotation/components/set-status-quotation.dialog/set-status-quotation.dialog.component';
+import { HistoryPageComponent } from './dashboard/user/view/history-page/history-page.component';
 
 
 export function initializeDialogService() {
@@ -93,7 +94,8 @@ export function initializeDialogService() {
     SetUserRoleDialogComponent,
     FinalizerShoppingCartComponent,
     SelectShippingAddressComponent,
-    SetStatusQuotationDialogComponent
+    SetStatusQuotationDialogComponent,
+    HistoryPageComponent
 
   ],
 

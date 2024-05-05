@@ -147,7 +147,10 @@ export class CartService {
     const url = `${this.baseUrl}/users/${this.userStore.getId()}/cart/${this.cart$.value.id}/finalizer`;
     this.http.put<boolean>(url, {}).subscribe({
       next: (resposta) => {
-        this.loadUserCart();
+        if(resposta){
+          this.loadUserCart();
+          this.router.navigate(['/home/history']);
+        }        
       },
       error: (error) => {
         this.snackBar.open(error.err.detail);
