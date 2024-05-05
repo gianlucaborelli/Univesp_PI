@@ -38,7 +38,6 @@ import { DialogService } from './components/decorator/confirm-dialog/dialog.serv
 import { AddressCardComponent } from './user/components/address-card/address-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
-import { OrcamentoNovoCadastroComponent } from './quotation/components/orcamento-novo-cadastro/orcamento-novo-cadastro.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProductDetailDialog } from './products/components/product-detail/product-detail.dialog.component';
@@ -83,7 +82,6 @@ export function initializeDialogService() {
     AddressDetailDialog,
     UserDetailDialog,
     AddressCardComponent,
-    OrcamentoNovoCadastroComponent,
     ProductDetailDialog,
     SignInComponent,
     SpinnerComponent,

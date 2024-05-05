@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { delay, filter } from 'rxjs/operators';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';;
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { UserStoreService } from 'src/app/authentication/service/user-store.service';
@@ -20,7 +20,6 @@ export class HeaderComponent implements AfterViewInit {
     public authService: AuthService, 
     private observer: BreakpointObserver, 
     private router: Router, 
-    private route: ActivatedRoute, 
     public user: UserStoreService) { }
 
   ngAfterViewInit() {

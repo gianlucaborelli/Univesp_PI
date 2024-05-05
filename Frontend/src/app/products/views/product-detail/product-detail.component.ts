@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/products/models/product.model';
-import { Location } from '@angular/common'
 import { ProductDetailDialog } from '../../components/product-detail/product-detail.dialog.component';
 import { Observable, switchMap, take } from 'rxjs';
 import { ProductService } from '../../service/product.service';

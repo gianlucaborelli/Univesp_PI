@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Quotation } from 'src/app/quotation/models/quotation.model';
-import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.model';
 import { environment } from 'src/environments/environment';
 import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
 import { BehaviorSubject, map } from 'rxjs';
@@ -62,19 +61,9 @@ export class QuotationService {
     return this.http.get<Quotation>(url)
   }  
 
-  create(body: Quotation): Observable<Quotation> {
-    const url = `${this.baseUrl}/quotation`
-    return this.http.post<Quotation>(url, body);
-  }
-
   setStatus(id: string, status: SetQuotationStatus ): Observable<Quotation> {
     const url = `${this.baseUrl}/quotations/${id}/status`
     return this.http.put<Quotation>(url, status);
-  }
-
-  update(body: Quotation): Observable<Quotation> {
-    const url = `${this.baseUrl}/quotation`
-    return this.http.put<Quotation>(url, body)
   }
 
   delete(id: String): Observable<Quotation> {

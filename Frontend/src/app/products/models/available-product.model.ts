@@ -1,4 +1,4 @@
-export interface ProdutoEmEstoque {
+export interface AvailableProduct {
     id: string;
     name: String;
     stock: number;

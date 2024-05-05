@@ -9,8 +9,8 @@ import { AddItemToCartDto } from '../model/dto/add-item-to-cart-dto.model';
 import { CartItem } from '../model/cart-item.mode';
 import { IntervalOfDate } from '../model/dto/interval-of-date.model';
 import * as moment from 'moment';
-import { AvailableProductService } from 'src/app/products/service/availableProduct.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AvailableProductService } from 'src/app/products/service/available-product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,7 @@ export class CartService {
         this.onCartChange();
       },
       error: (error) => {
-        console.error('Shopping cart data could not be loaded.');
+        this.snackBar.open(error.err.detail);
       }
     });
   }
@@ -118,8 +118,8 @@ export class CartService {
         console.log(resposta);
         this.loadUserCart();
       },
-      error: () => {
-        console.error('Shopping cart data could not be loaded.');
+      error: (error) => {
+        this.snackBar.open(error.err.detail);
       }
     });
   }
@@ -137,8 +137,8 @@ export class CartService {
             console.log(err)
           });
       },
-      error: () => {
-        console.error('Shopping cart data could not be loaded.');
+      error: (error) => {
+        this.snackBar.open(error.err.detail);
       }
     });
   }
@@ -149,8 +149,8 @@ export class CartService {
       next: (resposta) => {
         this.loadUserCart();
       },
-      error: () => {
-        console.error('Shopping cart data could not be loaded.');
+      error: (error) => {
+        this.snackBar.open(error.err.detail);
       }
     });
   }
@@ -162,8 +162,8 @@ export class CartService {
         this.setShoppingCart(resposta);
         this.loadUserCart();
       },
-      error: () => {
-        console.error('Shopping cart data could not be loaded.');
+      error: (error) => {
+        this.snackBar.open(error.err.detail);
       }
     });
   }
@@ -175,8 +175,8 @@ export class CartService {
         this.setShoppingCart(resposta);
         this.loadUserCart();
       },
-      error: () => {
-        console.error('Shopping cart data could not be loaded.');
+      error: (error) => {
+        this.snackBar.open(error.err.detail);
       }
     });
   }

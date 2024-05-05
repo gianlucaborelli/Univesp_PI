@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserStoreService {
-
-  private fullName$ = new BehaviorSubject<string>("");
-  private role$ = new BehaviorSubject<string>("");
-  constructor() {
-  }
-
+export class UserStoreService {  
   public getFullName(){
     return localStorage.getItem('userName');
   }

@@ -1,8 +1,6 @@
-import { Component, DEFAULT_CURRENCY_CODE, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Component, DEFAULT_CURRENCY_CODE, Input, LOCALE_ID, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
-import { Product } from 'src/app/products/models/product.model';
 import { ProductService } from '../../service/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -24,8 +22,7 @@ export class ProductDetailDialog implements OnInit {
     private dialogRef: MatDialogRef<ProductDetailDialog>,
     private formBuilder: FormBuilder,
     private service: ProductService,
-    private _snack: SnackBarService,
-    private router: Router) {
+    private _snack: SnackBarService) {
 
     this.dialogRef.disableClose = true;    
     this.dialogRef.updateSize("40%") ;

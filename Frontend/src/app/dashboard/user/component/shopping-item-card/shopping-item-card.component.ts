@@ -3,7 +3,7 @@ import { Component, DEFAULT_CURRENCY_CODE, Input, LOCALE_ID, OnInit } from '@ang
 import { FormControl } from '@angular/forms';
 import ptBr from '@angular/common/locales/pt';
 import { CartService } from 'src/app/cart/service/cart.service';
-import { ProdutoEmEstoque } from 'src/app/products/models/produto-em-estoque.model';
+import { AvailableProduct } from 'src/app/products/models/available-product.model';
 
 registerLocaleData(ptBr);
 
@@ -18,7 +18,7 @@ registerLocaleData(ptBr);
 })
 export class ShoppingItemCardComponent implements OnInit {
   @Input({ required: true })
-  product!: ProdutoEmEstoque;
+  product!: AvailableProduct;
   counter = new FormControl();
 
   constructor(

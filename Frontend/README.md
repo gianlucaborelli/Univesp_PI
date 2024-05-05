@@ -22,7 +22,7 @@ Isso instalará o Angular_CLI e suas dependências no sistema operacional.
 
 ## Configuração do projeto
 
-Dentro da pasta do projeto frontend `{Seu Diretório}\Univesp_PI\Frontend\sisgem-front`, abra o terminal e execute o segunte comando 
+Dentro da pasta do projeto frontend `{Seu Diretório}\Univesp_PI\Frontend\`, abra o terminal e execute o segunte comando 
 
 `$ npm install`
 

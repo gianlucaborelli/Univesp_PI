@@ -5,7 +5,6 @@ import { Observable,  distinctUntilChanged, map, switchMap, take } from 'rxjs';
 import { CartItem } from 'src/app/cart/model/cart-item.mode';
 import { Cart } from 'src/app/cart/model/cart.model';
 import { CartService } from 'src/app/cart/service/cart.service';
-import { SetUserRoleDialogComponent } from 'src/app/user/components/set-user-role-dialog/set-user-role-dialog.component';
 import { SelectShippingAddressComponent } from '../../component/select-shipping-address/select-shipping-address.component';
 
 @Component({
