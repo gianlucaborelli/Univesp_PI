@@ -13,6 +13,7 @@ import { QuotationSearchComponent } from './quotation/views/quotation-search/quo
 import { QuotationDetailComponent } from './quotation/views/quotation-detail/quotation-detail.component';
 import { FinalizerShoppingCartComponent } from './dashboard/user/view/finalizer-shopping-cart/finalizer-shopping-cart.component';
 import { HistoryPageComponent } from './dashboard/user/view/history-page/history-page.component';
+import { HistoryDetailPageComponent } from './dashboard/user/view/history-detail-page/history-detail-page.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,11 @@ const routes: Routes = [
       {
         path: 'history',
         component: HistoryPageComponent,
+        canActivate: [AuthGuard],        
+      },
+      {
+        path: 'history/:id',
+        component: HistoryDetailPageComponent,
         canActivate: [AuthGuard],        
       },
     ]

@@ -61,6 +61,7 @@ import { FinalizerShoppingCartComponent } from './dashboard/user/view/finalizer-
 import { SelectShippingAddressComponent } from './dashboard/user/component/select-shipping-address/select-shipping-address.component';
 import { SetStatusQuotationDialogComponent } from './quotation/components/set-status-quotation.dialog/set-status-quotation.dialog.component';
 import { HistoryPageComponent } from './dashboard/user/view/history-page/history-page.component';
+import { HistoryDetailPageComponent } from './dashboard/user/view/history-detail-page/history-detail-page.component';
 
 
 export function initializeDialogService() {
@@ -95,7 +96,8 @@ export function initializeDialogService() {
     FinalizerShoppingCartComponent,
     SelectShippingAddressComponent,
     SetStatusQuotationDialogComponent,
-    HistoryPageComponent
+    HistoryPageComponent,
+    HistoryDetailPageComponent
 
   ],
 
