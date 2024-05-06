@@ -10,8 +10,8 @@
 .content-cards {
   display: grid;
   grid-template-areas:
-    "detail   contact  address"
-    "security contact  address";
+    "detail     address"
+    "security   address";
   gap: 2rem;
 }
 
