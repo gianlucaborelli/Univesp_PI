@@ -33,6 +33,7 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductService productService;
 
+    @SuppressWarnings("deprecation")
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
