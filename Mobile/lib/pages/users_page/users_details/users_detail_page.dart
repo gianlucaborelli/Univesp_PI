@@ -26,12 +26,18 @@ class _UserDetailPageState extends State<UserDetailPage> {
         ? Container()
         : Responsive(
             mobile: Scaffold(
-              appBar: AppBar(
-                title: const Text('Usuário'),
-                centerTitle: true,
-              ),
-              body: Text(UserDetailController.to.user!.name!),
-            ),
+                appBar: AppBar(
+                  title: const Text('Usuário'),
+                  centerTitle: true,
+                ),
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(UserDetailController.to.user!.name!),
+                    Text(UserDetailController.to.user!.obs!),
+                  ],
+                )),
             desktop: Scaffold(
               body: Text(UserDetailController.to.user!.name!),
             ),

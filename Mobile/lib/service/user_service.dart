@@ -22,7 +22,7 @@ class UserService extends GetxController {
 
   Future<List<UserModel>> getAllUsers() async {
     try {
-      var response = await _dio.get(_baseUrl);
+      var response = await _dio.get('$_baseUrl/users/');
       var list = response.data as List;
       return list.map((json) => UserModel.fromJson(json)).toList();
     } on DioException catch (e) {
@@ -35,7 +35,7 @@ class UserService extends GetxController {
 
   Future<UserModel?> getUserById(String id) async {
     try {
-      var url = "$_baseUrl/$id";
+      var url = "$_baseUrl/users/$id";
       var response = await _dio.get(url);
       UserModel user = UserModel.fromJson(response.data);
       return user;
