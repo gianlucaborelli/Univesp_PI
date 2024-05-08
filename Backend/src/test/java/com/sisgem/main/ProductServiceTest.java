@@ -18,8 +18,6 @@ import org.mockito.MockitoAnnotations;
 import com.sisgem.main.product.Product;
 import com.sisgem.main.product.ProductRepository;
 import com.sisgem.main.product.ProductService;
-import com.sisgem.main.product.dto.ProductStockDto;
-import com.sisgem.main.product.exceptions.InsufficientStockException;
 import com.sisgem.main.product.exceptions.ProductNotFoundException;
 import com.sisgem.main.quotation.Quotation;
 import com.sisgem.main.quotation.repository.QuotationRepository;
@@ -73,23 +71,7 @@ public class ProductServiceTest {
         
     }
 
-    /*    Teste abaixo, desativado... erro ainda pendente (Mauro).
-    @Test
-    void testStockAvailable_InsufficientStock() {
-        Date initialDate = new Date();
-        Date finalDate = new Date();
-        UUID productId = UUID.randomUUID();
-        int amount = 10;
-        List<ProductStockDto> availableProductsList = new ArrayList<>();
-
-        // Populate availableProductsList
-
-        when(productService.getAvailableProducts(initialDate, finalDate)).thenReturn(availableProductsList);
-
-        assertThrows(InsufficientStockException.class, () -> productService.stockAvailable(initialDate, finalDate, amount, productId));
-    }
-    */
-
+ 
 
 
 }
