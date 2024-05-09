@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sisgem_app/controllers/theme_controller.dart';
+import 'package:sisgem_app/pages/products_pages/products_page.dart';
 import 'package:sisgem_app/pages/users_page/users_page.dart';
 import 'package:sisgem_app/service/auth_service.dart';
 
@@ -78,7 +78,14 @@ class _NavBarState extends State<NavBar> {
           ListTile(
             leading: const Icon(Icons.category),
             title: const Text('Produtos'),
-            onTap: () => {},
+            onTap: () =>  {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProductsPage(),
+                ),
+              )
+            },
           ),
           const Divider(),
           ListTile(
