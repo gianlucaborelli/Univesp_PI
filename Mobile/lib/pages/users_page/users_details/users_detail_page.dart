@@ -6,7 +6,7 @@ import 'package:sisgem_app/utility/responsive.dart';
 class UserDetailPage extends StatefulWidget {
   final String? user;
 
-  const UserDetailPage({super.key, this.user});
+  const UserDetailPage({Key? key, this.user}) : super(key: key);
 
   @override
   State<UserDetailPage> createState() => _UserDetailPageState();
@@ -22,26 +22,37 @@ class _UserDetailPageState extends State<UserDetailPage> {
   }
 
   _ready() {
-    return UserDetailController.to.user == null
-        ? Container()
-        : Responsive(
-            mobile: Scaffold(
-                appBar: AppBar(
-                  title: const Text('Usuário'),
-                  centerTitle: true,
-                ),
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(UserDetailController.to.user!.name!),
-                    Text(UserDetailController.to.user!.obs!),
-                  ],
-                )),
-            desktop: Scaffold(
-              body: Text(UserDetailController.to.user!.name!),
+    if (UserDetailController.to.user == null) {
+      return Container();
+    } else {
+      return Responsive(
+        mobile: Scaffold(
+          appBar: AppBar(
+            title: const Text('Usuário'),
+            centerTitle: true,
+            backgroundColor: Color.fromARGB(
+                255, 101, 233, 233), // Defina a cor da AppBar aqui
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
+              padding: EdgeInsets.all(8.0),
+              children: [
+                _buildDetailItem("Nome", UserDetailController.to.user!.name!),
+                _buildDetailItem(
+                    "E-mail", UserDetailController.to.user!.email!),
+                _buildDetailItem(
+                    "Observação", UserDetailController.to.user!.obs!),
+                _buildDetailItem("Função", UserDetailController.to.user!.role!),
+              ],
             ),
-          );
+          ),
+        ),
+        desktop: Scaffold(
+          body: Text(UserDetailController.to.user!.name!),
+        ),
+      );
+    }
   }
 
   @override
@@ -52,6 +63,29 @@ class _UserDetailPageState extends State<UserDetailPage> {
               child: CircularProgressIndicator(),
             )
           : _ready(),
+    );
+  }
+
+  Widget _buildDetailItem(String description, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          description,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 14,
+          ),
+        ),
+        SizedBox(height: 16),
+      ],
     );
   }
 }
