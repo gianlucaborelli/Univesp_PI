@@ -1,6 +1,6 @@
 # SISGEM - Sistema de Gestão de Estoque de Mobiliário
 
-Projeto Integrador, desenvolvido por estudantes dos cursos do Eixo de Tecnologia da UNIVESP.
+Projeto Integrador, desenvolvido por estudantes dos cursos do Eixo de Tecnologia da UNIVESP, objetivando aplicar os conhecimentos adquirido durante o curso..
 
 Tem como temas
 
@@ -8,7 +8,7 @@ Tem como temas
 
 * **Projeto Integrador 2**: Desenvolver um software com framework web que utilize banco de dados, inclua script web, nuvem, uso de API, acessibilidade, controle de versão e teste. Opcionalmente, incluir análise de dados;
 
-Objetivando aplicar os conhecimentos adquirido durante o curso.
+* **Projeto Integrador 3**: Desenvolver um software com framework web ou aplicativo que utilize banco de dados, inclua script web (Javascript), nuvem, acessibilidade, controle de versão, integração contínua e testes. Incluir um dos seguintes requisitos: uso e fornecimento de API, análises de dados e IoT. 
 
 ## Proposta de desenvolvimento
 
@@ -18,26 +18,21 @@ Em nossa sondagem encontramos uma empresa, informal, que realiza aluguéis de eq
 
 ## Tecnologias utilizadas
 
-Para o desenvolvimento do projeto, utilizamos como tecnologias:
+Para o desenvolvimento do projeto, utilizamos as tecnologias:
+
+- [Docker](https://www.docker.com/)
+- [VS Code](https://code.visualstudio.com/)
 
 ### [Backend](https://github.com/gianlucaborelli/Univesp_PI/tree/main/Backend)  
-
-As tecnologias utilizadas são:
 - [Java](https://www.oracle.com/br/java/technologies/downloads/)
 - [Spring Boot](https://spring.io/)
-- [MySQL](https://www.mysql.com/)
-- [Visual Studio Code](https://code.visualstudio.com/)
-
-#### Extenções para VS Code utilizadas
-
-- [Java Extension Pack](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
-- [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack)
-- [Spring Boot Dashboard](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-spring-boot-dashboard)
+- [PostgreSQL](https://www.postgresql.org/)
  
 ### [Frontend](https://github.com/gianlucaborelli/Univesp_PI/tree/main/Frontend)
 - [Node.Js](https://nodejs.org/en/download/current)
 - [Angular](https://angular.io/)
+- [Angular Material](https://material.angular.io/)
 
-### Nuvem
+### [Mobile](https://github.com/gianlucaborelli/Univesp_PI/tree/main/Mobile)
 
-- [Firebase Authentication](https://firebase.google.com/docs/auth?hl=pt-br)
+- [Flutter](https://flutter.dev/)

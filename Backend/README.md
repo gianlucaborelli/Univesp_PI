@@ -3,13 +3,13 @@
 ## Configuração do ambiente de desenvolvimento
 
 Neste projeto utilizamos 
-- [Java JDK 19.0](https://www.oracle.com/java/technologies/downloads/#jdk19-windows);
+- [Java JDK 21.0](https://www.oracle.com/java/technologies/downloads/#jdk21-windows);
 - [Maven Apache 3.9](https://maven.apache.org/download.cgi);
-- [MySQL](https://dev.mysql.com/downloads/mysql/).
+- [PostgreSQL](https://www.postgresql.org/).
 
 ### Primeiro Passo: Instalar Java JDK
 
-Para utilização em conjunto com o Maven 3.9 deve instalar um JDK versão 8 ou superior, portanto, neste projeto utilizamos o JDK versão 19.
+Para utilização em conjunto com o Maven 3.9 deve instalar um JDK versão 8 ou superior, portanto, neste projeto utilizamos o JDK versão 21.
 
 ### Segundo Passo: Instalar Maven Apache
 
