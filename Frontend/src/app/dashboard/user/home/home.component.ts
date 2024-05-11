@@ -6,6 +6,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/authentication/service/auth.service';
 import { CartItem } from 'src/app/cart/model/cart-item.mode';
 import { CartService } from 'src/app/cart/service/cart.service';
 import { needConfirmation } from 'src/app/components/decorator/confirm-dialog.decorator';
@@ -41,7 +42,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private router: Router,) { }
+    private router: Router,
+    private auth: AuthService) { }
 
   ngOnInit(): void {
     this.cartItens$ = this.cartService.getItems();
@@ -67,4 +69,8 @@ export class HomeComponent implements OnInit {
       this.cartService.setIntevalOfDate({ initialDate: startDate, finalDate: endDate })
     }
   };
+
+  logOutClick(){
+    this.auth.logout();
+  }
 }

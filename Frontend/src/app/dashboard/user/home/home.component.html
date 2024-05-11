@@ -57,7 +57,8 @@
     />
 
     <mat-menu #menu="matMenu" xPosition="before">
-      <button mat-menu-item>Minha Conta</button>
+      <button mat-menu-item
+        (click)="logOutClick()">Sair</button>
       <mat-divider></mat-divider>
       <button mat-menu-item routerLink="/home/history">Meus Pedidos</button>
     </mat-menu>

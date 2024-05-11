@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { CartService } from 'src/app/cart/service/cart.service';
 import { SnackBarService } from 'src/app/components/snack-bar/service/snack-bar.service';
+import { AddressDetailDialog } from 'src/app/user/components/address-detail.dialog/address-detail.dialog.component';
 import { Address } from 'src/app/user/models/address.model';
 import { UserService } from 'src/app/user/service/user.service';
 
@@ -12,14 +13,15 @@ import { UserService } from 'src/app/user/service/user.service';
   styleUrl: './select-shipping-address.component.scss'
 })
 export class SelectShippingAddressComponent implements OnInit {
-  @Input() userId: string | undefined ;
-  
-  displayedColumns: string[] = ["street", "number", "district", "city"];  
+  @Input() userId: string | undefined;
+
+  displayedColumns: string[] = ["street", "number", "district", "city"];
   dataSource: MatTableDataSource<Address> = new MatTableDataSource<Address>();
 
   constructor(
     private dialogRef: MatDialogRef<SelectShippingAddressComponent>,
     private _snack: SnackBarService,
+    private dialog: MatDialog,
     private userService: UserService,
     private cartService: CartService) {
 
@@ -28,9 +30,13 @@ export class SelectShippingAddressComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllAddress();
+  }
+
+  private getAllAddress() {
     this.userService.getAllAddress(this.userId!).subscribe({
       next: (resposta) => {
-        this.dataSource.data = resposta;                
+        this.dataSource.data = resposta;
       },
       error: (err) => {
         this._snack.open(err.error.detail);
@@ -41,5 +47,16 @@ export class SelectShippingAddressComponent implements OnInit {
   selectedAddress(addressId: string) {
     this.cartService.setAddressToShipping(addressId);
     this.dialogRef.close();
+  }
+
+  addNewAddressClick() {
+    const dialogConfig = new MatDialogConfig();
+    const dialogRef = this.dialog.open(AddressDetailDialog, dialogConfig);
+    dialogRef.componentInstance.userId = this.userId;
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllAddress();
+      }
+    });
   }
 }
